@@ -9,7 +9,7 @@
 | `git log` | Show commit history, scroll through previous versions |
 | `git diff` | Show differences, see exactly what changed line by line |
 | `git branch` | List or create branches |
-| `git checkout` | Change branch |
+| `git checkout (-b)` | Move to (and create) branch |
 | `git merge` | Combine branches, fold your draft back into the main version |
 | `git rm` | Remove and track deletion, delete a file and record that deletion |
 | `git clone` | Copy a remote repository, download a gitlab project |
@@ -20,21 +20,21 @@
 
 You will probably be involved in research projects that can last months or year. As your research develops, you will write and modify analysis scripts, process new data, test different approaches, and collaborate with others who may need to reproduce, review, or build on your work. Sooner or later you need to answer:
 
-- *Which version of the protocol did we follow in the field that day?*
-- *What exactly changed in our methods document since last week?*
-- *Can I draft a new sampling rule without changing the approved protocol on `main`?*
+- *Which version of the code produced this figure?*
+- *What exactly changed since last week?*
+- *Can I try a new analysis without breaking what already works?*
 
 That is what **version control** is for: a system that **tracks every change** to your project over time, lets you **go back**, **compare** versions, and **work in parallel** without overwriting each other.
 
-**Git** is the tool we use to do version control. Instead of saving `protocol_v2_final.docx`, version control keeps **one file** with a full history of snapshots, each with a message like *"Add rain-event sampling rule"*. Git is the program that stores and organizes those snapshots on your machine.
+**Git** is the tool we use to do version control. Instead of saving `protocol_v2_final.docx`, version control keeps **one file** with a full history of documented snapshots. Git is the program that stores and organizes those snapshots on your machine.
 
 ## How Git implements version control
 
 Git splits your work into three areas on your machine:
 
-- **Working directory** — the files you edit (like any normal folder).
-- **Staging area** — changes you marked with `git add`, ready for the next snapshot.
-- **Repository** — everything Git has saved so far (commits), stored in the hidden `.git` folder.
+- **Working directory** — the files you edit (like any normal folder)
+- **Staging area** — the file changes you marked as ready for the next snapshot
+- **Repository** — everything Git has saved so far, files and their changes, stored in the hidden `.git` folder
 
 ## Let's start with our first `git` commands
 
@@ -74,7 +74,7 @@ Untracked files:
 nothing added to commit but untracked files present
 ```
 
-> **Run this often**, especially before `git add` and `git commit`. It prevents surprises.
+> **Run this often**, especially before `git add` and `git commit` to understand what you are doing
 
 ---
 
@@ -84,7 +84,6 @@ Marks files (or changes) to include in the **next commit**.
 
 ```bash
 git add protocol_staufen.md    # stage one file
-git add .                      # stage all new and modified files
 git add -u                     # stage every change of tracked files
 ```
 
@@ -149,17 +148,9 @@ edit files  →  git add  →  git commit -m "describe your commit"
 
 ### Scenario
 
-Your group maintains a sampling protocol for station **FF-MET-042**. Create a repository, write the protocol in a text file, update it across several commits, and inspect the history.
+Your group maintains a sampling protocol for station **FF-MET-042**. Set up a Git repository and save the starter protocol below in `protocol_staufen.md` as your first commit. Then add the rain-event rule in a second commit, and use `git log` to see how Git recorded each change.
 
-### Tasks
-
-1. Create a folder `ff_met_protocol` and initialize Git.
-2. Create `protocol_staufen.md` with the header and two starter rules (see below).
-3. Stage and commit with message `"Initial protocol"`.
-4. Add a third rule: `- Rain events: do not sample during active precipitation`
-5. Stage and commit with a message `"Add rain-event rule"`.
-
-Starter content for step 2:
+Starter content:
 
 ```md
 # FF-MET-042 sampling protocol
@@ -196,6 +187,12 @@ git log --oneline
 
 Until now, everything happened on one line of history (usually called **`main`**). Branches let you create a **parallel copy of the project** to experiment, then merge back when ready.
 
+Why do we need branches? They let you work on a draft **without changing what everyone else relies on**. On `main` sits the approved protocol your group follows in the field, you do not want half-finished rules there. On a branch, you can add, rewrite, or delete freely. When the draft is ready, you merge it in.
+
+This matters as soon as **two people work at the same time**. While you draft winter rules on your branch, a colleague can fix a typo on `main`. Git keeps both histories separate until you choose to combine them — no overwritten files, no `protocol_final_v3.docx` by email.
+
+Example:
+
 | Situation | Branch strategy |
 | --------- | --------------- |
 | `main` *(A)* holds the approved field protocol the whole group follows | Keep `main` stable — only reviewed rules |
@@ -208,6 +205,11 @@ main:              A ────────────── C ────�
 feature/winter:      B ───────────────── D ────────
 ```
 
+- **A → B** — you branch off the approved protocol to start your draft.
+- **C** — meanwhile, `main` moves forward without you.
+- **D** — you catch up with `main` before merging.
+- **E** — your winter rules join the approved protocol.
+
 ---
 
 ### `git branch` — List branches
@@ -218,13 +220,13 @@ git branch              # list local branches (* = current)
 
 ---
 
-### `git checkout` — Create and change branch
+### `git checkout` — Create and move to branch
 
 Creates and moves you to another branch, or just move you to an existing one.
 
 ```bash
-git checkout -b winter    # create branch and switch (-b = branch)
-git checkout winter       # move to existing branch
+git checkout -b feature/winter    # create branch and switch (-b = branch)
+git checkout feature/winter       # move to existing branch
 ```
 
 ---
@@ -240,17 +242,17 @@ git merge winter
 
 If the merge succeeds, Git creates a merge commit. However, you may encounter a merge conflict when the same lines have been edited differently in the two branches. You then need to **resolve the merge conflict** before completing the merge (we will look into that later).
 
-## Exercise 2 — Branching: draft new rules without touching `main`
+## Exercise 2 — Branching: add a new feature to your repo
 
 ### Scenario
 
-The approved protocol on **`main`** is what everyone follows in the field. You want to draft **winter sampling rules** with the following rule:
+The approved protocol on **`main`** is what everyone follows in the field. You want to add new **winter sampling rules** with the following rule:
 
 ```md
 - Frost: do not touch metal masts with bare hands when air temperature < 0 °C
 ```
 
-Using the repo from Exercise 1, draft a frost safety rule on branch `feature/winter`. Then merge it into `main`.
+Using the repo from Exercise 1, add a frost safety rule on branch `feature/winter`. Then merge it into `main`.
 
 **Solution:**
 
@@ -273,9 +275,9 @@ git log --oneline
 
 # Part 2 — GitLab and Git collaboration 
 
-Part 1 was about saving history on **your** machine. In research groups, the "trunk" of a project usually lives on a **remote** server where we can collaborate. At Future Forests, we are using a **GitLab** server (`gitlab.uni-freiburg.de/future-forests/`, feel free to add this to your browser favourite).
+Part 1 was about saving history on **your** machine. In research groups, the "trunk" of a project usually lives on a **remote** server where we can collaborate. At Future Forests, we are using a **GitLab** server (`gitlab.uni-freiburg.de/future-forests/`, feel free to add this to your browser favourites).
 
-GitLab adds a web interface on top of Git: you can browse files, open bug/issue reports, read history, review changes, and discuss code before merging — without emailing zip files.
+GitLab adds a web interface on top of Git: you can browse files, open bug/issue reports, read history, review changes, and discuss code before merging, without emailing zip files.
 
 ## Remote repositories on GitLab
 
@@ -284,7 +286,7 @@ GitLab adds a web interface on top of Git: you can browse files, open bug/issue 
 Downloads an existing GitLab project (including full history), or **remote**, to your machine. **Do this once** when you join a project.
 
 ```bash
-git clone git@gitlab.kit.edu:fufo/fufo_coding_course.git
+git clone git@gitlab.kit.edu:fufo/fufo_coding_course.git  # TODO: permission issue?
 cd fufo_coding_course
 ```
 
@@ -349,7 +351,7 @@ git commit -m "Resolve merge conflict in wind rule"
 
 ### Scenario
 
-You are drafting a new rule on branch `feature/safety-vest`, which recommends a new wind speed limit of 10 m/s. Your supervisor updates the shared protocol during class to the new sensor limit (8 m/s). When you bring `main` into your branch, Git flags a **merge conflict** on the same line.
+You are drafting a new rule on branch `feature/safety-vest`, which recommends a new wind speed limit of 10 m/s. While doing that, your supervisor updated the shared protocol to the new sensor limit (8 m/s). When you bring `main` into your branch, Git flags a **merge conflict** on the same line.
 
 This mimics what happens in real projects: `main` moves forward while your branch is still open.
 
@@ -432,7 +434,7 @@ Most research software teams (like climate modelling groups) follow the **featur
 
 ### Scenario
 
-The instructor hosts a shared repository on **GitLab** with a starter `protocol_staufen.md`. The class (20 students) each adds **one assigned sampling rule** — for the instructor sheet.
+The instructor hosts a shared repository on **GitLab** with a starter `protocol_staufen.md`. The class (20 students) each adds **one assigned sampling rule**, for the instructor sheet.
 
 Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Merge Request** with their single new bullet point.
 
@@ -455,7 +457,6 @@ git pull
 git checkout -b protocol/rain-events
 
 # 4 — edit, commit, push (add only your assigned line)
-echo '- Rain events: do not sample during active precipitation; wait 30 min after rain stops' >> protocol_staufen.md
 git add protocol_staufen.md
 git commit -m "Add protocol rule: rain events"
 git push -u origin protocol/rain-events
