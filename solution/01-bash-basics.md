@@ -9,23 +9,28 @@
 | `mv`    | Move                            | Drag and drop / rename           |
 | `cp`    | Copy                            | Copy-paste                       |
 | `scp`   | Secure Copy                     | Copy to/from remote server       |
+| `touch` | Touch                           | New empty file                   |
 | `rm`    | Remove                          | Delete                           |
-| `cat`   | Concatenate                     | Open file to read                |
-| `grep`  | Global Regular Expression Print | Ctrl+F in many files             |
 | `find`  | Find                            | Search                           |
+| `grep`  | Global Regular Expression Print | Ctrl+F in many files             |
 | `sed`   | Stream Editor                   | Find-and-replace in a file       |
-| `\|`    | Pipe                           | (no equivalent — chains actions) |
-| `*`     | Glob wildcard                   | Multi-select by pattern          |
+| `cat`   | Concatenate                     | Open file to read                |
+| `head` / `tail` | First / last lines        | Scroll to top or bottom of file  |
+| `wc`    | Word Count                      | Count lines in a file            |
+| `clear` | Clear screen                    | Clear the terminal window        |
+| `man`   | Manual                          | Help documentation               |
+| `\|`    | Pipe                            | (no equivalent — chains actions) |
 
 # Class 1 — Bash Basics
 
-Before we start doing data analysis, we need to be comfortable moving around the **filesystem** from a terminal. Think of Bash as a **text-based *file explorer***, every click-and-drag action has a command equivalent, and many tasks that would take hours in a GUI take seconds here.
+Before we start doing data analysis, we need to be comfortable moving around the **filesystem** from a terminal. Think of Bash as a **text-based *file explorer***, every click-and-drag action has a command equivalent (also called shell command), and many tasks that would take hours in a GUI take seconds here.
 
 
 | *File explorer*        | Bash              |
 | ---------------------- | ----------------- |
 | Click through folders  | `cd`, `ls`, `pwd` |
 | Drag files to a folder | `mv`, `cp`        |
+| Delete a file          | `rm`              |
 | Search in a folder     | `find`, `grep`    |
 
 
@@ -205,6 +210,30 @@ mv *_post-processed.txt ../post-processed/
 
 ## More `bash` commands
 
+### `touch` — Create an empty file
+
+Creates a new empty file, *like choosing **New file** in a file explorer.*
+
+```bash
+touch notes.txt
+```
+
+---
+
+### `rm` — Remove
+
+Deletes files and directories. *In a file explorer this is Delete — but there is no trash bin; deleted files are gone.*
+
+```bash
+rm old_plot.txt                  # delete one file
+rm *_raw-data.txt                # delete all matching files (uses *)
+rm -r temp_folder/               # -r = recursive (needed for directories)
+```
+
+> Be careful with `rm`: double-check the path before pressing Enter. A typo like `rm -r data/` can delete an entire dataset folder.
+
+---
+
 ### `find` — Find files
 
 Locates files by name or properties, *like the search bar in a file explorer*.
@@ -313,33 +342,33 @@ General flags (used by several commands):
 
 | Flag | Meaning |
 | ---- | ------- |
-| `-r` | **R**ecursive — include subdirectories (used with `cp`, `scp`) |
-| `-p` | **P**arents — create missing parent directories (used with `mkdir -p`) |
+| `-r` | Recursive — include subdirectories (used with `cp`, `scp`, `rm`) |
+| `-p` | Parents — create missing parent directories (used with `mkdir -p`) |
 
 `grep` flags:
 
 | Flag | Meaning |
 | ---- | ------- |
-| `-n` | Show **l**i**n**e numbers |
-| `-c` | **C**ount matching lines (prints a number, not the lines) |
-| `-l` | **L**ist filenames that contain a match (not the matching lines) |
-| `-o` | Print **o**nly the matching text (useful to count occurrences) |
+| `-n` | Show line numbers |
+| `-c` | Count matching lines (prints a number, not the lines) |
+| `-l` | List filenames that contain a match (not the matching lines) |
+| `-o` | Print only the matching text (useful to count occurrences) |
 
 `find` options:
 
 | Flag | Meaning |
 | ------ | ------- |
 | `-name "pattern"` | Match files by name (supports `*` wildcards) |
-| `-type f` | Only regular **f**iles (not directories) |
+| `-type f` | Only regular f*iles (not directories) |
 | `-exec cmd {} \;` | Run `cmd` on each file found (`{}` = filename) |
 
 `head` / `tail` / `wc` flags:
 
 | Flag | Meaning |
 | ---- | ------- |
-| `-5` (head) | Show the first **5** lines (`-10` for 10 lines, etc.) |
-| `-20` (tail) | Show the last **20** lines |
-| `-l` (wc) | **L**ine count only |
+| `-5` (head) | Show the first 5 lines (`-10` for 10 lines, etc.) |
+| `-20` (tail) | Show the last 20 lines |
+| `-l` (wc) | Line count only |
 
 > Tip: run `man grep`, `man find`, or `grep --help` to see all available flags.
 
