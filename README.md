@@ -4,12 +4,11 @@ Coding course course dedicated to data analysis and the use of Python and LLMs, 
 
 ## Course overview
 
-| Class | Date  | Material                                                     | Topics                                                      |
-| ----- | ----- | ------------------------------------------------------------ | ----------------------------------------------------------- |
-| 1     | 24/09 | `[01-bash-basics.md](01-bash-basics.md)`                     | Terminal navigation, file operations, `grep`, `sed`, `find` |
-| 2     | 24/09 | `[02-git-and-collaboration.md](02-git-and-collaboration.md)` | Git basics, branching, merge conflicts, GitLab workflow     |
-| 3a    | 24/09 | `[03a-python-basics.ipynb](03a-python-basics.ipynb)`         | ?                                                           |
-| 3b    | 24/09 | `[03b-python-basics.ipynb](03b-python-basics.ipynb)`         | ?                                                           |
+| Class | Date  | Material                                                     | Topics |
+| ----- | ----- | ------------------------------------------------------------ | -------|
+| 1     | 24/09 | `01-bash-basics.md` | Terminal navigation, file operations, `grep`, `sed`, `find` |
+| 2     | 24/09 | `02-git-and-collaboration.md` | Git basics, branching, merge conflicts, GitLab workflow     |
+| 3a    | 24/09 | `03a-python-basics.ipynb`  | ? |
 
 ## Requirements
 
