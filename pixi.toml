@@ -1,0 +1,18 @@
+[workspace]
+name = "fufo-coding-course"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
+
+[dependencies]
+python = ">=3.12,<3.14"
+numpy = ">=2"
+pandas = ">=2"
+matplotlib = ">=3.8"
+jupyterlab = ">=4"
+notebook = ">=7"
+ipykernel = ">=6"
+pixi-kernel = ">=0.2"
+
+[tasks]
+lab = "jupyter lab"
+notebook = "jupyter notebook"
