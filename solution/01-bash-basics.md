@@ -34,11 +34,11 @@ Before we start doing data analysis, we need to be comfortable moving around the
 | Search in a folder     | `find`, `grep`    |
 
 
-Throughout this class you will work on your computer and access files from the  remote server **uc3** (`uc3.scc.kit.edu`). If you don't have access to this folder, we will share the files on [...]. The exercises below use fake meteorological data files to practice.
+Throughout this class you will work on your computer and access files from the  remote server **uc3** (`uc3.scc.kit.edu`). If you don't have access to this folder, we will share the files on [... TODO]. The exercises below use fake meteorological data files to practice.
 
-## Let's start with our fist `bash` commands
+## 1. Let's start with our fist `bash` commands
 
-### `pwd` — Print Working (current) Directory
+### i. `pwd` — Print Working (current) Directory
 
 Shows the full path of the directory (a.k.a. folder in Windows) you are currently in, *like reading the address bar in a file explorer*.
 
@@ -51,7 +51,7 @@ pwd
 
 ---
 
-### `cd` — Change Directory
+### ii. `cd` — Change Directory
 
 Moves you into another directory, *like click on a folder in file explorer*.
 
@@ -62,7 +62,7 @@ cd /Users/damseaux-a/Documents  # go to an absolute path
 
 > An absolute path will always start with `/` (e.g. `/Users`), whereas a relative path (a path that only exists in your current directory) starts with the directory name (e.g. `data`).
 
-#### `.` and `..` are current and parent directory
+#### a. `.` and `..` are current and parent directory
 
 ```bash
 cd .                  # move to the current directory (i.e. don't move)
@@ -73,7 +73,7 @@ cd ..                 # move to the parent (above/upper) directory
 
 ---
 
-### `ls` — List
+### iii. `ls` — List
 
 Lists files and directories, *what you see in the file explorer window*.
 
@@ -83,7 +83,7 @@ ls
 
 ---
 
-### `mkdir` — Make Directory
+### iv. `mkdir` — Make Directory
 
 Creates a new directory called `data`.
 
@@ -96,7 +96,7 @@ mkdir -p data/exercises    # -p creates parent folders if they don't exist yet
 
 ---
 
-### `mv` — Move (and rename)
+### v. `mv` — Move (and rename)
 
 Moves files and directories. *In a file explorer this is drag-and-drop*.
 
@@ -112,7 +112,7 @@ mv old_name.txt new_name.txt
 
 ---
 
-### `cp` — Copy
+### vi. `cp` — Copy
 
 Creates a copy of a file or a directory.
 
@@ -123,7 +123,7 @@ cp -r raw_files/ backup/         # -r = recursive (needed for directories)
 
 ---
 
-#### `scp` — Secure Copy
+### vii. `scp` — Secure Copy
 
 Copies files between your machine and a remote server (like uc3).
 
@@ -139,7 +139,21 @@ scp -r data fr_username@uc3.scc.kit.edu:~/backup/
 
 ---
 
-### `*` — Wildcard (glob)
+#### viii. `rm` — Remove
+
+Deletes files and directories. *In a file explorer this is Delete — but there is no trash bin; deleted files are gone.*
+
+```bash
+rm old_plot.txt                  # delete one file
+rm *_raw-data.txt                # delete all matching files (uses *)
+rm -r temp_folder/               # -r = recursive (needed for directories)
+```
+
+> Be careful with `rm`: double-check the path before pressing Enter. A typo like `rm -r data/` can delete an entire dataset folder.
+
+---
+
+### ix. `*` — Wildcard (glob)
 
 The `*` is not a command, it is a pattern that Bash expands before running the command. It lets you target many files at once.
 
@@ -156,61 +170,49 @@ Other useful patterns:
 | `??-07-2024.txt` | exactly one character + `.txt` |
 | `[0-9]*`         | names starting with a digit    |
 
-## Exercise 1 — Download the course data from uc3
+## 2. Exercise A — Download the course data from uc3
 
 During the course, we are going to use the time-series being currently reccorded at Staufen, and a netCDF provided by Christopher Jung.
 
 The exercise files for this course are stored on the remote server **uc3**. Download them to your local machine:
 
 1. Create a local `fufo_cc_data` directory
-2. Copy the course files from uc3 to the directory above (path is `/path/to/fufo_coding_course/exercises/`)
+2. Copy the course files from uc3 to the directory above (path is TODO `/path/to/fufo_coding_course/exercises/`)
 
 **Solution:**
-
-1. Create a local data directory:
-
-```bash
-mkdir -p data
-```
-
-2. Copy the course files from uc3 (replace `fr_username` with your university username):
 
 ```bash
 scp -r fr_username@uc3.scc.kit.edu:/path/to/fufo_coding_course/exercises/ data/
 ```
 
-## Exercise 2 — Why the terminal beats the file explorer
-
-### Scenario
+## 3. Exercise B — Why the terminal beats the file explorer
 
 Your research group receives daily exports from meteorological station **FF-MET-042**. Over two years, the data pipeline produced **1 440 files** (720 days × 2 versions each):
 
 - `YYYY-MM-DD_raw-data.txt` — unprocessed sensor readings
 - `YYYY-MM-DD_post-processed.txt` — cleaned, analysis-ready data
 
-All files currently sit in `data/exercises/meteorological/incoming/`. Your task: **move only the post-processed files** into `data/exercises/meteorological/post-processed/`, leaving the raw files in place.
+All files currently sit in TODO `data/exercises/meteorological/incoming/`. Your task: 
 
-### File format
-
-Each file has one header row and one data row with 10 meteorological inputs:
-
-```
-station_id date temp_c humidity_pct wind_ms precip_mm pressure_hPa solar_wm2 dewpoint_c visibility_km cloud_cover_pct
-FF-MET-042 2024-06-15 12.1 67.5 3.0 0.0 1013.0 418.0 6.5 12.5 42
-```
+1. Copy the folder `incoming` to your home
+2. Move only the post-processed files into `data/exercises/meteorological/post-processed/`, leaving the raw files in place.
+2. Delete all the January files from the second year because they have been corrupted
 
 **Solution:**
 
 ```bash
-cd data/exercises/meteorological/incoming
+cp data/exercises/meteorological/incoming ~
 
 # Move them
 mv *_post-processed.txt ../post-processed/
+
+# Remove files
+rm 2024-01-*txt
 ```
 
-## More `bash` commands
+## 4. More `bash` commands
 
-### `touch` — Create an empty file
+### i. `touch` — Create an empty file
 
 Creates a new empty file, *like choosing **New file** in a file explorer.*
 
@@ -220,21 +222,7 @@ touch notes.txt
 
 ---
 
-### `rm` — Remove
-
-Deletes files and directories. *In a file explorer this is Delete — but there is no trash bin; deleted files are gone.*
-
-```bash
-rm old_plot.txt                  # delete one file
-rm *_raw-data.txt                # delete all matching files (uses *)
-rm -r temp_folder/               # -r = recursive (needed for directories)
-```
-
-> Be careful with `rm`: double-check the path before pressing Enter. A typo like `rm -r data/` can delete an entire dataset folder.
-
----
-
-### `find` — Find files
+### ii. `find` — Find files
 
 Locates files by name or properties, *like the search bar in a file explorer*.
 
@@ -244,7 +232,7 @@ find . -name "README.txt"
 
 ---
 
-### `grep` — Global Regular Expression Print
+### iii. `grep` — Global Regular Expression Print
 
 Searches for text inside files, *like Ctrl+F across many files at once*.
 
@@ -255,7 +243,7 @@ grep "NODATA" station_FF-MET-042_2024-Q1.txt
 
 ---
 
-### `sed` — Stream Editor
+### iv. `sed` — Stream Editor
 
 Edits text line by line. In this course we use it for find-and-replace inside a file.
 
@@ -281,7 +269,7 @@ The substitution syntax is `s/old/new/g`, inside single quotes:
 
 ---
 
-### `cat` — Concatenate and display
+### v. `cat` — Concatenate and display
 
 Prints a file to the terminal.
 
@@ -293,7 +281,7 @@ cat file1.txt file2.txt > combined.txt # merge files
 
 ---
 
-### `head` / `tail` — First / last lines
+### vi. `head` / `tail` — First / last lines
 
 ```bash
 head -5 data.csv          # first 5 lines
@@ -302,14 +290,14 @@ tail -20 log.txt          # last 20 lines
 
 ---
 
-### `wc` — Word Count
+### vii. `wc` — Word Count
 
 ```bash
 wc -l *.txt               # line count for each file
 ```
 ---
 
-### `clear` — Clear the terminal screen
+### viii. `clear` — Clear the terminal screen
 
 ```bash
 clear
@@ -317,7 +305,7 @@ clear
 
 ---
 
-#### `man` — Manual
+### ix. `man` — Manual
 
 ```bash
 man grep                  # full documentation for grep
@@ -325,7 +313,7 @@ man grep                  # full documentation for grep
 
 ---
 
-### `|` — Pipe
+### x. `|` — Pipe
 
 Chains commands together so the output of the left command feeds into the right one.
 
@@ -334,7 +322,7 @@ Chains commands together so the output of the left command feeds into the right 
 ls *_post-processed.txt | wc -l
 ```
 
-## Flags
+## 5. Flags
 
 For sake of time, I didn't mention all the **flags** used above. A flag (also called an **option**) modifies how a command behaves. Flags (generally) start with `-` and are placed after the command name.
 
@@ -372,7 +360,7 @@ General flags (used by several commands):
 
 > Tip: run `man grep`, `man find`, or `grep --help` to see all available flags.
 
-## Exercise 3 — Find and replace missing values with `grep` and `sed`
+## 6. Exercise C (Bonus) — Find and replace missing values with `grep` and `sed`
 
 The quarterly export `station_FF-MET-042_2024-Q1.txt` (in `data/exercises/nodata-replace/`) contains hourly records from station **FF-MET-042**. Some sensor readings failed and were stored as the string `NODATA`. Before analysis, every `NODATA` must be replaced with the numeric missing-value code `-9999`.
 
@@ -380,39 +368,14 @@ This exercise uses the flags from the section above.
 
 **Solution:**
 
-### Step 1 — Explore the file with `grep`
-
-```bash
-cd data/exercises/nodata-replace
-
-# How many lines contain NODATA? (-c = count)
-grep -c "NODATA" station_FF-MET-042_2024-Q1.txt
-
-# Show them with line numbers (-n)
-grep -n "NODATA" station_FF-MET-042_2024-Q1.txt
-```
-
-### Step 2 — Replace with `sed`
-
 Use `sed` as shown above. The `g` flag replaces every `NODATA` on a line, not just the first one.
 
 ```bash
-# Preview the replacement (prints to terminal, does NOT modify the file)
-sed 's/NODATA/-9999/g' station_FF-MET-042_2024-Q1.txt | head -5
-
-# Write the cleaned file (keep the original!)
 sed 's/NODATA/-9999/g' station_FF-MET-042_2024-Q1.txt > station_FF-MET-042_2024-Q1_clean.txt
 
 # Confirm no NODATA remains (-c should print 0)
 grep -c "NODATA" station_FF-MET-042_2024-Q1_clean.txt
 
-# Count how many -9999 values were inserted (-o prints each match)
-grep -o "\-9999" station_FF-MET-042_2024-Q1_clean.txt | wc -l
-```
-
-### Step 3 — Combine commands with a pipe
-
-```bash
 # Show only the lines that originally had NODATA, already cleaned
 grep "NODATA" station_FF-MET-042_2024-Q1.txt | sed 's/NODATA/-9999/g'
 ```

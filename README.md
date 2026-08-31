@@ -2,17 +2,15 @@
 
 Coding course course dedicated to data analysis and the use of Python and LLMs, designed for students in [Future Forests](https://uni-freiburg.de/futureforests/).
 
-## Course overview
+## 1. Course overview
 
 | Class | Date  | Material                                                     | Topics |
 | ----- | ----- | ------------------------------------------------------------ | -------|
 | 1     | 24/09 | `01-bash-basics.md` | Terminal navigation, file operations, `grep`, `sed`, `find` |
-| 2     | 24/09 | `02-git-and-collaboration.md` | Git basics, branching, merge conflicts, GitLab workflow     |
-| 3a    | 24/09 | `03a-python-basics.ipynb`  | ? |
 
-## Five requirements
+## 2. Five requirements
 
-### 1. System tools (install once)
+### i. System tools (install once)
 
 | Tool        | Windows                                 | 
 | ----------- | --------------------------------------- | 
@@ -31,7 +29,7 @@ VS Code extensions (`CTRL+MAJ+X`):
 
 ---
 
-### 2. Remote server (HPC) access (Optional)
+### ii. Remote server (HPC) access (Optional)
 
 This is optional, but I strongly recommend using a remote server (or HPC for High-Performance Computing) during the course. We will use **UC3**, a powerful remote computer available to every students in Baden-Württemberg, where you can store your data (500GB free!) and run computationally intensive analyses from your laptop. You can access it remotely, so your calculations can continue running even when your laptop is turned off.
 
@@ -39,7 +37,11 @@ Before the start of the course (at least one week in advance), please register a
 
 ---
 
-### 3. Python environment (Pixi)
+### iii. Register to Gitlab/Codeberg TODO
+
+---
+
+### iv. Python environment (Pixi)
 
 **Recommended timing:** Please complete this part between Class 2 and Class 3.
 
@@ -82,7 +84,7 @@ Top right click on "Select Kernel" -> "Python Environment" -> select **Python 3.
 
 ---
 
-### 4. GitHub Education registration (Optional)
+### v. GitHub Education registration (Optional)
 
 This is optional and only needed for Classes 7 and 8, where we use **GitHub Copilot Pro** in VS Code.
 
@@ -92,11 +94,11 @@ Open your [GitHub Education benefits](https://github.com/settings/education/bene
 
 ---
 
-### 5. Course exercise data
+### vi. Course exercise data (if you miss class 1)
 
 During the first class, we will download the data we will use throughout the course together. If you were unable to attend the first class, here is what you need to do.
 
-#### If you have access to uc3
+#### a. If you have access to uc3
 
 **From uc3 (Class 1):** copy shared course data to your machine.
 
@@ -107,6 +109,6 @@ scp -r YOUR_USERNAME@uc3.scc.kit.edu:/path/to/fufo_coding_course/exercises/ data
 
 Replace `YOUR_USERNAME` with your bwUniCluster username (e.g. `fr_ab1234`). You need to be on the **Uni-Freiburg network or VPN** for uc3.
 
-#### If you don't have access to uc3
+#### b. If you don't have access to uc3
 
 TODO
