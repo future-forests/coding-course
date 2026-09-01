@@ -1,12 +1,28 @@
 # FuFo Coding Course
 
-Coding course course dedicated to data analysis and the use of Python and LLMs, designed for students in [Future Forests](https://uni-freiburg.de/futureforests/).
+Coding course dedicated to data analysis and the use of Python and LLMs, designed for students in [Future Forests](https://uni-freiburg.de/futureforests/).
 
-## 1. Course overview
+## 1. Course overview and calendar
 
-| Class | Date  | Material                                                     | Topics |
-| ----- | ----- | ------------------------------------------------------------ | -------|
-| 1     | 24/09 | `01-bash-basics.md` | Terminal navigation, file operations, `grep`, `sed`, `find` |
+| Class | Topics | Date | Drop-in clinic date |
+| ----- | ------ | ---- | ------------------- |
+| 1  | Introduction, terminal navigation (bash), remote cluster | 24/09 09:30–10:30 | 28/09 14:00-16:00|
+| 2  | Version control (git) and collaboration (GitLab) | 01/10 09:30–10:30 | 02/10 14:00-16:00 |
+| 3a | Python basics: variables, types, built-in functions, packages | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
+| 3b | Python Basics: NumPy arrays, loops, conditions | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
+| 4  | Tabular data: vectorisation, table operations (pandas), matplotlib | 12/10 09:30–10:30 | 21/10 14:00-16:00 |
+| 5  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 14:00-16:00 |
+| 6  | Advanced Python: user functions, profiling, publishing code with a DOI | 29/10 09:30–10:30 | 02/11 14:00-16:00 |
+| 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
+| 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
+
+How to subscribe to the automatic calendar:
+
+- **Google Calendar:** Settings → Add calendar → From URL → paste the link below
+- **Outlook:** Add calendar → Subscribe from web → paste the link below
+- **Apple Calendar:** File → New Calendar Subscription → paste the link below
+
+**Calendar feed URL:** `https://gitlab.uni-freiburg.de/future-forests/ses_model_lab/fufo-coding-course/-/raw/main/fufo-coding-course.ics`
 
 ## 2. Five requirements
 
