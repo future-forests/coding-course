@@ -16,11 +16,12 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
 | 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
 
-How to subscribe to the automatic calendar:
+How to subscribe to the automatic calendar (recommended to refresh every day):
 
-- **Google Calendar:** Settings → Add calendar → From URL → paste the link below
+- **Thunderbird:** Calendar tab → right-click in the calendar list → **New Calendar…** → **On the Network** → **iCalendar (ICS)** → paste the link below
 - **Outlook:** Add calendar → Subscribe from web → paste the link below
 - **Apple Calendar:** File → New Calendar Subscription → paste the link below
+- **Google Calendar:** Settings → Add calendar → From URL → paste the link below
 
 **Calendar feed URL:** `https://gitlab.uni-freiburg.de/future-forests/ses_model_lab/fufo-coding-course/-/raw/main/fufo-coding-course.ics`
 
@@ -40,7 +41,7 @@ VS Code extensions (`CTRL+MAJ+X`):
 - **Remote - SSH** (Microsoft)
 - **Python** (Microsoft)
 - **Jupyter** (Microsoft)
-- **Pixi Code** (renan-r-santos)
+- (Optional) **Pixi Code** (renan-r-santos) — helpful on your laptop; not required on UC3
 - (Optional) **Rainbow CSV** (mechatroner)
 
 ---
@@ -59,44 +60,23 @@ Before the start of the course (at least one week in advance), please register a
 
 ### iv. Python environment (Pixi)
 
-**Recommended timing:** Please complete this part between Class 2 and Class 3.
+**Recommended timing:** between Class 2 and Class 3. Dependencies are in [`pixi.toml`](pixi.toml).
 
-Pixi is a cross-platform environment manager (similar idea to conda, but open-source and simpler for projects). All Python dependencies for this course are defined in `[pixi.toml](pixi.toml)` at the repo root.
-
-1. Clone the repository (if you missed Class 2)
-
-Open a **Bash terminal** (Terminal on macOS/Linux, or **Git Bash** on Windows) and run:
+Run once (on **UC3** or your **laptop**):
 
 ```bash
 git clone git@gitlab.kit.edu:fufo/fufo_coding_course.git
 cd fufo_coding_course
-```
-
-2. Install [Pixi](https://pixi.sh)
-
-```bash
-curl -fsSL https://pixi.sh/install.sh | bash
-source ~/.bashrc   # or restart the terminal
-```
-
-3. Create the Python environment
-
-From the repository root:
-
-```bash
+curl -fsSL https://pixi.sh/install.sh | bash && source ~/.bashrc
 pixi install
-pixi run code .
+pixi run install-kernel
 ```
 
-This reads `pixi.toml` and installs the course packages into a local `.pixi/` environment.
+**UC3 (VS Code Remote SSH):** `export PATH="$HOME/.pixi/bin:$PATH"`, reconnect. In a notebook: **Select Kernel → Python (fufo course)**.
 
-4. Open the class notebook of the day (e.g. `03a-python-basics.ipynb`) in VS Code
+**Laptop:** `pixi run code .` from the repo root, open a notebook, same kernel.
 
-```sh
-code 03a-python-basics.ipynb
-```
-
-Top right click on "Select Kernel" -> "Python Environment" -> select **Python 3.13.15** or type "pixi" -> Enter
+If `pixi install` is slow on UC3, run it inside `salloc -p cpu -n 1 -t 120 --mem=8000`.
 
 ---
 
