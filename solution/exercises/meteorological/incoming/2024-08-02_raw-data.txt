@@ -1,0 +1,2 @@
+station_id date temp_c humidity_pct wind_ms precip_mm pressure_hPa solar_wm2 dewpoint_c visibility_km cloud_cover_pct
+FF-MET-042 2024-08-02 12.4 68.2 3.1 0.0 1013.2 420.5 6.8 12.0 45
