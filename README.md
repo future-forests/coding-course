@@ -6,7 +6,7 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 
 | Class | Topics | Date | Drop-in clinic date |
 | ----- | ------ | ---- | ------------------- |
-| 1  | Introduction, terminal navigation (bash), remote cluster | 24/09 09:30–10:30 | 28/09 14:00-16:00|
+| 1  | Introduction, VS code, terminal navigation (bash), remote cluster | 24/09 09:30–10:30 | 28/09 14:00-16:00|
 | 2  | Version control (git) and collaboration (GitLab) | 01/10 09:30–10:30 | 02/10 14:00-16:00 |
 | 3a | Python basics: variables, types, built-in functions, packages | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
 | 3b | Python Basics: NumPy arrays, loops, conditions | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
@@ -29,10 +29,10 @@ How to subscribe to the automatic calendar (recommended to refresh every day):
 
 ### i. System tools (install once)
 
-| Tool        | Windows                                 | 
-| ----------- | --------------------------------------- | 
-| **Git**     | https://git-scm.com/install/windows     |
-| **VS Code** | https://code.visualstudio.com           |
+| Tool        | Windows                                  | 
+| ----------- | ---------------------------------------- | 
+| **Git**     | https://git-scm.com/install/windows      |
+| **VS Code** | https://code.visualstudio.com            |
 | **Python**  | https://www.python.org/downloads/windows |
 
 
@@ -41,6 +41,7 @@ VS Code extensions (`CTRL+MAJ+X`):
 - **Remote - SSH** (Microsoft)
 - **Python** (Microsoft)
 - **Jupyter** (Microsoft)
+- **DataFrame Viewer** (ChristofKaufmann)
 - (Optional) **Pixi Code** (renan-r-santos) — helpful on your laptop; not required on UC3
 - (Optional) **Rainbow CSV** (mechatroner)
 
@@ -72,11 +73,9 @@ pixi install
 pixi run install-kernel
 ```
 
-**UC3 (VS Code Remote SSH):** `export PATH="$HOME/.pixi/bin:$PATH"`, reconnect. In a notebook: **Select Kernel → Python (fufo course)**.
+**UC3 (VS Code Remote SSH):** `export PATH="$HOME/.pixi/bin:$PATH"`, reconnect. In a notebook: **Select Kernel → Jupyter Kernel → Python (fufo course)**.
 
 **Laptop:** `pixi run code .` from the repo root, open a notebook, same kernel.
-
-If `pixi install` is slow on UC3, run it inside `salloc -p cpu -n 1 -t 120 --mem=8000`.
 
 ---
 

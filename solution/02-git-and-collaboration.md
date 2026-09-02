@@ -1,6 +1,6 @@
 ## Quick reference card
 
-| Command | Full name / meaning |
+| Command | What it does |
 | ------- | ----------------------------------- |
 | `git init` | Initialize repository, start a new project |
 | `git status` | Show repository status, or "What changed since my last save?" |
@@ -144,7 +144,7 @@ edit files  →  git add  →  git commit -m "describe your commit"
 
 ... and don't forget to use `git status` between each action to understand what you are doing.
 
-## 4. Exercise A - Track a field protocol
+## Exercise A - Track a field protocol
 
 ### i. Scenario
 
@@ -185,7 +185,7 @@ git commit -m "Add rain-event rule"
 git log --oneline
 ```
 
-## 5. Branching - work in parallel without breaking `main`
+## 4. Branching - work in parallel without breaking `main`
 
 Until now, everything happened on one line of history (usually called **`main`**). Branches let you create a **parallel copy of the project** to experiment, then merge back when ready.
 
@@ -193,7 +193,7 @@ Why do we need branches? They let you work on a draft **without changing what ev
 
 This matters as soon as **two people work at the same time**. While you draft winter rules on your branch, a colleague can fix a typo on `main`. Git keeps both histories separate until you choose to combine them, no overwritten files, no `protocol_final_v3b_histchecked.docx` by email.
 
-### i. Situation xample:
+**Situation example:**
 
 - `main` *(A)* holds the approved field protocol the whole group follows
 - You want to draft winter sampling rules, you create branch `feature/winter`, experiment there. You branch off the approved protocol to start your draft *(B)*.
@@ -241,7 +241,7 @@ git merge winter
 
 If the merge succeeds, Git creates a merge commit. However, you may encounter a merge conflict when the same lines have been edited differently in the two branches. You then need to **resolve the merge conflict** before completing the merge (we will look into that later).
 
-## 6. Exercise B — Branching: add a new feature to your repo
+## Exercise B — Branching: add a new feature to your repo
 
 ### i. Scenario
 
@@ -277,7 +277,7 @@ Part 1 was about saving history on **your** machine. In research groups, the "tr
 
 GitLab adds a online server and web interface on top of Git: you can browse files, open bug/issue reports, read history, review changes, and discuss code before merging, without emailing zip files.
 
-## 7. Remote repositories on GitLab
+## 1. Remote repositories on GitLab
 
 ### i. `git clone` — Copy a remote repository
 
@@ -321,7 +321,7 @@ git push             # CHECKHERE
 
 > **Rule of thumb:** Always do a `git pull` **before** a `git push`.
 
-## 8. Resolve a merge conflict
+## 2. Resolve a merge conflict
 
 When a conflict occurs, VS Code (or GitLab) will show the conflicts in the file as follows:
 
@@ -346,7 +346,7 @@ git add protocol_staufen.md
 git commit -m "Resolve merge conflict in wind rule"
 ```
 
-## 9. Exercise C — Resolve a merge conflict (TODO: PRACTICE)
+## Exercise C — Resolve a merge conflict (TODO: PRACTICE)
 
 You are drafting a new rule on branch `feature/safety-vest`, which recommends a new wind speed limit of 10 m/s. While doing that, your supervisor updated the shared protocol to the new sensor limit (8 m/s). When you bring `main` into your branch, Git flags a **merge conflict** on the same line.
 
@@ -399,7 +399,7 @@ git add protocol_staufen.md
 git commit -m "Merge main and resolve wind threshold conflict"
 ```
 
-## 10. The feature branch workflow
+## 3. The feature branch workflow
 
 A **workflow** is the set of rules a team agrees to follow when sharing a project. It turns Git from a personal time machine into a way of working together without overwriting each other.
 
@@ -413,7 +413,7 @@ Most research software teams (like climate modelling groups) follow the **featur
 
 You can find an extended version of this workflow on [this online documentation](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).
 
-## 11. Exercise D — Build the class protocol on GitLab (20 students)
+## Exercise D — Build the class protocol on GitLab (20 students)
 
 The instructor hosts a shared repository on **GitLab** with a starter `protocol_staufen.md`. The class (20 students) each adds **one assigned sampling rule**, for the instructor sheet.
 

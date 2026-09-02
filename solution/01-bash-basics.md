@@ -15,16 +15,88 @@
 | `grep`  | Global Regular Expression Print | Ctrl+F in many files             |
 | `sed`   | Stream Editor                   | Find-and-replace in a file       |
 | `cat`   | Concatenate                     | Open file to read                |
-| `head` / `tail` | First / last lines        | Scroll to top or bottom of file  |
+| `head` / `tail` | First / last lines      | Scroll to top or bottom of file  |
 | `wc`    | Word Count                      | Count lines in a file            |
 | `clear` | Clear screen                    | Clear the terminal window        |
 | `man`   | Manual                          | Help documentation               |
 | `\|`    | Pipe                            | (no equivalent — chains actions) |
 
-# Class 1 — Bash Basics
+# Class 1 — Bash Basics and VS code
+
+Throughout this class you can work on your computer or (optional but recommended) from the remote server **uc3** (`uc3.scc.kit.edu`). 
+
+## 1. VS Code — interface and remote access
+
+We use **VS Code** as our editor and terminal. The layout has four main areas:
+
+```
+||---------------------------------------------------------------||
+||           ||              Editor               ||  Secondary  ||
+|| Side bar  ||         (open files, code)        ||  side bar   ||
+|| (folder)  ||-----------------------------------||   (LLMs)    ||
+||           ||           Terminal                ||             ||
+||---------------------------------------------------------------||
+```
+
+| Area | What it is | Open / toggle |
+| ---- | ---------- | ------------- |
+| **Side bar** (left) | File explorer — only shows files after you **Open Folder** (typically a git repo; we cover that next week) | `CTRL+B` |
+| **Editor** (centre) | Where you read and edit files | `code ...` in terminal |
+| **Second side bar** (right) | Extra panels (outline, preview, …) — we rarely need it | `CTRL++B` |
+| **Terminal** (bottom) | Run bash commands | `CTRL+J` |
+
+### i. Open a terminal
+
+Press **`CTRL+J`** in VS Code to open the terminal panel at the bottom. If the shell is not bash, click the **`˅`** next to **`+`** in the terminal tab bar and select **Git Bash**.
+
+---
+
+### ii. One-time SSH setup for UC3 (optional)
+
+**Step 1 — Generate a key on your laptop.** Open the terminal (`CTRL+J`) and run:
+
+```bash
+ssh-keygen -t ed25519 -C "uc3-laptop"
+```
+
+Press Enter for the default path, then set a passphrase (a simple one is fine).
+
+**Step 2 — Copy the public key:**
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Copy the full line to your clipboard. **Never share the private key** (`id_ed25519` without `.pub`).
+
+**Step 3 — Register it in bwIDM.** Go to [login.bwidm.de](https://login.bwidm.de) → **Index** → **My SSH Pubkeys** → **add SSH Key**. Name it `uc3-laptop` and paste the public key.
+
+**Step 4 — Add the host to VS Code.** `CTRL+SHIFT+P` → type **Open SSH Configuration File** → pick your config file. Add (replace `fr_ab1234` with your bwUniCluster username):
+
+```
+Host uc3
+    HostName uc3.scc.kit.edu
+    User fr_ab1234
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+```
+
+Save the file.
+
+---
+
+### iii. Connect to UC3 (daily)
+
+1. `CTRL+SHIFT+P` → **Connect to Host…** → select **uc3**.
+2. Enter your **OTP + password** (once per day) or your **key passphrase**.
+
+> When typing your password in the VS Code terminal, **no characters appear** — that is normal. Type it and press Enter.
+
+Once connected, **Open Folder** on UC3 to browse files in the side bar; the terminal runs commands there.
+
+## 2. Terminal navigation with bash
 
 Before we start doing data analysis, we need to be comfortable moving around the **filesystem** from a terminal. Think of Bash as a **text-based *file explorer***, every click-and-drag action has a command equivalent (also called shell command), and many tasks that would take hours in a GUI take seconds here.
-
 
 | *File explorer*        | Bash              |
 | ---------------------- | ----------------- |
@@ -32,11 +104,6 @@ Before we start doing data analysis, we need to be comfortable moving around the
 | Drag files to a folder | `mv`, `cp`        |
 | Delete a file          | `rm`              |
 | Search in a folder     | `find`, `grep`    |
-
-
-Throughout this class you will work on your computer and access files from the  remote server **uc3** (`uc3.scc.kit.edu`). If you don't have access to this folder, we will share the files on [... TODO]. The exercises below use fake meteorological data files to practice.
-
-## 1. Let's start with our fist `bash` commands
 
 ### i. `pwd` — Print Working (current) Directory
 
@@ -170,7 +237,7 @@ Other useful patterns:
 | `??-07-2024.txt` | exactly one character + `.txt` |
 | `[0-9]*`         | names starting with a digit    |
 
-## 2. Exercise A — Download the course data from uc3
+## Exercise A — Download the course data from uc3
 
 During the course, we are going to use the time-series being currently reccorded at Staufen, and a netCDF provided by Christopher Jung.
 
@@ -185,7 +252,7 @@ The exercise files for this course are stored on the remote server **uc3**. Down
 scp -r fr_username@uc3.scc.kit.edu:/path/to/fufo_coding_course/exercises/ data/
 ```
 
-## 3. Exercise B — Why the terminal beats the file explorer
+## Exercise B — Why the terminal beats the file explorer
 
 Your research group receives daily exports from meteorological station **FF-MET-042**. Over two years, the data pipeline produced **1 440 files** (720 days × 2 versions each):
 
@@ -371,6 +438,7 @@ This exercise uses the flags from the section above.
 Use `sed` as shown above. The `g` flag replaces every `NODATA` on a line, not just the first one.
 
 ```bash
+# Solution
 sed 's/NODATA/-9999/g' station_FF-MET-042_2024-Q1.txt > station_FF-MET-042_2024-Q1_clean.txt
 
 # Confirm no NODATA remains (-c should print 0)
