@@ -45,13 +45,17 @@ We use **VS Code** as our editor and terminal. The layout has four main areas:
 | **Second side bar** (right) | Extra panels (outline, preview, …) — we rarely need it | `CTRL++B` |
 | **Terminal** (bottom) | Run bash commands | `CTRL+J` |
 
-### i. Open a terminal
+### i. Privacy and telemetry (recommended because Microsoft sucks)
+
+Press **`CTRL+,`** to open Settings, search for **`telemetry level`**, and set **Telemetry: Telemetry Level** to **`off`**.
+
+### ii. Open a terminal
 
 Press **`CTRL+J`** in VS Code to open the terminal panel at the bottom. If the shell is not bash, click the **`˅`** next to **`+`** in the terminal tab bar and select **Git Bash**.
 
 ---
 
-### ii. One-time SSH setup for UC3 (optional)
+### iii. One-time SSH setup for UC3 (optional)
 
 **Step 1 — Generate a key on your laptop.** Open the terminal (`CTRL+J`) and run:
 
@@ -85,7 +89,7 @@ Save the file.
 
 ---
 
-### iii. Connect to UC3 (daily)
+### iv. Connect to UC3 (daily)
 
 1. `CTRL+SHIFT+P` → **Connect to Host…** → select **uc3**.
 2. Enter your **OTP + password** (once per day) or your **key passphrase**.
