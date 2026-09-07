@@ -36,7 +36,7 @@ How to subscribe to the automatic calendar (recommended to refresh every day):
 | **Python**  | https://www.python.org/downloads/windows |
 
 
-VS Code extensions (`CTRL+MAJ+X`):
+Start VS Code (as admin) and install these VS Code extensions (`CTRL+MAJ+X`):
 
 - **Remote - SSH** (Microsoft)
 - **Python** (Microsoft)
@@ -47,17 +47,37 @@ VS Code extensions (`CTRL+MAJ+X`):
 
 ---
 
-### ii. Remote server (HPC) access (optional)
+### ii. Register to GitHub (and create an SSH key)
+
+1. Create a free account at [github.com](https://github.com).
+2. Start VS Code (as admin) and open a terminal: `CTRL+J` (or **View → Terminal**).
+3. Clone, pull, and push from the terminal requires authentication. **Use an SSH key** (you will reuse it for UC3 in the next step):
+   - `ssh-keygen -t ed25519 -C "FF-laptop"` → Enter for the default path → set a passphrase
+   - Copy the public key: `cat ~/.ssh/id_ed25519.pub`
+   - On GitHub: **Settings → SSH and GPG keys → New SSH key** → paste the public key
+
+---
+
+### iii. Remote server (HPC) access (optional)
 
 This is optional, but I strongly recommend using a remote server (or HPC for High-Performance Computing) during the course. We will use **UC3**, a powerful remote computer available to every students in Baden-Württemberg, where you can store your data (500GB free!) and run computationally intensive analyses from your laptop. You can access it remotely, so your calculations can continue running even when your laptop is turned off.
 
 Before the start of the course (at least one week in advance), please register and create your bwUniCluster account by following steps A, B, and C on the [bwUniCluster registration page](https://wiki.bwhpc.de/e/Registration/bwUniCluster).
 
-After, follow this slide to get access to the cluster via VS Code
+Then open VS Code (as admin) to set-up Remote SSH:
 
----
+1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
+2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add (replace `fr_ab1234` with your username):
 
-### iii. Register to GitHub
+```
+Host uc3
+    HostName     uc3.scc.kit.edu
+    User         fr_ab1234
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+```
+
+3. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → enter OTP + passphrase (once per day).
 
 ---
 
@@ -68,7 +88,7 @@ After, follow this slide to get access to the cluster via VS Code
 Run once (on **UC3** or your **laptop**):
 
 ```bash
-git clone https://github.com/future-forests/coding-course.git
+git clone git@github.com:future-forests/coding-course.git
 cd coding-course
 curl -fsSL https://pixi.sh/install.sh | bash && source ~/.bashrc
 pixi install
@@ -83,7 +103,7 @@ pixi run install-kernel
 
 ### v. GitHub Education registration (optional)
 
-**Recommended timing:** between Classes 7 and 8, where we use **GitHub Copilot Pro** in VS Code.
+Only for Classes 7 and 8, where we use **GitHub Copilot Pro** in VS Code.
 
 Apply as a **teacher** (faculty or researcher), 🚨 **not as a student** 🚨, to [GitHub Education](https://education.github.com). Verified teachers get free Copilot Pro.
 
