@@ -115,7 +115,7 @@ Shows the full path of the directory (a.k.a. folder in Windows) you are currentl
 
 ```bash
 pwd
-# Example output: /Users/damseaux-a/Documents/FuFo/fufo_coding_course
+# Example output: /Users/damseaux-a/Documents/Future Forests/coding-course
 ```
 
 > Directories are separated with a `/` symbol.
@@ -247,13 +247,13 @@ During the course, we are going to use the time-series being currently reccorded
 
 The exercise files for this course are stored on the remote server **uc3**. Download them to your local machine:
 
-1. Create a local `fufo_cc_data` directory
-2. Copy the course files from uc3 to the directory above (path is TODO `/path/to/fufo_coding_course/exercises/`)
+1. Create a local `coding_course_data` directory
+2. Copy the course files from uc3 to the directory above (path is TODO `/path/to/coding-course/exercises/`)
 
 **Solution:**
 
 ```bash
-scp -r fr_username@uc3.scc.kit.edu:/path/to/fufo_coding_course/exercises/ data/
+scp -r fr_username@uc3.scc.kit.edu:/path/to/coding-course/exercises/ data/
 ```
 
 ## Exercise B — Why the terminal beats the file explorer

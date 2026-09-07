@@ -12,11 +12,11 @@
 | `git checkout (-b)` | Move to (and create) branch |
 | `git merge` | Combine branches, fold your draft back into the main version |
 | `git rm` | Remove and track deletion, delete a file and record that deletion |
-| `git clone` | Copy a remote repository, download a gitlab project |
+| `git clone` | Copy a remote repository, download a GitHub project |
 | `git pull` | Fetch and merge remote changes, get your colleagues' latest work |
 | `git push` | Upload local commits, share your checkpoints with the team |
 
-# Class 2 — Version Control and Collaboration (Git Basics + GitLab)
+# Class 2 — Version Control and Collaboration (Git Basics + GitHub)
 
 You will probably be involved in research projects that can last months or year. As your research develops, you will write and modify analysis scripts, process new data, test different approaches, and collaborate with others who may need to reproduce, review, or build on your work. Sooner or later you need to answer:
 
@@ -271,34 +271,34 @@ git merge feature/winter
 git log --oneline
 ```
 
-# Part 2 — GitLab and Git collaboration 
+# Part 2 — GitHub and Git collaboration 
 
-Part 1 was about saving history on **your** machine. In research groups, the "trunk" of a project usually lives on a **remote** server where we can collaborate. At Future Forests, we are using a **GitLab** server (`gitlab.uni-freiburg.de/future-forests/`, feel free to add this to your browser favourites) TODO IF CODEBERG.
+Part 1 was about saving history on **your** machine. In research groups, the "trunk" of a project usually lives on a **remote** server where we can collaborate. At Future Forests, we are using **GitHub** (`https://github.com/future-forests/`, feel free to add this to your browser favourites).
 
-GitLab adds a online server and web interface on top of Git: you can browse files, open bug/issue reports, read history, review changes, and discuss code before merging, without emailing zip files.
+GitHub adds an online server and web interface on top of Git: you can browse files, open bug/issue reports, read history, review changes, and discuss code before merging, without emailing zip files.
 
-## 1. Remote repositories on GitLab
+## 1. Remote repositories on GitHub
 
 ### i. `git clone` — Copy a remote repository
 
-Downloads an existing GitLab project (including full history), or **remote**, to your machine. **Do this once** when you join a project.
+Downloads an existing GitHub project (including full history), or **remote**, to your machine. **Do this once** when you join a project.
 
 ```bash
-git clone git@gitlab.kit.edu:fufo/fufo_coding_course.git  # TODO: create repo + permission issue?
-cd fufo_coding_course
+git clone https://github.com/future-forests/coding-course.git
+cd coding-course
 ```
 
-A **remote** is the copy of the repo hosted on GitLab. By convention it is called **`origin`**. To check the origin, you can do:
+A **remote** is the copy of the repo hosted on GitHub. By convention it is called **`origin`**. To check the origin, you can do:
 
 ```bash
 git remote -v
-# origin  TOCHANGEHERE (fetch)
-# origin  TOCHANGEHERE (push)
+# origin  https://github.com/future-forests/coding-course.git (fetch)
+# origin  https://github.com/future-forests/coding-course.git (push)
 ```
 
 ---
 
-### ii. `git pull` — Get changes from GitLab
+### ii. `git pull` — Get changes from GitHub
 
 Downloads commits from the remote **and merges them** into your current branch.
 
@@ -311,9 +311,9 @@ git pull
 
 ---
 
-### iii. `git push` — Send commits to GitLab
+### iii. `git push` — Send commits to GitHub
 
-Uploads your local commits to the remote branch on GitLab.
+Uploads your local commits to the remote branch on GitHub.
 
 ```bash
 git push             # CHECKHERE
@@ -323,7 +323,7 @@ git push             # CHECKHERE
 
 ## 2. Resolve a merge conflict
 
-When a conflict occurs, VS Code (or GitLab) will show the conflicts in the file as follows:
+When a conflict occurs, VS Code (or GitHub) will show the conflicts in the file as follows:
 
 ```
 <<<<<<< HEAD
@@ -408,24 +408,24 @@ Most research software teams (like climate modelling groups) follow the **featur
 1. `main` stays stable. It is the approved protocol.
 2. One branch per task, named for what it does (e.g. `feature/winter` for a new feature, `fix/temp-formula` to solve a bug). One branch per idea. If you're doing two unrelated things, that's two branches.
 3. Never commit directly to `main`. Even for a one-line fix.
-4. Open a Merge Request (MR) when your change is ready. Be sure to merge main (the last changes that have been made) beforehand. There is where you might have to solve **merge conflicts**. A colleague reads it, comments, approves. You can merge your branch to `main`
+4. Open a Pull Request (PR) when your change is ready. Be sure to merge main (the last changes that have been made) beforehand. There is where you might have to solve **merge conflicts**. A colleague reads it, comments, approves. You can merge your branch to `main`
 5. Your work is now part of main; everyone else picks it up with git pull the next time they start a branch.
 
 You can find an extended version of this workflow on [this online documentation](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).
 
-## Exercise D — Build the class protocol on GitLab (20 students)
+## Exercise D — Build the class protocol on GitHub (20 students)
 
-The instructor hosts a shared repository on **GitLab** with a starter `protocol_staufen.md`. The class (20 students) each adds **one assigned sampling rule**, for the instructor sheet.
+The instructor hosts a shared repository on **GitHub** with a starter `protocol_staufen.md`. The class (20 students) each adds **one assigned sampling rule**, for the instructor sheet.
 
-Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Merge Request** with their single new bullet point.
+Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Pull Request** with their single new bullet point.
 
-Clone the class repository on GitLab, add **your assigned rule** to `protocol_staufen.md` on your own branch, and open a Merge Request so it can be reviewed before it joins `main`. Do not edit `main` directly — by the end of the session, all 20 rules should be in one shared protocol.
+Clone the class repository on GitHub, add **your assigned rule** to `protocol_staufen.md` on your own branch, and open a Pull Request so it can be reviewed before it joins `main`. Do not edit `main` directly — by the end of the session, all 20 rules should be in one shared protocol.
 
 **Example — student assigned rule #1:**
 
 ```bash
 # 1 — clone (once)
-git clone git@gitlab.kit.edu:fufo/ff-met-protocol.git
+git clone https://github.com/future-forests/ff-met-protocol.git
 cd ff-met-protocol
 
 # 2 — start from up-to-date main
@@ -440,10 +440,10 @@ git add protocol_staufen.md
 git commit -m "Add protocol rule: rain events"
 git push -u origin protocol/rain-events
 
-# 5 — on GitLab (web browser):
-#     Project → Merge requests → New merge request
+# 5 — on GitHub (web browser):
+#     Pull requests → New pull request
 #     Source: protocol/rain-events  →  Target: main
-#     Add description, assign reviewer, Create merge request
+#     Add description, assign reviewer, Create pull request
 #     After approval: Merge
 
 # 6 — sync local main after all merges
