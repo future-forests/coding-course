@@ -11,7 +11,7 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | 3a | Python basics: variables, types, built-in functions, packages | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
 | 3b | Python Basics: NumPy arrays, loops, conditions | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
 | 4  | Tabular data: vectorisation, table operations (pandas), matplotlib | 12/10 09:30–10:30 | 21/10 14:00-16:00 |
-| 5  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 14:00-16:00 |
+| 5  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 15:00-17:00 |
 | 6  | Advanced Python: user functions, profiling, publishing code with a DOI | 29/10 09:30–10:30 | 02/11 14:00-16:00 |
 | 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
 | 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
@@ -23,7 +23,7 @@ How to subscribe to the automatic calendar (recommended to refresh every day):
 - **Apple Calendar:** File → New Calendar Subscription → paste the link below
 - **Google Calendar:** Settings → Add calendar → From URL → paste the link below
 
-**Calendar feed URL:** `https://gitlab.uni-freiburg.de/future-forests/ses_model_lab/fufo-coding-course/-/raw/main/fufo-coding-course.ics`
+**Calendar feed URL:** `https://gitlab.uni-freiburg.de/future-forests/ses_model_lab/fufo_modelling/-/raw/main/model_lab_calendar.ics`
 
 ## 2. Five requirements
 
