@@ -16,14 +16,14 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
 | 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
 
-How to subscribe to the automatic calendar (recommended to refresh every day):
+How to subscribe to the automatic calendar (if asked, refresh every day):
 
 - **Thunderbird:** Calendar tab → right-click in the calendar list → **New Calendar…** → **On the Network** → paste the link below on "Location" and check "This location doesn't require credentials"
 - **Outlook:** Add calendar → Subscribe from web → paste the link below
 - **Apple Calendar:** File → New Calendar Subscription → paste the link below
 - **Google Calendar:** Settings → Add calendar → From URL → paste the link below
 
-**Calendar feed URL:** `https://gitlab.uni-freiburg.de/future-forests/ses_model_lab/fufo_modelling/-/raw/main/model_lab_calendar.ics`
+**Calendar feed URL:** `https://raw.githubusercontent.com/future-forests/ses-model-lab-webpage/refs/heads/main/model_lab_calendar.ics`
 
 ## 2. Five requirements
 
