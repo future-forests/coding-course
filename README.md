@@ -49,7 +49,7 @@ Start VS Code (as admin) and install these VS Code extensions (`CTRL+MAJ+X`):
 
 ### ii. Register to GitHub (and create an SSH key)
 
-1. Create a free account at [github.com](https://github.com).
+1. Create a free account at [github.com](https://github.com) **and send me your username**.
 2. Start VS Code (as admin) and open a terminal: `CTRL+J` (or **View → Terminal**).
 3. Clone, pull, and push from the terminal requires authentication. **Use an SSH key** (you will reuse it for UC3 in the next step):
    - `ssh-keygen -t ed25519 -C "FF-laptop"` → Enter for the default path → set a passphrase
