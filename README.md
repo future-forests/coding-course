@@ -67,13 +67,15 @@ Before the start of the course (at least one week in advance), please register a
 Then open VS Code to set-up Remote SSH:
 
 1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
-2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add (replace `fr_ab1234` with your username):
+2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add the following:
+
+(replace `fr_ab1234` with your bwidm username (it's `fr_` + Uni Freiburg username); replace `USER` with your Windows username: in the VS Code terminal, run `echo $env:USERNAME` in PowerShell)
 
 ```
 Host uc3
     HostName     uc3.scc.kit.edu
     User         fr_ab1234
-    IdentityFile C:\Users\username\.ssh\id_ed25519
+    IdentityFile C:\Users\USER\.ssh\id_ed25519
     IdentitiesOnly yes
 ```
 
