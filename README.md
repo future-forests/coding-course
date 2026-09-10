@@ -36,7 +36,7 @@ How to subscribe to the automatic calendar (if asked, refresh every day):
 | **Python**  | https://www.python.org/downloads/windows |
 
 
-Start VS Code (as admin) and install these VS Code extensions (`CTRL+MAJ+X`):
+Start VS Code and install these VS Code extensions (`CTRL+MAJ+X`):
 
 - **Remote - SSH** (Microsoft)
 - **Python** (Microsoft)
@@ -50,7 +50,7 @@ Start VS Code (as admin) and install these VS Code extensions (`CTRL+MAJ+X`):
 ### ii. Register to GitHub (and create an SSH key)
 
 1. Create a free account at [github.com](https://github.com) **and send me your username**.
-2. Start VS Code (as admin) and open a terminal: `CTRL+J` (or **View → Terminal**).
+2. Start VS Code and open a terminal: `CTRL+J` (or **View → Terminal**).
 3. Clone, pull, and push from the terminal requires authentication. **Use an SSH key** (you will reuse it for UC3 in the next step):
    - `ssh-keygen -t ed25519 -C "FF-laptop"` → Enter for the default path → set a passphrase
    - Copy the public key: `cat ~/.ssh/id_ed25519.pub`
@@ -64,7 +64,7 @@ This is optional, but I strongly recommend using a remote server (or HPC for Hig
 
 Before the start of the course (at least one week in advance), please register and create your bwUniCluster account by following steps A, B, and C on the [bwUniCluster registration page](https://wiki.bwhpc.de/e/Registration/bwUniCluster).
 
-Then open VS Code (as admin) to set-up Remote SSH:
+Then open VS Code to set-up Remote SSH:
 
 1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
 2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add (replace `fr_ab1234` with your username):
@@ -73,11 +73,14 @@ Then open VS Code (as admin) to set-up Remote SSH:
 Host uc3
     HostName     uc3.scc.kit.edu
     User         fr_ab1234
-    IdentityFile ~/.ssh/id_ed25519
+    IdentityFile C:\Users\username\.ssh\id_ed25519
     IdentitiesOnly yes
 ```
 
-3. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → enter OTP + passphrase (once per day).
+3. **Windows only:** open **File → Preferences → Settings** (`CTRL+,`) and:
+   - Search for **Remote SSH: Show Login Terminal** → check it
+   - Search for **Remote SSH: Use Local Server** → uncheck it (required so OTP prompts appear in the terminal instead of Output)
+4. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → enter OTP + passphrase in the **terminal** (once per day).
 
 ---
 
