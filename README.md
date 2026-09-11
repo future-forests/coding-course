@@ -82,7 +82,25 @@ Host uc3
 3. **Windows only:** open **File → Preferences → Settings** (`CTRL+,`) and:
    - Search for **Remote SSH: Show Login Terminal** → check it
    - Search for **Remote SSH: Use Local Server** → uncheck it (required so OTP prompts appear in the terminal instead of Output)
-4. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → enter OTP + passphrase in the **terminal** (once per day).
+4. **Windows only:** open a terminal and paste the code below (fix bad permission issues):
+```powershell
+$ssh = "$env:USERPROFILE\.ssh"
+$me  = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+function Fix-SshAcl($path) {
+    icacls $path /inheritance:r
+    icacls $path /grant:r "${me}:(OI)(CI)F"
+    icacls $path /grant:r "NT AUTHORITY\SYSTEM:(OI)(CI)F"
+}
+function Fix-SshFileAcl($path) {
+    icacls $path /inheritance:r
+    icacls $path /grant:r "${me}:R"
+    icacls $path /grant:r "NT AUTHORITY\SYSTEM:R"
+}
+Fix-SshAcl $ssh
+if (Test-Path "$ssh\config")     { Fix-SshFileAcl "$ssh\config" }
+if (Test-Path "$ssh\id_ed25519") { Fix-SshFileAcl "$ssh\id_ed25519" }
+```
+5. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → enter OTP + passphrase in the **terminal** (once per day).
 
 ---
 
