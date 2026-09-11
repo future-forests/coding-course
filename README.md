@@ -8,9 +8,9 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | ----- | ------ | ---- | ------------------- |
 | 1  | Introduction, VS code, terminal navigation (bash), remote cluster | 24/09 09:30–10:30 | 28/09 14:00-16:00|
 | 2  | Version control (git) and collaboration (GitHub) | 01/10 09:30–10:30 | 02/10 14:00-16:00 |
-| 3a | Python basics: variables, types, built-in functions, packages | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
-| 3b | Python Basics: NumPy arrays, loops, conditions | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
-| 4  | Tabular data: vectorisation, table operations (pandas), matplotlib | 12/10 09:30–10:30 | 21/10 14:00-16:00 |
+| 3a | Python basics: variables, packages, NumPy arrays | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
+| 3b | Python basics: loops, conditions, vectorisation | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
+| 4  | Tabular data: table operations (pandas), plotting (matplotlib) | 12/10 09:30–10:30 | 21/10 14:00-16:00 |
 | 5  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 15:00-17:00 |
 | 6  | Advanced Python: user functions, profiling, publishing code with a DOI | 29/10 09:30–10:30 | 02/11 14:00-16:00 |
 | 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |

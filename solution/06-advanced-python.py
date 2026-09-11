@@ -1,6 +1,6 @@
 """Class 6 — Advanced Python: profiling.
 
-The same garden-temperature exercise from Classes 3a, 3b and 4, timed so
+The same garden-temperature exercise from Classes 3a and 3b, timed so
 you can see the cost of each approach.
 
 Task (identical in all three classes):
@@ -46,7 +46,7 @@ print(f"Average (°F): {AvgTempF}")
 print(f"Class 3a — one variable per location: {Elapsed3a:.6f} s")
 print()
 
-# Class 3b: NumPy array + for loop
+# Class 3b: NumPy array + for loop (Exercise A)
 Start = time.perf_counter()
 
 TempGardenC = np.array(TempsC)
@@ -59,13 +59,13 @@ for i in range(np.size(TempGardenC)):
 
 AvgTempF = stat.mean(TempGardenF)
 
-Elapsed3b = time.perf_counter() - Start
+Elapsed3bLoop = time.perf_counter() - Start
 print(f"Average (°C): {AvgTempC}")
 print(f"Average (°F): {AvgTempF}")
-print(f"Class 3b — array + for loop:          {Elapsed3b:.6f} s")
+print(f"Class 3b — array + for loop:          {Elapsed3bLoop:.6f} s")
 print()
 
-# Class 4: vectorisation (no loop)
+# Class 3b: vectorisation (Exercise E)
 Start = time.perf_counter()
 
 TempGardenC = np.array(TempsC)
@@ -74,10 +74,10 @@ AvgTempC = np.mean(TempGardenC)
 TempGardenF = TempGardenC * 9 / 5 + 32
 AvgTempF = np.mean(TempGardenF)
 
-Elapsed4 = time.perf_counter() - Start
+Elapsed3bVec = time.perf_counter() - Start
 print(f"Average (°C): {AvgTempC}")
 print(f"Average (°F): {AvgTempF}")
-print(f"Class 4  — vectorisation:             {Elapsed4:.6f} s")
+print(f"Class 3b — vectorisation:             {Elapsed3bVec:.6f} s")
 print()
 
 print("With only 5 numbers, all three finish in a fraction of a millisecond.")
@@ -99,19 +99,19 @@ TempGardenF = np.zeros(N)
 for i in range(N):
     TempGardenF[i] = TempGardenC[i] * 9 / 5 + 32
 AvgTempF = np.mean(TempGardenF)
-Elapsed3bLarge = time.perf_counter() - Start
+Elapsed3bLoopLarge = time.perf_counter() - Start
 print(f"Average (°F): {AvgTempF}")
-print(f"Class 3b — array + for loop:          {Elapsed3bLarge:.4f} s")
+print(f"Class 3b — array + for loop:          {Elapsed3bLoopLarge:.4f} s")
 
-# Class 4: vectorisation
+# Class 3b: vectorisation
 Start = time.perf_counter()
 TempGardenF = TempGardenC * 9 / 5 + 32
 AvgTempF = np.mean(TempGardenF)
-Elapsed4Large = time.perf_counter() - Start
+Elapsed3bVecLarge = time.perf_counter() - Start
 print(f"Average (°F): {AvgTempF}")
-print(f"Class 4  — vectorisation:             {Elapsed4Large:.4f} s")
+print(f"Class 3b — vectorisation:             {Elapsed3bVecLarge:.4f} s")
 print()
 print(
-    f"Vectorisation is {Elapsed3bLarge / Elapsed4Large:.0f}× faster "
+    f"Vectorisation is {Elapsed3bLoopLarge / Elapsed3bVecLarge:.0f}× faster "
     "than the for-loop on 1 000 000 values."
 )
