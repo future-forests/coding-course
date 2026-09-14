@@ -100,7 +100,7 @@ Fix-SshAcl $ssh
 if (Test-Path "$ssh\config")     { Fix-SshFileAcl "$ssh\config" }
 if (Test-Path "$ssh\id_ed25519") { Fix-SshFileAcl "$ssh\id_ed25519" }
 ```
-5. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → enter OTP + passphrase in the **terminal** (once per day).
+5. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → select Linux → enter OTP + passphrase in the **terminal** (once per day).
 
 ---
 
