@@ -16,7 +16,7 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
 | 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
 
-How to subscribe to the automatic calendar (if asked, refresh every day):
+### How to subscribe to the automatic calendar (if asked, refresh every day):
 
 - **Thunderbird:** Calendar tab → right-click in the calendar list → **New Calendar…** → **On the Network** → paste the link below on "Location" and check "This location doesn't require credentials"
 - **Outlook:** Add calendar → Subscribe from web → paste the link below
@@ -24,6 +24,15 @@ How to subscribe to the automatic calendar (if asked, refresh every day):
 - **Google Calendar:** Settings → Add calendar → From URL → paste the link below
 
 **Calendar feed URL:** `https://raw.githubusercontent.com/future-forests/ses-model-lab-webpage/refs/heads/main/model_lab_calendar.ics`
+
+### Planning
+
+| When | What |
+| ---- | ---- |
+| Day before class | Class notebook published |
+| Class (60 min + 20 min optional) | Assistant-guided exercises |
+| Drop-in clinic (2 h) | Q&A and clarification |
+| Day after clinic | Solutions published |
 
 ## 2. Five requirements
 
@@ -132,9 +141,7 @@ Apply as a **teacher** (faculty or researcher), 🚨 **not as a student** 🚨, 
 
 Open your [GitHub Education benefits](https://github.com/settings/education/benefits) page and click **Start an application**. Follow [Apply to GitHub Education as a teacher](https://docs.github.com/en/education/about-github-education/github-education-for-teachers/apply-to-github-education-as-a-teacher) if you need the full steps.
 
----
-
-### Course exercise data (if you miss class 1)
+## 3. Course exercise data (if you miss class 1)
 
 During the first class, we will download the data we will use throughout the course together. If you were unable to attend the first class, here is what you need to do.
 
@@ -151,8 +158,16 @@ Replace `YOUR_USERNAME` with your bwUniCluster username (e.g. `fr_ab1234`). You 
 
 #### b. If you don't have access to uc3
 
-Copy the folder `processed_data` from our shared drive, to your working directly:
+Copy the folder `processed_data` from our shared drive to your working directory:
 
 ```
 un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding-course/
 ```
+
+## 4. Using an LLM before class 7
+
+When you get stuck on an exercise, we recommend **not** using an LLM (e.g. ChatGPT, Claude, Gemini). Instead, look for help online on forums such as [Stack Overflow](https://stackoverflow.com) or Reddit, or in the official documentations of the packages use. We  will cover LLMs properly in Classes 7 and 8 , don't worry.
+
+If you still want to use an LLM (GitHub Copilot, Cursor, ChatGPT, etc.), do not use it to generate solutions. Before **every** new chat, add the instructions from [`LLM_PROMPT.md`](LLM_PROMPT.md) — paste its contents at the start of the conversation, or reference the file with `@LLM_PROMPT.md` in Cursor or VS Code. The model should act as a tutor: point you to documentation and give small hints only, never code that completes the exercise.
+
+When you ask for help, say what you tried, paste any error message, and name the concept you are unsure about.
