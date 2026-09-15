@@ -134,7 +134,21 @@ Open your [GitHub Education benefits](https://github.com/settings/education/bene
 
 ---
 
-### Course exercise data (if you miss class 1)
+## 3. Using an LLM tutor during exercises
+
+When you get stuck on an exercise, you can use an LLM (GitHub Copilot, ChatGPT, Cursor, etc.) as a **tutor** instead of asking it to write the answer for you. This repository includes [`LLM_PROMPT.md`](LLM_PROMPT.md): a short set of instructions that tells the model to point you to documentation first, give only small hints, and avoid code that completes the exercise.
+
+**How to use it:**
+
+1. **Cursor or VS Code (Copilot Chat):** start a new chat and reference the file with `@LLM_PROMPT.md`, or paste its contents at the top of the conversation.
+2. **ChatGPT, Claude, or another web chat:** paste the contents of `LLM_PROMPT.md` as your first message (or into custom instructions / system prompt, if available) before you ask about an exercise.
+3. **When you ask for help:** say what you tried, paste any error message, and name the concept you are unsure about — do not ask for the full solution to an exercise.
+
+We cover prompting and reviewing in Class 7. Requirement **v** above explains how to set up GitHub Copilot Pro.
+
+---
+
+## 4. Course exercise data (if you miss class 1)
 
 During the first class, we will download the data we will use throughout the course together. If you were unable to attend the first class, here is what you need to do.
 
