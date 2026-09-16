@@ -53,48 +53,12 @@ Press **`CTRL+,`** to open Settings, search for **`telemetry level`**, and set *
 
 Press **`CTRL+J`** in VS Code to open the terminal panel at the bottom. If the shell is not bash, click the **`˅`** next to **`+`** in the terminal tab bar and select **Git Bash**.
 
----
+### iii. Connect to UC3 (daily)
 
-### iii. One-time SSH setup for UC3 (optional)
+1. `CTRL+SHIFT+P` → **Connect to Host…** → select **uc3** → select **Linux**.
+2. Enter your **OTP + passphrase** in the **terminal** (once per day).
 
-**Step 1 — Generate a key on your laptop.** Open the terminal (`CTRL+J`) and run:
-
-```bash
-ssh-keygen -t ed25519 -C "uc3-laptop"
-```
-
-Press Enter for the default path, then set a passphrase (a simple one is fine).
-
-**Step 2 — Copy the public key:**
-
-```bash
-cat ~/.ssh/id_ed25519.pub
-```
-
-Copy the full line to your clipboard. **Never share the private key** (`id_ed25519` without `.pub`).
-
-**Step 3 — Register it in bwIDM.** Go to [login.bwidm.de](https://login.bwidm.de) → **Index** → **My SSH Pubkeys** → **add SSH Key**. Name it `uc3-laptop` and paste the public key.
-
-**Step 4 — Add the host to VS Code.** `CTRL+SHIFT+P` → type **Open SSH Configuration File** → pick your config file. Add (replace `fr_ab1234` with your bwUniCluster username):
-
-```
-Host uc3
-    HostName uc3.scc.kit.edu
-    User fr_ab1234
-    IdentityFile ~/.ssh/id_ed25519
-    IdentitiesOnly yes
-```
-
-Save the file.
-
----
-
-### iv. Connect to UC3 (daily)
-
-1. `CTRL+SHIFT+P` → **Connect to Host…** → select **uc3**.
-2. Enter your **OTP + password** (once per day) or your **key passphrase**.
-
-> When typing your password in the VS Code terminal, **no characters appear** — that is normal. Type it and press Enter.
+> When typing your password or passphrase in the VS Code terminal, **no characters appear** — that is normal. Type it and press Enter.
 
 Once connected, **Open Folder** on UC3 to browse files in the side bar; the terminal runs commands there.
 
@@ -200,10 +164,10 @@ Copies files between your machine and a remote server (like uc3).
 
 ```bash
 # copy files from the server
-scp fr_username@uc3.scc.kit.edu:/path/to/files/ data
+scp fr_ab1234@uc3.scc.kit.edu:/path/to/files/ data
 
 # copy a directory to the server
-scp -r data fr_username@uc3.scc.kit.edu:~/backup/
+scp -r data fr_ab1234@uc3.scc.kit.edu:~/backup/
 ```
 
 > It is recommend to always use this command on your computer and not on the remote server.
@@ -245,16 +209,19 @@ Other useful patterns:
 
 During the course, we are going to use the time-series being currently reccorded at Staufen, and a netCDF provided by Christopher Jung.
 
-The exercise files for this course are stored on the remote server **uc3**. Download them to your local machine:
+The exercise files for this course are stored on the remote server **uc3**. Download them to your local machine (you need to be on the **Uni-Freiburg network or VPN**):
 
-1. Create a local `coding_course_data` directory
-2. Copy the course files from uc3 to the directory above (path is TODO `/path/to/coding-course/exercises/`)
+1. Create a local `processed_data` directory
+2. Copy the course files from uc3 to that directory (path is TODO `/path/to/coding-course/exercises/`)
 
 **Solution:**
 
 ```bash
-scp -r fr_username@uc3.scc.kit.edu:/path/to/coding-course/exercises/ data/
+mkdir -p processed_data
+scp -r fr_ab1234@uc3.scc.kit.edu:/path/to/coding-course/exercises/ processed_data/
 ```
+
+Replace `fr_ab1234` with your bwUniCluster username (e.g. `fr_` + your Uni Freiburg username).
 
 ## Exercise B — Why the terminal beats the file explorer
 
