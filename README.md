@@ -64,7 +64,7 @@ Start VS Code and install these VS Code extensions (`CTRL+SHIFT+X`):
 2. Start VS Code and open a terminal: `CTRL+J` (or **View → Terminal**)
 3. Cloning, pulling, and pushing from the terminal require authentication. **Use an SSH key** (you will reuse it for UC3 in the next step):
    - Type in the terminal `ssh-keygen -t ed25519 -C "FF-laptop"` → Press Enter for the default path → set a passphrase
-   - Copy the public key: `cat ~/.ssh/id_ed25519.pub`
+   - Type `cat ~/.ssh/id_ed25519.pub` and copy the public key (e.g. `ssh-ed25519 AEEEDSC3NzaC1lZDI1NTE5AAAAIzU4dokRTfksQ0ytDQ+C/V8hWTNxFz8/s8Vb6Ouag2I ff-laptop`)
    - On GitHub: **Settings → SSH and GPG keys → New SSH key** → paste the public key
 
 ---
