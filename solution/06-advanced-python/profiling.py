@@ -18,6 +18,20 @@ import numpy as np
 TempsC = [20.4, 20.8, 21.1, 20.3, 21.2]
 
 
+def celsius_to_fahrenheit_loop(temp_c):
+    """Convert a NumPy array to °F with an explicit for loop."""
+    n = np.size(temp_c)
+    temp_f = np.zeros(n)
+    for i in range(n):
+        temp_f[i] = temp_c[i] * 9 / 5 + 32
+    return temp_f
+
+
+def celsius_to_fahrenheit_vectorized(temp_c):
+    """Convert a NumPy array to °F with vectorisation."""
+    return temp_c * 9 / 5 + 32
+
+
 print("Part 1 — Original exercise (5 locations)")
 print()
 
@@ -52,11 +66,7 @@ Start = time.perf_counter()
 TempGardenC = np.array(TempsC)
 
 AvgTempC = stat.mean(TempGardenC)
-
-TempGardenF = np.zeros(np.size(TempGardenC))
-for i in range(np.size(TempGardenC)):
-    TempGardenF[i] = TempGardenC[i] * 9 / 5 + 32
-
+TempGardenF = celsius_to_fahrenheit_loop(TempGardenC)
 AvgTempF = stat.mean(TempGardenF)
 
 Elapsed3bLoop = time.perf_counter() - Start
@@ -71,7 +81,7 @@ Start = time.perf_counter()
 TempGardenC = np.array(TempsC)
 
 AvgTempC = np.mean(TempGardenC)
-TempGardenF = TempGardenC * 9 / 5 + 32
+TempGardenF = celsius_to_fahrenheit_vectorized(TempGardenC)
 AvgTempF = np.mean(TempGardenF)
 
 Elapsed3bVec = time.perf_counter() - Start
@@ -95,9 +105,7 @@ N = np.size(TempGardenC)
 
 # Class 3b: NumPy array + for loop
 Start = time.perf_counter()
-TempGardenF = np.zeros(N)
-for i in range(N):
-    TempGardenF[i] = TempGardenC[i] * 9 / 5 + 32
+TempGardenF = celsius_to_fahrenheit_loop(TempGardenC)
 AvgTempF = np.mean(TempGardenF)
 Elapsed3bLoopLarge = time.perf_counter() - Start
 print(f"Average (°F): {AvgTempF}")
@@ -105,7 +113,7 @@ print(f"Class 3b — array + for loop:          {Elapsed3bLoopLarge:.4f} s")
 
 # Class 3b: vectorisation
 Start = time.perf_counter()
-TempGardenF = TempGardenC * 9 / 5 + 32
+TempGardenF = celsius_to_fahrenheit_vectorized(TempGardenC)
 AvgTempF = np.mean(TempGardenF)
 Elapsed3bVecLarge = time.perf_counter() - Start
 print(f"Average (°F): {AvgTempF}")

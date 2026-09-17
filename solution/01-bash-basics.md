@@ -209,7 +209,7 @@ Other useful patterns:
 
 During the course, we are going to use the time-series being currently reccorded at Staufen, and a netCDF provided by Christopher Jung.
 
-The exercise files for this course are stored on the remote server **uc3**. Download them to your local machine (you need to be on the **Uni-Freiburg network or VPN**):
+The exercise files for this course are stored on the remote server **uc3**. Download them to your local machine:
 
 1. Create a local `processed_data` directory
 2. Copy the course files from uc3 to that directory (path is TODO `/path/to/coding-course/exercises/`)
