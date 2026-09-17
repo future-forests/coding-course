@@ -4,9 +4,11 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 
 ## 1. Course overview and calendar
 
+### Autumn course
+
 | Class | Topics | Date | Drop-in clinic date |
 | ----- | ------ | ---- | ------------------- |
-| 1  | Introduction, VS code, terminal navigation (bash), remote cluster | 24/09 09:30–10:30 | 28/09 14:00-16:00|
+| 1  | Introduction, VS Code, terminal navigation (bash), remote cluster | 24/09 09:30–10:30 | 28/09 14:00-16:00|
 | 2  | Version control (git) and collaboration (GitHub) | 01/10 09:30–10:30 | 02/10 14:00-16:00 |
 | 3a | Python basics: variables, packages, NumPy arrays | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
 | 3b | Python basics: loops, conditions, vectorisation | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
@@ -34,7 +36,7 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | Drop-in clinic (2 h) | Q&A and clarification |
 | Day after clinic | Solutions published |
 
-## 2. Five requirements
+## 2. Six requirements
 
 > **Windows users:** VS Code opens **PowerShell** by default. Before running any terminal command in this course, switch to **Git Bash**: click the **`˅`** next to **`+`** in the terminal tab bar → **Select Default Profile** → **Git Bash**, then open a new terminal (`CTRL+J`).
 
@@ -47,7 +49,7 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | **Python**  | https://www.python.org/downloads/windows |
 
 
-Start VS Code and install these VS Code extensions (`CTRL+MAJ+X`):
+Start VS Code and install these VS Code extensions (`CTRL+SHIFT+X`):
 
 - **Remote - SSH** (Microsoft)
 - **Python** (Microsoft)
@@ -58,12 +60,12 @@ Start VS Code and install these VS Code extensions (`CTRL+MAJ+X`):
 
 ---
 
-### ii. Register to GitHub (and create an SSH key)
+### ii. Register on GitHub (and create an SSH key)
 
-1. Create a free account at [github.com](https://github.com) **and send me your username**.
-2. Start VS Code and open a terminal: `CTRL+J` (or **View → Terminal**).
-3. Clone, pull, and push from the terminal requires authentication. **Use an SSH key** (you will reuse it for UC3 in the next step):
-   - `ssh-keygen -t ed25519 -C "FF-laptop"` → Enter for the default path → set a passphrase
+1. Create a free account at [github.com](https://github.com) **and send me your GitHub username on Element!**
+2. Start VS Code and open a terminal: `CTRL+J` (or **View → Terminal**)
+3. Cloning, pulling, and pushing from the terminal require authentication. **Use an SSH key** (you will reuse it for UC3 in the next step):
+   - Type in the terminal `ssh-keygen -t ed25519 -C "FF-laptop"` → Press Enter for the default path → set a passphrase
    - Copy the public key: `cat ~/.ssh/id_ed25519.pub`
    - On GitHub: **Settings → SSH and GPG keys → New SSH key** → paste the public key
 
@@ -71,11 +73,13 @@ Start VS Code and install these VS Code extensions (`CTRL+MAJ+X`):
 
 ### iii. Remote server (HPC) access (optional)
 
-This is optional, but I strongly recommend using a remote server (or HPC for High-Performance Computing) during the course. We will use **UC3**, a powerful remote computer available to every students in Baden-Württemberg, where you can store your data (500GB free!) and run computationally intensive analyses from your laptop. You can access it remotely, so your calculations can continue running even when your laptop is turned off.
+This is optional, but I strongly recommend using a remote server (or HPC for High-Performance Computing) during the course. We will use **UC3**, a powerful remote computer available to every student in Baden-Württemberg, where you can store your data (500GB free!) and run computationally intensive analyses from your laptop. You can access it remotely, so your calculations can continue running even when your laptop is turned off.
 
 Before the start of the course (at least one week in advance), please register and create your bwUniCluster account by following steps A, B, and C on the [bwUniCluster registration page](https://wiki.bwhpc.de/e/Registration/bwUniCluster).
 
-Then open VS Code to set-up Remote SSH:
+When you are done, **please send me your UC3 username on Element (e.g. fr_ab1234)!**
+
+Then open VS Code to set up Remote SSH:
 
 1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
 2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add the following:
@@ -90,10 +94,10 @@ Host uc3
     IdentitiesOnly yes
 ```
 
-3. **Windows only:** open **File → Preferences → Settings** (`CTRL+,`) and:
+3. Open **File → Preferences → Settings** (`CTRL+,`) and:
    - Search for **Remote SSH: Show Login Terminal** → check it
    - Search for **Remote SSH: Use Local Server** → uncheck it (required so OTP prompts appear in the terminal instead of Output)
-4. **Windows only:** open a terminal and paste the code below (fix bad permission issues):
+4. **Windows only:** open a terminal and paste the code below (to fix permission issues):
 ```powershell
 $ssh = "$env:USERPROFILE\.ssh"
 $me  = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
@@ -111,31 +115,55 @@ Fix-SshAcl $ssh
 if (Test-Path "$ssh\config")     { Fix-SshFileAcl "$ssh\config" }
 if (Test-Path "$ssh\id_ed25519") { Fix-SshFileAcl "$ssh\id_ed25519" }
 ```
-5. Save, restart VS Code. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → select Linux → enter OTP + passphrase in the **terminal** (once per day).
+Save, restart VS Code.
+
+5. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → select Linux → enter OTP + passphrase in the **terminal** (once per day).
+6. **Create a separate SSH key on UC3 for GitHub** (your laptop key from step ii. only works on your laptop — you need a second key to `git clone` from UC3):
+   - Connect to UC3 in VS Code, open a terminal (`CTRL+J` → **`+`**), and type `ssh-keygen -t ed25519 -C "uc3"` and `cat ~/.ssh/id_ed25519.pub`, copy the result to your clipboard
+   - On GitHub: **Settings → SSH and GPG keys → New SSH key → paste the public key**
 
 ---
 
-### iv. Python environment (Pixi)
+### iv. Pull course materials
 
-**Recommended timing:** between Classes 2 and Class 3. Dependencies are in [`pixi.toml`](pixi.toml).
+> **Windows users (no UC3):** VS Code opens **PowerShell** by default. Before running any terminal command in this course, switch to **Git Bash**: click the **`˅`** next to **`+`** in the terminal tab bar → **Select Default Profile** → **Git Bash**, then open a new terminal (`CTRL+J`)
 
+<<<<<<< HEAD
 Run once (on **UC3** or your **laptop**, on Windows use **Git Bash** as terminal):
+=======
+Type (on **UC3** or your **laptop**, on Windows use **Git Bash** as terminal):
+>>>>>>> main
 
 ```bash
 git clone git@github.com:future-forests/coding-course.git
 cd coding-course
+```
+
+---
+
+### v. Set up Python environment (Pixi)
+
+**Recommended timing:** between Classes 2 and Class 3
+
+Type in the root folder `coding-course` (on **UC3** or your **laptop**):
+
+```bash
 curl -fsSL https://pixi.sh/install.sh | bash && source ~/.bashrc
 pixi install
 pixi run install-kernel
 ```
 
+<<<<<<< HEAD
 **UC3 (VS Code Remote SSH):** `export PATH="$HOME/.pixi/bin:$PATH"` (add to `~/.bashrc` if needed), reconnect. In a notebook: **Select Kernel → Jupyter Kernel → Python (Future Forests course)**.
 
 **Laptop:** open the repo in VS Code (**File → Open Folder**), open a notebook, same kernel.
+=======
+**UC3 (VS Code Remote SSH):** Type in the terminal `export PATH="$HOME/.pixi/bin:$PATH"`
+>>>>>>> main
 
 ---
 
-### v. GitHub Education registration (optional)
+### vi. GitHub Education registration (optional)
 
 Only for Classes 7 and 8, where we use **GitHub Copilot Pro** in VS Code.
 
@@ -143,32 +171,38 @@ Apply as a **teacher** (faculty or researcher), 🚨 **not as a student** 🚨, 
 
 Open your [GitHub Education benefits](https://github.com/settings/education/benefits) page and click **Start an application**. Follow [Apply to GitHub Education as a teacher](https://docs.github.com/en/education/about-github-education/github-education-for-teachers/apply-to-github-education-as-a-teacher) if you need the full steps.
 
-## 3. Course exercise data (if you miss class 1)
+## 3. Open and use a notebook (from Class 3)
+
+- Reload VS Code: open Palette (`CTRL+SHIFT+P`) → Reload Window
+- Type in the terminal `code notebooks/03a-python-basics.ipynb`
+- Top-left of the notebook: **Select Kernel → Jupyter Kernel → Python (Future Forests course)**
+
+## 4. Course exercise data (if you miss Class 1)
 
 During the first class, we will download the data we will use throughout the course together. If you were unable to attend the first class, here is what you need to do.
 
-#### a. If you have access to uc3
+### a. If you have access to UC3
 
-**From uc3 (Class 1):** copy shared course data to your machine.
+**From UC3 (Class 1):** copy shared course data to your machine.
 
 ```bash
-mkdir -p processed_data
-scp -r YOUR_USERNAME@uc3.scc.kit.edu:/path/to/coding-course/exercises/ processed_data/
+cd processed_data/ # if fails, try to find it
+scp -r YOUR_USERNAME@uc3.scc.kit.edu:/pfs/work9/workspace/scratch/fr_ad1149-coding-course/processed_data/ .
 ```
 
-Replace `YOUR_USERNAME` with your bwUniCluster username (e.g. `fr_ab1234`). You need to be on the **Uni-Freiburg network or VPN** for uc3.
+Replace `YOUR_USERNAME` with your bwUniCluster username (e.g. `fr_ab1234`). You need to be on the **Uni-Freiburg network or VPN** for UC3.
 
-#### b. If you don't have access to uc3
+### b. If you don't have access to UC3
 
-Copy the folder `processed_data` from our shared drive to your working directory:
+Copy the contents of the `processed_data` folder from our shared drive to your working directory:
 
 ```
-un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding-course/
+un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding-course/processed_data
 ```
 
-## 4. Using an LLM before class 7
+## 5. Using an LLM before Class 7
 
-When you get stuck on an exercise, we recommend **not** using an LLM (e.g. ChatGPT, Claude, Gemini). Instead, look for help online on forums such as [Stack Overflow](https://stackoverflow.com) or Reddit, or in the official documentations of the packages use. We  will cover LLMs properly in Classes 7 and 8 , don't worry.
+When you get stuck on an exercise, we recommend **not** using an LLM (e.g. ChatGPT, Claude, Gemini). Instead, look for help online on forums such as [Stack Overflow](https://stackoverflow.com) or Reddit, or in the official documentation of the packages you use. We will cover LLMs properly in Classes 7 and 8, don't worry.
 
 If you still want to use an LLM (GitHub Copilot, Cursor, ChatGPT, etc.), do not use it to generate solutions. Before **every** new chat, add the instructions from [`LLM_PROMPT.md`](LLM_PROMPT.md) — paste its contents at the start of the conversation, or reference the file with `@LLM_PROMPT.md` in Cursor or VS Code. The model should act as a tutor: point you to documentation and give small hints only, never code that completes the exercise.
 
