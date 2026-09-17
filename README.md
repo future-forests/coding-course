@@ -79,7 +79,7 @@ When you are done, **please send me your UC3 username on Element (e.g. fr_ab1234
 
 Then open VS Code to set up Remote SSH:
 
-1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
+1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index or übersicht (top-right) → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
 2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add the following:
 
 (replace `fr_ab1234` with your bwidm username (it's `fr_` + Uni Freiburg username); replace `USER` with your Windows username: in Git Bash, run `echo $USERNAME`)
