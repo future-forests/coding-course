@@ -1,5 +1,5 @@
-solution/exercises/
-solution/instructor/
+solutions/exercises/
+solutions/instructor/
 raw_data/
 processed_data/26030350_hourly.csv
 processed_data/pred_temperature_C_2024_01_wgs84.nc

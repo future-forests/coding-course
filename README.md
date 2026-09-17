@@ -36,6 +36,8 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 
 ## 2. Five requirements
 
+> **Windows users:** VS Code opens **PowerShell** by default. Before running any terminal command in this course, switch to **Git Bash**: click the **`˅`** next to **`+`** in the terminal tab bar → **Select Default Profile** → **Git Bash**, then open a new terminal (`CTRL+J`).
+
 ### i. System tools (install once)
 
 | Tool        | Windows                                  | 
@@ -78,7 +80,7 @@ Then open VS Code to set-up Remote SSH:
 1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
 2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add the following:
 
-(replace `fr_ab1234` with your bwidm username (it's `fr_` + Uni Freiburg username); replace `USER` with your Windows username: in the VS Code terminal, run `echo $env:USERNAME` in PowerShell)
+(replace `fr_ab1234` with your bwidm username (it's `fr_` + Uni Freiburg username); replace `USER` with your Windows username: in Git Bash, run `echo $USERNAME`)
 
 ```
 Host uc3
@@ -117,7 +119,7 @@ if (Test-Path "$ssh\id_ed25519") { Fix-SshFileAcl "$ssh\id_ed25519" }
 
 **Recommended timing:** between Classes 2 and Class 3. Dependencies are in [`pixi.toml`](pixi.toml).
 
-Run once (on **UC3** or your **laptop**):
+Run once (on **UC3** or your **laptop**, on Windows use **Git Bash** as terminal):
 
 ```bash
 git clone git@github.com:future-forests/coding-course.git
@@ -127,9 +129,9 @@ pixi install
 pixi run install-kernel
 ```
 
-**UC3 (VS Code Remote SSH):** `export PATH="$HOME/.pixi/bin:$PATH"`, reconnect. In a notebook: **Select Kernel → Jupyter Kernel → Python (Future Forests course)**.
+**UC3 (VS Code Remote SSH):** `export PATH="$HOME/.pixi/bin:$PATH"` (add to `~/.bashrc` if needed), reconnect. In a notebook: **Select Kernel → Jupyter Kernel → Python (Future Forests course)**.
 
-**Laptop:** `pixi run code .` from the repo root, open a notebook, same kernel.
+**Laptop:** open the repo in VS Code (**File → Open Folder**), open a notebook, same kernel.
 
 ---
 
