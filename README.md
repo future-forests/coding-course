@@ -124,6 +124,8 @@ Save, restart VS Code.
 
 ### iv. Pull course materials
 
+Wait until I've added you to our GitHub organization before doing this one.
+
 > **Windows users (no UC3):** VS Code opens **PowerShell** by default. Before running any terminal command in this course, switch to **Git Bash**: click the **`˅`** next to **`+`** in the terminal tab bar → **Select Default Profile** → **Git Bash**, then open a new terminal (`CTRL+J`)
 
 Type (on **UC3** or your **laptop**, on Windows use **Git Bash** as terminal):
