@@ -73,6 +73,8 @@ Start VS Code and install these VS Code extensions (`CTRL+SHIFT+X`):
 
 This is optional, but I strongly recommend using a remote server (or HPC for High-Performance Computing) during the course. We will use **UC3**, a powerful remote computer available to every student in Baden-Württemberg, where you can store your data (500GB free!) and run computationally intensive analyses from your laptop. You can access it remotely, so your calculations can continue running even when your laptop is turned off.
 
+If you think you will never need it for your research, you can certainly do without it.
+
 Before the start of the course (at least one week in advance), please register and create your bwUniCluster account by following steps A, B, and C on the [bwUniCluster registration page](https://wiki.bwhpc.de/e/Registration/bwUniCluster).
 
 When you are done, **please send me your UC3 username on Element (e.g. fr_ab1234)!**
