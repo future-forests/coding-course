@@ -119,7 +119,7 @@ Save, restart VS Code.
 
 5. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → select Linux → enter OTP + passphrase in the **terminal** (once per day).
 6. **Create a separate SSH key on UC3 for GitHub** (your laptop key from step ii. only works on your laptop — you need a second key to `git clone` from UC3):
-   - Connect to UC3 in VS Code, open a terminal (`CTRL+J` → **`+`**), and type `ssh-keygen -t ed25519 -C "uc3"` and `cat ~/.ssh/id_ed25519.pub`, copy the result to your clipboard
+   - Connect to UC3 in VS Code, open a terminal (`CTRL+J` → **`+`**), and type `ssh-keygen -t ed25519 -C "uc3"` (press "Enter" key, then enter a passphrase two times), then type `cat ~/.ssh/id_ed25519.pub` and copy the result to your clipboard
    - On GitHub: **Settings → SSH and GPG keys → New SSH key → paste the public key**
 
 ---
