@@ -13,7 +13,8 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | 3a | Python basics: variables, packages, NumPy arrays | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
 | 3b | Python basics: loops, conditions, vectorisation | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
 | 4  | Tabular data: table operations (pandas), plotting (matplotlib) | 12/10 09:30–10:30 | 21/10 14:00-16:00 |
-| 5  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 15:00-17:00 |
+| 5a  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 15:00-17:00 |
+| 5b  | Survey data: survey analysis (scikit-learn) | 22/10 13:30–14:30 | 26/10 15:00-17:00 |
 | 6  | Advanced Python: user functions, profiling, publishing code with a DOI | 29/10 09:30–10:30 | 02/11 14:00-16:00 |
 | 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
 | 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
@@ -66,7 +67,7 @@ Start VS Code and install these VS Code extensions (`CTRL+SHIFT+X`):
 2. Start VS Code and open a terminal: `CTRL+J` (or **View → Terminal**)
 3. Cloning, pulling, and pushing from the terminal require authentication. **Use an SSH key** (you will reuse it for UC3 in the next step):
    - Type in the terminal `ssh-keygen -t ed25519 -C "FF-laptop"` → Press Enter for the default path → set a passphrase
-   - Copy the public key: `cat ~/.ssh/id_ed25519.pub`
+   - Type `cat ~/.ssh/id_ed25519.pub` and copy the public key (e.g. `ssh-ed25519 AEEEDSC3NzaC1lZDI1NTE5AAAAIzU4dokRTfksQ0ytDQ+C/V8hWTNxFz8/s8Vb6Ouag2I ff-laptop`)
    - On GitHub: **Settings → SSH and GPG keys → New SSH key** → paste the public key
 
 ---
@@ -75,13 +76,15 @@ Start VS Code and install these VS Code extensions (`CTRL+SHIFT+X`):
 
 This is optional, but I strongly recommend using a remote server (or HPC for High-Performance Computing) during the course. We will use **UC3**, a powerful remote computer available to every student in Baden-Württemberg, where you can store your data (500GB free!) and run computationally intensive analyses from your laptop. You can access it remotely, so your calculations can continue running even when your laptop is turned off.
 
+If you think you will never need it for your research, you can certainly do without it.
+
 Before the start of the course (at least one week in advance), please register and create your bwUniCluster account by following steps A, B, and C on the [bwUniCluster registration page](https://wiki.bwhpc.de/e/Registration/bwUniCluster).
 
 When you are done, **please send me your UC3 username on Element (e.g. fr_ab1234)!**
 
 Then open VS Code to set up Remote SSH:
 
-1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
+1. Register the **same public key** at [login.bwidm.de](https://login.bwidm.de): **Index or übersicht (top-right) → My SSH Pubkeys → Add SSH Key** (name: `FF-laptop`, key: paste from clipboard at step ii.)
 2. Command Palette (`CTRL+SHIFT+P`) → **Open SSH Configuration File** → add the following:
 
 (replace `fr_ab1234` with your bwidm username (it's `fr_` + Uni Freiburg username); replace `USER` with your Windows username: in Git Bash, run `echo $USERNAME`)
@@ -119,7 +122,7 @@ Save, restart VS Code.
 
 5. To connect daily: Command Palette (`CTRL+SHIFT+P`) → **Connect to Host → uc3** → select Linux → enter OTP + passphrase in the **terminal** (once per day).
 6. **Create a separate SSH key on UC3 for GitHub** (your laptop key from step ii. only works on your laptop — you need a second key to `git clone` from UC3):
-   - Connect to UC3 in VS Code, open a terminal (`CTRL+J` → **`+`**), and type `ssh-keygen -t ed25519 -C "uc3"` and `cat ~/.ssh/id_ed25519.pub`, copy the result to your clipboard
+   - Connect to UC3 in VS Code, open a terminal (`CTRL+J` → **`+`**), and type `ssh-keygen -t ed25519 -C "uc3"` (press "Enter" key, then enter a passphrase two times), then type `cat ~/.ssh/id_ed25519.pub` and copy the result to your clipboard
    - On GitHub: **Settings → SSH and GPG keys → New SSH key → paste the public key**
 
 ---
