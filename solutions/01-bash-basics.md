@@ -41,7 +41,7 @@ We use **VS Code** as our editor and terminal. The layout has four main areas:
 | Area | What it is | Open / toggle |
 | ---- | ---------- | ------------- |
 | **Side bar** (left) | File explorer — only shows files after you **Open Folder** (typically a git repo; we cover that next week) | `CTRL+B` |
-| **Editor** (centre) | Where you read and edit files | `code ...` in terminal |
+| **Editor** (centre) | Where you read and edit files | `code ...` in terminal (see after) |
 | **Second side bar** (right) | Extra panels (outline, preview, …) — we rarely need it | `CTRL++B` |
 | **Terminal** (bottom) | Run bash commands | `CTRL+J` |
 
@@ -55,12 +55,10 @@ Press **`CTRL+J`** in VS Code to open the terminal panel at the bottom. If the s
 
 ### iii. Connect to UC3 (daily)
 
-1. `CTRL+SHIFT+P` → **Connect to Host…** → select **uc3** → select **Linux**.
-2. Enter your **OTP + passphrase** in the **terminal** (once per day).
+1. `CTRL+SHIFT+P` → **Connect to Host…** → select **uc3** → select **Linux**
+2. Enter your **OTP + password or passphrase**
 
-> When typing your password or passphrase in the VS Code terminal, **no characters appear** — that is normal. Type it and press Enter.
-
-Once connected, **Open Folder** on UC3 to browse files in the side bar; the terminal runs commands there.
+> When typing your password or passphrase in the VS Code terminal, **no characters appear**, that is normal. Type it and press Enter.
 
 ## 2. Terminal navigation with bash
 
@@ -79,36 +77,57 @@ Shows the full path of the directory (a.k.a. folder in Windows) you are currentl
 
 ```bash
 pwd
-# Example output: /Users/damseaux-a/Documents/Future Forests/coding-course
+# Example output (uc3): /home/fr/fr_fr/fr_ad1149/bash-sandbox
+# Example output (laptop): /Users/damseaux-a/Documents/FuFo/coding_course/coding-course/bash-sandbox
 ```
 
 > Directories are separated with a `/` symbol.
 
 ---
 
-### ii. `cd` — Change Directory
+### ii. `mkdir` — Make Directory
+
+Creates a new directory called `data`.
+
+```bash
+mkdir data
+```
+
+---
+
+### iii. `cd` — Change Directory
 
 Moves you into another directory, *like click on a folder in file explorer*.
 
 ```bash
-cd data                        # enter the 'data' subdirectory (if it exists)
-cd /Users/damseaux-a/Documents  # go to an absolute path
+# enter the 'data/' subdirectory
+cd data/
+# go to an absolute path          
+cd /home/fr/fr_fr/fr_ad1149/bash-sandbox/data
 ```
 
 > An absolute path will always start with `/` (e.g. `/Users`), whereas a relative path (a path that only exists in your current directory) starts with the directory name (e.g. `data`).
 
-#### a. `.` and `..` are current and parent directory
+#### `.` and `..` are current and parent directory
 
 ```bash
-cd .                  # move to the current directory (i.e. don't move)
-cd ..                 # move to the parent (above/upper) directory
+# move to the current directory (i.e. don't move)
+cd .
+# move to the parent (above/upper) directory             
+cd ..                 
 ```
 
 > *The last command* `cd ..` *is like using the back arrow in file explorer*.
 
+#### `~` is your home directory
+
+```bash
+cd ~
+```
+
 ---
 
-### iii. `ls` — List
+### iv. `ls` — List
 
 Lists files and directories, *what you see in the file explorer window*.
 
@@ -118,25 +137,12 @@ ls
 
 ---
 
-### iv. `mkdir` — Make Directory
-
-Creates a new directory called `data`.
-
-```bash
-mkdir data
-mkdir -p data/exercises    # -p creates parent folders if they don't exist yet
-```
-
-> `-p` is a "flag". See the end of this document for more information.
-
----
-
 ### v. `mv` — Move (and rename)
 
 Moves files and directories. *In a file explorer this is drag-and-drop*.
 
 ```bash
-mv report.txt archive/           # move file into archive/
+mv report.txt data/    # move file into data/
 ```
 
 This command is also used to rename files.
@@ -152,8 +158,8 @@ mv old_name.txt new_name.txt
 Creates a copy of a file or a directory.
 
 ```bash
-cp station_data.txt station_data_backup.txt
-cp -r raw_files/ backup/         # -r = recursive (needed for directories)
+cp data/report.txt data/report_backup.txt
+cp -r data/ data_backup/   # -r = recursive (needed for directories)
 ```
 
 ---
@@ -174,30 +180,16 @@ scp -r data fr_ab1234@uc3.scc.kit.edu:~/backup/
 
 ---
 
-#### viii. `rm` — Remove
-
-Deletes files and directories. *In a file explorer this is Delete — but there is no trash bin; deleted files are gone.*
-
-```bash
-rm old_plot.txt                  # delete one file
-rm *_raw-data.txt                # delete all matching files (uses *)
-rm -r temp_folder/               # -r = recursive (needed for directories)
-```
-
-> Be careful with `rm`: double-check the path before pressing Enter. A typo like `rm -r data/` can delete an entire dataset folder.
-
----
-
-### ix. `*` — Wildcard (glob)
+### viii. `*` — Wildcard (glob)
 
 The `*` is not a command, it is a pattern that Bash expands before running the command. It lets you target many files at once.
 
 ```bash
-ls *_post-processed.txt          # all post-processed files
+ls *                     # same as ls
+ls *_post-processed.txt  # all post-processed files
 ```
 
 Other useful patterns:
-
 
 | Pattern          | Matches                        |
 | ---------------- | ------------------------------ |
@@ -212,16 +204,18 @@ During the course, we are going to use the time-series being currently reccorded
 The exercise files for this course are stored on the remote server **uc3**. Download them to your local machine:
 
 1. Create a local `processed_data` directory
-2. Copy the course files from uc3 to that directory (path is TODO `/path/to/coding-course/exercises/`)
+2. Copy the course files from uc3 to that directory `/pfs/work9/workspace/scratch/fr_ad1149-coding-course/processed_data/`
 
 **Solution:**
 
 ```bash
 mkdir -p processed_data
-scp -r fr_ab1234@uc3.scc.kit.edu:/path/to/coding-course/exercises/ processed_data/
+scp -r fr_ab1234@uc3.scc.kit.edu:/pfs/work9/workspace/scratch/fr_ad1149-coding-course/processed_data/ .
 ```
 
 Replace `fr_ab1234` with your bwUniCluster username (e.g. `fr_` + your Uni Freiburg username).
+
+> If you are not on UC3, the files also sit in `X:/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/processed_data`. The `X:/` part depends on your computer, one macOS it is usually `/Volumes/un042rd01/` instead.
 
 ## Exercise B — Why the terminal beats the file explorer
 
@@ -230,27 +224,45 @@ Your research group receives daily exports from meteorological station **FF-MET-
 - `YYYY-MM-DD_raw-data.txt` — unprocessed sensor readings
 - `YYYY-MM-DD_post-processed.txt` — cleaned, analysis-ready data
 
-All files currently sit in TODO `data/exercises/meteorological/incoming/`. Your task: 
+All files currently sit in `/pfs/work9/workspace/scratch/fr_ad1149-coding-course/exercises/`. Your task: 
 
-1. Copy the folder `incoming` to your home
-2. Move only the post-processed files into `data/exercises/meteorological/post-processed/`, leaving the raw files in place.
-2. Delete all the January files from the second year because they have been corrupted
+1. Copy the folder `exercises/` to your current directory
+2. Move only the post-processed files from `meteorological/incoming` into `meteorological/post-processed/`, leaving the raw files in place.
+3. Delete all the January files from the second year because they have been corrupted
 
 **Solution:**
 
 ```bash
-cp data/exercises/meteorological/incoming ~
+cp -r /pfs/work9/workspace/scratch/fr_ad1149-coding-course/exercises/ .
 
 # Move them
-mv *_post-processed.txt ../post-processed/
+cd exercises/meteorological/
+mv incoming/*_post-processed.txt post-processed/
 
 # Remove files
+cd post-processed/
 rm 2024-01-*txt
 ```
 
+> If you are not on UC3, the files also sit in `X:/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises`. The `X:/` part depends on your computer, one macOS it is usually `/Volumes/un042rd01/` instead.
+
 ## 4. More `bash` commands
 
-### i. `touch` — Create an empty file
+### i. `rm` — Remove
+
+Deletes files and directories. **There is no trash bin; deleted files are gone!**
+
+```bash
+rm old_plot.txt    # delete one file
+rm *_raw-data.txt  # delete all matching files (uses *)
+rm -r temp_folder/ # -r = recursive (needed for directories)
+```
+
+> Be careful with `rm`: double-check the path with `ls` before pressing Enter. A typo like `rm ~` can delete you entire drive.
+
+---
+
+### ii. `touch` — Create an empty file
 
 Creates a new empty file, *like choosing **New file** in a file explorer.*
 
@@ -260,7 +272,7 @@ touch notes.txt
 
 ---
 
-### ii. `find` — Find files
+### iii. `find` — Find files
 
 Locates files by name or properties, *like the search bar in a file explorer*.
 
@@ -270,7 +282,7 @@ find . -name "README.txt"
 
 ---
 
-### iii. `grep` — Global Regular Expression Print
+### iv. `grep` — Global Regular Expression Print
 
 Searches for text inside files, *like Ctrl+F across many files at once*.
 
@@ -278,32 +290,6 @@ Searches for text inside files, *like Ctrl+F across many files at once*.
 # lines containing NODATA
 grep "NODATA" station_FF-MET-042_2024-Q1.txt
 ```
-
----
-
-### iv. `sed` — Stream Editor
-
-Edits text line by line. In this course we use it for find-and-replace inside a file.
-
-```bash
-# replace every "error" with "ERROR" and print the result (does NOT change the file)
-sed 's/error/ERROR/g' log.txt
-
-# write the result to a new file (> saves output to a file instead of the terminal)
-sed 's/error/ERROR/g' log.txt > log_clean.txt
-```
-
-The substitution syntax is `s/old/new/g`, inside single quotes:
-
-| Part | Meaning |
-| ---- | ------- |
-| `s` | **S**ubstitute — start a find-and-replace |
-| `/error/` | Text to find (`old`) |
-| `/ERROR/` | Text to replace it with (`new`) |
-| `g` | **G**lobal — replace **all** matches on each line (without `g`, only the first match per line is replaced) |
-
-> The `>` symbol is an **output redirect**: it sends command output to a file instead of the screen (and overwrites the file if it already exists).
-
 
 ---
 
@@ -340,6 +326,31 @@ wc -l *.txt               # line count for each file
 ```bash
 clear
 ```
+
+---
+
+### iv. `sed` — Stream Editor
+
+Edits text line by line. In this course we use it for find-and-replace inside a file.
+
+```bash
+# replace every "error" with "ERROR" and print the result (does NOT change the file)
+sed 's/error/ERROR/g' log.txt
+
+# write the result to a new file (> saves output to a file instead of the terminal)
+sed 's/error/ERROR/g' log.txt > log_clean.txt
+```
+
+The substitution syntax is `s/old/new/g`, inside single quotes:
+
+| Part | Meaning |
+| ---- | ------- |
+| `s` | **S**ubstitute — start a find-and-replace |
+| `/error/` | Text to find (`old`) |
+| `/ERROR/` | Text to replace it with (`new`) |
+| `g` | **G**lobal — replace **all** matches on each line (without `g`, only the first match per line is replaced) |
+
+> The `>` symbol is an **output redirect**: it sends command output to a file instead of the screen (and overwrites the file if it already exists).
 
 ---
 
@@ -400,7 +411,7 @@ General flags (used by several commands):
 
 ## 6. Exercise C (Bonus) — Find and replace missing values with `grep` and `sed`
 
-The quarterly export `station_FF-MET-042_2024-Q1.txt` (in `data/exercises/nodata-replace/`) contains hourly records from station **FF-MET-042**. Some sensor readings failed and were stored as the string `NODATA`. Before analysis, every `NODATA` must be replaced with the numeric missing-value code `-9999`.
+The quarterly export `station_FF-MET-042_2024-Q1.txt` (in `exercises/nodata-replace/`) contains hourly records from station **FF-MET-042**. Some sensor readings failed and were stored as the string `NODATA`. Before analysis, every `NODATA` must be replaced with the numeric missing-value code `-9999`.
 
 This exercise uses the flags from the section above.
 

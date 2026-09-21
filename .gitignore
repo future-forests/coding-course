@@ -1,8 +1,7 @@
-solutions/exercises/
-solutions/instructor/
 raw_data/
 processed_data/26030350_hourly.csv
 processed_data/pred_temperature_C_2024_01_wgs84.nc
 solution/06-advanced-python/_exercise_chunks/
 solution/06-advanced-python/_exercise_stations/
 .vscode/
+bash-sandbox/
