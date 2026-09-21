@@ -13,7 +13,8 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | 3a | Python basics: variables, packages, NumPy arrays | 05/10 **08:30–09:30** | 07/10 14:00-16:00 |
 | 3b | Python basics: loops, conditions, vectorisation | 08/10 09:30–10:30 | 09/10 14:00-16:00 |
 | 4  | Tabular data: table operations (pandas), plotting (matplotlib) | 12/10 09:30–10:30 | 21/10 14:00-16:00 |
-| 5  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 15:00-17:00 |
+| 5a  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 15:00-17:00 |
+| 5b  | Survey data: survey analysis (scikit-learn) | 22/10 13:30–14:30 | 26/10 15:00-17:00 |
 | 6  | Advanced Python: user functions, profiling, publishing code with a DOI | 29/10 09:30–10:30 | 02/11 14:00-16:00 |
 | 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
 | 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
