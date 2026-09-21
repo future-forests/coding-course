@@ -426,7 +426,7 @@ Clone the class repository on GitHub, add **your assigned rule** to `protocol_st
 ```bash
 # Solution
 # 1 — clone (once)
-git clone git@github.com/future-forests/ff-met-protocol.git
+git clone git@github.com:future-forests/ff-met-protocol.git
 cd ff-met-protocol
 
 # 2 — start from up-to-date main
