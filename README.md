@@ -53,8 +53,8 @@ Start VS Code and install these VS Code extensions (`CTRL+SHIFT+X`):
 - **Remote - SSH** (Microsoft)
 - **Python** (Microsoft)
 - **Jupyter** (Microsoft)
+- **Pixi Code** (renan-r-santos) — mandatory on your laptop; not required on UC3
 - **DataFrame Viewer** (ChristofKaufmann)
-- (Optional) **Pixi Code** (renan-r-santos) — helpful on your laptop; not required on UC3
 - (Optional) **Rainbow CSV** (mechatroner)
 
 ---
