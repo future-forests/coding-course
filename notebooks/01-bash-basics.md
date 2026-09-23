@@ -41,8 +41,8 @@ We use **VS Code** as our editor and terminal. The layout has four main areas:
 | Area | What it is | Open / toggle |
 | ---- | ---------- | ------------- |
 | **Side bar** (left) | File explorer — only shows files after you **Open Folder** (typically a git repo; we cover that next week) | `CTRL+B` |
-| **Editor** (centre) | Where you read and edit files | `code ...` in terminal (see after) |
-| **Second side bar** (right) | Extra panels (outline, preview, …) — we rarely need it | `CTRL++B` |
+| **Editor** (centre) | Where you read and edit files |  |
+| **Second side bar** (right) | LLM use | `CTRL+ALT+B` |
 | **Terminal** (bottom) | Run bash commands | `CTRL+J` |
 
 ### i. Privacy and telemetry (recommended because Microsoft sucks)
@@ -170,10 +170,10 @@ Copies files between your machine and a remote server (like uc3).
 
 ```bash
 # copy files from the server
-scp fr_ab1234@uc3.scc.kit.edu:/path/to/files/ data
+scp fr_ad1149@uc3:/home/fr/fr_fr/fr_ad1149/bash-sandbox/data .
 
 # copy a directory to the server
-scp -r data fr_ab1234@uc3.scc.kit.edu:~/backup/
+scp -r dummy-dir/ fr_ad1149@uc3:/home/fr/fr_fr/fr_ad1149/bash-sandbox
 ```
 
 > It is recommend to always use this command on your computer and not on the remote server.
