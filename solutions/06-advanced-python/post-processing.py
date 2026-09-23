@@ -1,6 +1,6 @@
-"""Class 6 — post-processing script (Class 5 workflow).
+"""Class 6 — post-processing script (Class 5a workflow).
 
-Linear script version of the Class 5 geospatial analysis:
+Linear script version of the Class 5a geospatial analysis:
 open netCDF → Hartheim point series → Freiburg box → spatial mean →
 daily resample → urban heat island stats (Exercise D).
 """
@@ -64,7 +64,7 @@ def urban_heat_island_stats(temp, city_mask):
 
 
 def main():
-    print("=== Class 5 post-processing ===\n")
+    print("=== Class 5a post-processing ===\n")
 
     temp = load_temperature(TEMP_PATH)
     print(f"Opened: {TEMP_PATH.name}")

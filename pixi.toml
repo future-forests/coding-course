@@ -19,6 +19,15 @@ pyproj = ">=3.6"
 scipy = ">=1.14"
 geopandas = ">=1.0"
 dask = ">=2024.10.0"
+scikit-learn = ">=1.5"
+statsmodels = ">=0.14"
+
+# Instructor-only environment to build the Class 5b teaching dataset (not needed by students)
+[feature.prep.dependencies]
+pyreadr = ">=0.5"
+
+[environments]
+prep = ["prep"]
 
 [tasks]
 lab = "jupyter lab"
