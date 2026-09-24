@@ -415,7 +415,7 @@ You can find an extended version of this workflow on [this online documentation]
 
 ## Exercise D — Update the class protocol on GitHub (20 students)
 
-The instructor hosts a shared repository on **GitHub** (https://github.com/future-forests/ff-met-protocol) with a complete `protocol_staufen.md` containing **20 numbered field rules** (the **old** wording). The class (20 students) each receives a **printed rule card** with an **old rule** and a **new rule**.
+The instructor hosts a shared repository on **GitHub** (https://github.com/future-forests/met-protocol) with a complete `protocol_staufen.md` containing **20 numbered field rules** (the **old** wording). The class (20 students) each receives a **printed rule card** with an **old rule** and a **new rule**.
 
 Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Pull Request** that replaces **only their assigned old line** with the **new line** on their card — no other edits in the file.
 
@@ -433,8 +433,8 @@ Following the **feature branch workflow**, nobody pushes directly to `main`. Eac
 ```bash
 # Solution
 # 1 — clone (once)
-git clone git@github.com:future-forests/ff-met-protocol.git
-cd ff-met-protocol
+git clone git@github.com:future-forests/met-protocol.git
+cd met-protocol
 
 # 2 — start from up-to-date main
 git checkout main
