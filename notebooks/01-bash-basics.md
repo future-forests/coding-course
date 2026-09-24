@@ -170,11 +170,7 @@ Copies files between your machine and a remote server (like uc3).
 
 ```bash
 # copy files from the server
-<<<<<<< HEAD
 scp -r fr_ad1149@uc3:/home/fr/fr_fr/fr_ad1149/bash-sandbox/data .
-=======
-scp fr_ad1149@uc3:/home/fr/fr_fr/fr_ad1149/bash-sandbox/data .
->>>>>>> main
 
 # copy a directory to the server
 scp -r dummy-dir/ fr_ad1149@uc3:/home/fr/fr_fr/fr_ad1149/bash-sandbox
@@ -210,10 +206,7 @@ The exercise files for this course are stored on the remote server **uc3**. Down
 1. Create a local `processed_data` directory
 2. Copy the course files from uc3 to that directory `/pfs/work9/workspace/scratch/fr_ad1149-coding-course/processed_data/`
 
-<<<<<<< HEAD
 > If you are not on UC3, the files should also sit in `X:/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises`. On macOS it is usually in `/Volumes/un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises` instead.
-=======
->>>>>>> main
 
 ## Exercise B — Why the terminal beats the file explorer
 
@@ -228,10 +221,7 @@ All files currently sit in `/pfs/work9/workspace/scratch/fr_ad1149-coding-course
 2. Move only the post-processed files from `meteorological/incoming` into `meteorological/post-processed/`, leaving the raw files in place.
 3. Delete all the January files from the second year because they have been corrupted
 
-<<<<<<< HEAD
 > If you are not on UC3, the files should also sit in `X:/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises`. On macOS it is usually in `/Volumes/un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises` instead.
-=======
->>>>>>> main
 
 ## 4. More `bash` commands
 
