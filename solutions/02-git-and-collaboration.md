@@ -413,13 +413,20 @@ Most research software teams (like climate modelling groups) follow the **featur
 
 You can find an extended version of this workflow on [this online documentation](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).
 
-## Exercise D — Build the class protocol on GitHub (20 students)
+## Exercise D — Update the class protocol on GitHub (20 students)
 
-The instructor hosts a shared repository on **GitHub** with a starter `protocol_staufen.md`. The class (20 students) each adds **one assigned sampling rule**, for the instructor sheet.
+The instructor hosts a shared repository on **GitHub** (https://github.com/future-forests/ff-met-protocol) with a complete `protocol_staufen.md` containing **20 numbered field rules** (the **old** wording). The class (20 students) each receives a **printed rule card** with an **old rule** and a **new rule**.
 
-Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Pull Request** with their single new bullet point.
+Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Pull Request** that replaces **only their assigned old line** with the **new line** on their card — no other edits in the file.
 
-Clone the class repository on GitHub, add **your assigned rule** to `protocol_staufen.md` on your own branch, and open a Pull Request so it can be reviewed before it joins `main`. Do not edit `main` directly — by the end of the session, all 20 rules should be in one shared protocol.
+- Clone the class repository on GitHub
+- **Create your own branch** (name on your card), **replace your old rule with the new rule** in `protocol_staufen.md`
+- Commit your change on your branch
+- Push it to GitHub
+- Open a Pull Request so it can be reviewed before it is merged to `main`
+- Add AdrienDams as reviewer, wait for approval
+- (Solve potential conflicts)
+- Merge yourself
 
 **Example — student assigned rule #1:**
 
@@ -436,9 +443,11 @@ git pull
 # 3 — new branch (rule #1: rain events)
 git checkout -b protocol/rain-events
 
-# 4 — edit, commit, push (add only your assigned line)
+# 4 — edit, commit, push (replace only rule 1 — text from your card)
+#     Old: "1. Rain event: do not sample if it is raining."
+#     New: "1. Rain event: do not sample during active rain or drizzle."
 git add protocol_staufen.md
-git commit -m "Add protocol rule: rain events"
+git commit -m "Update protocol rule: rain events"
 git push -u origin protocol/rain-events
 
 # 5 — on GitHub (web browser):
