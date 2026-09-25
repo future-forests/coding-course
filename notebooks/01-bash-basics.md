@@ -208,15 +208,6 @@ The exercise files for this course are stored on the remote server **uc3**. Down
 
 > If you are not on UC3, the files should also sit in `X:/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises`. On macOS it is usually in `/Volumes/un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises` instead.
 
-**Solution:**
-
-```bash
-mkdir -p processed_data
-scp -r fr_ab1234@uc3.scc.kit.edu:/pfs/work9/workspace/scratch/fr_ad1149-coding-course/processed_data/ .
-```
-
-Replace `fr_ab1234` with your bwUniCluster username (e.g. `fr_` + your Uni Freiburg username).
-
 ## Exercise B — Why the terminal beats the file explorer
 
 Your research group receives daily exports from meteorological station **FF-MET-042**. Over two years, the data pipeline produced **1 440 files** (720 days × 2 versions each):
@@ -231,20 +222,6 @@ All files currently sit in `/pfs/work9/workspace/scratch/fr_ad1149-coding-course
 3. Delete all the January files from the second year because they have been corrupted
 
 > If you are not on UC3, the files should also sit in `X:/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises`. On macOS it is usually in `/Volumes/un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding_course/exercises` instead.
-
-**Solution:**
-
-```bash
-cp -r /pfs/work9/workspace/scratch/fr_ad1149-coding-course/exercises/ .
-
-# Move them
-cd exercises/meteorological/
-mv incoming/*_post-processed.txt post-processed/
-
-# Remove files
-cd post-processed/
-rm 2024-01-*txt
-```
 
 ## 4. More `bash` commands
 
@@ -414,18 +391,3 @@ General flags (used by several commands):
 The quarterly export `station_FF-MET-042_2024-Q1.txt` (in `exercises/nodata-replace/`) contains hourly records from station **FF-MET-042**. Some sensor readings failed and were stored as the string `NODATA`. Before analysis, every `NODATA` must be replaced with the numeric missing-value code `-9999`.
 
 This exercise uses the flags from the section above.
-
-**Solution:**
-
-Use `sed` as shown above. The `g` flag replaces every `NODATA` on a line, not just the first one.
-
-```bash
-# Solution
-sed 's/NODATA/-9999/g' station_FF-MET-042_2024-Q1.txt > station_FF-MET-042_2024-Q1_clean.txt
-
-# Confirm no NODATA remains (-c should print 0)
-grep -c "NODATA" station_FF-MET-042_2024-Q1_clean.txt
-
-# Show only the lines that originally had NODATA, already cleaned
-grep "NODATA" station_FF-MET-042_2024-Q1.txt | sed 's/NODATA/-9999/g'
-```
