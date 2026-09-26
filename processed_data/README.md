@@ -20,7 +20,3 @@ Copy the folder `processed_data` from our shared drive, to your working directly
 ```
 un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding-course/
 ```
-
-### Class 5b survey data (DIANA)
-
-`diana_owners.csv`, `diana_codebook.csv` and `diana_text_labels.csv` are a **modified teaching version** of the DIANA forest-owner survey (University of Freiburg, 2025). Rows no longer correspond to real people: answers were swapped between similar respondents and slightly perturbed. Use these files only for the course: do not share, cite or use them for research. For the real data, contact the DIANA team.
