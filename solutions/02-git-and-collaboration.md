@@ -24,9 +24,9 @@ You will probably be involved in research projects that can last months or year.
 - *What exactly changed since last week?*
 - *Can I try a new analysis without breaking what already works?*
 
-That is what **version control** is for: a system that **tracks every change** to your project over time, lets you **go back**, **compare** versions, and **work in parallel** without overwriting each other.
+That is what **version control** is for: a system that **tracks every change** to your project over time, lets you **go back**, **compare** versions, and **work in parallel** without overwriting what is stable.
 
-**Git** is the tool we use to do version control. Instead of saving `protocol_v2_final.docx`, version control keeps **one file** with a full history of documented snapshots. Git is the program that stores and organizes those snapshots on your machine.
+**Git** is the tool we use to do version control. Instead of saving `protocol_v2_final.docx`, version control keeps **one file** with a full history of documented **snapshots**. Git is the program that stores and organizes those snapshots on your machine.
 
 ## 1. How Git implements version control
 
@@ -38,19 +38,26 @@ Git splits your work into three areas on your machine:
 
 ## 2. Let's start with our first `git` commands
 
+> UC3 is using a old version of git, do `git config --global init.defaultBranch main`
+
 ### i. `git init` — Initialize repository
 
 Creates a new Git repository in the current directory. Git can now track changes here.
 
 ```bash
-cd my_project
+# Create a dir
+mkdir station_staufen
+# Move to the dir
+cd station_staufen
+# Add a file
+touch protocol_staufen.md
 git init
 ```
 
 Before your first commit, tell Git **who you are** (only once):
 
 ```bash
-git config --global user.email "your.name@kit.edu"
+git config --global user.email "your.name@futureforests.uni-freiburg.de"
 ```
 
 ---
@@ -74,7 +81,7 @@ Untracked files:
 nothing added to commit but untracked files present
 ```
 
-> **Run this often**, especially before and after `git add` and `git commit` to understand what you are doing
+> **Run this often**, especially before and after `git add` and `git commit` to understand what you are doing. Git print and error messages are usually very useful.
 
 ---
 
@@ -83,8 +90,7 @@ nothing added to commit but untracked files present
 Marks files (or changes) to include in the **next commit**.
 
 ```bash
-git add protocol_staufen.md    # stage one file
-git add -u                     # stage every change of tracked files
+git add protocol_staufen.md
 ```
 
 ---
@@ -94,10 +100,10 @@ git add -u                     # stage every change of tracked files
 Records the staged changes as a permanent snapshot in the repository history.
 
 ```bash
-git commit -m "Add rain-event sampling rule"
+git commit -m "Add Staufen protocol file"
 ```
 
-> The flag `-m` is to leave a message, a short description of *why* you saved this commit. **This is the most important part of a commit**, you will learn how to make good commit messages with time.
+> The flag `-m` is to leave a message, a short description of *why* you saved this commit. **This is a very important part of a commit**. To write a good commit message, put yourself in the shoes of a colleague who will need to understand what you did in this commit in a single sentence.
 
 ---
 
@@ -132,8 +138,6 @@ git diff                      # changes not yet staged (before git add)
 git diff --staged             # changes already staged (after git add, before git commit)
 ```
 
-> Tip: it is easier to use **VS Code** to visually review changes of a specific file, right click on one your file in the tab bar → Open Changes.
-
 ## 3. Typical workflow (local)
 
 When you work alone on your machine, the cycle is:
@@ -150,8 +154,6 @@ edit files  →  git add  →  git commit -m "describe your commit"
 
 Your group maintains a sampling protocol for station **FF-MET-042**. Set up a Git repository and save the starter protocol below in `protocol_staufen.md` as your first commit. Then add the rain-event rule (`Rain event: do not sample if it is raining`) in a second commit, and use `git log` to see how Git recorded each change.
 
-Review your changes with the VS code tool
-
 Starter content:
 
 ```md
@@ -164,8 +166,8 @@ Starter content:
 **Solution:**
 
 ```bash
-mkdir ff_met_protocol
-cd ff_met_protocol
+mkdir station_staufen
+cd station_staufen
 git init
 
 touch protocol_staufen.md
@@ -189,22 +191,20 @@ git log --oneline
 
 Until now, everything happened on one line of history (usually called **`main`**). Branches let you create a **parallel copy of the project** to experiment, then merge back when ready.
 
-Why do we need branches? They let you work on a draft **without changing what everyone else relies on**. On `main` sits the approved protocol your group follows in the field, you do not want half-finished rules there. On a branch, you can add, rewrite, or delete freely. When the draft is ready, you merge it in.
-
-This matters as soon as **two people work at the same time**. While you draft winter rules on your branch, a colleague can fix a typo on `main`. Git keeps both histories separate until you choose to combine them, no overwritten files, no `protocol_final_v3b_histchecked.docx` by email.
+Why do we need branches? They let you work on a draft **without changing what is stable, what everyone else relies on**.
 
 **Situation example:**
 
 - `main` *(A)* holds the approved field protocol the whole group follows
-- You want to draft winter sampling rules, you create branch `feature/winter`, experiment there. You branch off the approved protocol to start your draft *(B)*.
+- You want to draft winter sampling rules, you create branch `winter`, experiment there. You branch off the approved protocol to start your draft *(B)*.
 - A colleague fixes a unit error on `main`, `main` moves forward without you *(C)*
 - You want to catch up with `main` before merging. You pull on `main` *(D)*
 - Your winter rules join the approved protocol, you merge your branch *(E)*
 
 ```
 main:              A ────────────── C ─────────────── E
-                    \                   \           /
-feature/winter:      B ───────────────── D ────────
+                    \                       \        /
+winter:      B ───────────────────── D ──────
 ```
 
 Result: at *(E)*, **`main`** combines both lines of work — the colleague's fix and your winter rules, into one shared history.
@@ -224,8 +224,8 @@ git branch              # list local branches (* = current)
 Creates and moves you to another branch, or just move you to an existing one.
 
 ```bash
-git checkout -b feature/winter    # create branch and switch (-b = branch)
-git checkout feature/winter       # move to existing branch
+git checkout -b winter    # create branch and switch (-b = branch)
+git checkout winter       # move to existing branch
 ```
 
 ---
@@ -251,14 +251,14 @@ The approved protocol on **`main`** is what everyone follows in the field. You w
 - Frost: do not touch metal masts with bare hands when air temperature < 0 °C
 ```
 
-Using the repo from Exercise A, add a frost safety rule on branch `feature/winter`. Then merge it into `main`.
+Using the repo from Exercise A, add a frost safety rule on branch `winter`. Then merge it into `main`.
 
 **Solution:**
 
 ```bash
-cd ff_met_protocol
+cd station_staufen
 
-git checkout -b feature/winter
+git checkout -b winter
 
 # Add frost rule 
 
@@ -266,9 +266,72 @@ git add protocol_staufen.md
 git commit -m "Add frost safety rule"
 
 git checkout main
-git merge feature/winter
+git merge winter
 
 git log --oneline
+```
+
+## Exercise C (bonus)
+
+### i. Scenario
+
+You start drafting the **ice** rule on branch **`winter-log`**, then switch priorities: the **wind** limit should be updated on **`main`** first.
+
+On branch **`winter-log`**, add:
+
+```md
+- Ice: record ice thickness on soil pins when air temperature < 0 °C
+```
+
+On branch **`wind-limit`**, replace the existing wind line with:
+
+```md
+- Wind conditions: do not sample if wind > 10 m/s
+```
+
+### ii. What to do
+
+1. Move to your `station_staufen` repo and check out **`main`**
+2. Create branch **`winter-log`** and switch to it
+3. Add the ice rule to `protocol_staufen.md`, stage the file, and commit
+4. Switch back to **`main`**
+5. Create branch **`wind-limit`** and switch to it
+6. Edit the wind line to **10 m/s**, stage, and commit
+7. Switch to **`main`** and merge **`wind-limit`**
+8. Switch to **`winter-log`** and merge **`main`** so your ice draft includes the new wind limit
+9. Switch to **`main`** and merge **`winter-log`**
+
+**Solution:**
+
+```bash
+cd station_staufen
+
+git checkout main
+git checkout -b winter-log
+
+# Add ice thickness line to protocol_staufen.md
+
+git add protocol_staufen.md
+git commit -m "Add ice thickness logging rule"
+
+# Priority change: wind limit goes to main first
+git checkout main
+git checkout -b wind-limit
+
+# Change wind line to 10 m/s in protocol_staufen.md
+
+git add protocol_staufen.md
+git commit -m "Tighten wind sampling limit to 10 m/s"
+
+git checkout main
+git merge wind-limit
+
+# winter-log was started earlier — update it before merging back
+git checkout winter-log
+git merge main
+
+git checkout main
+git merge winter-log
 ```
 
 # Part 2 — GitHub and Git collaboration 
@@ -316,7 +379,7 @@ git pull
 Uploads your local commits to the remote branch on GitHub.
 
 ```bash
-git push             # CHECKHERE
+git push
 ```
 
 > **Rule of thumb:** Always do a `git pull` **before** a `git push`.
@@ -330,14 +393,14 @@ When a conflict occurs, VS Code (or GitHub) will show the conflicts in the file 
 - Wind conditions: do not sample if wind > 12 m/s
 =======
 - Wind conditions: do not sample if wind > 10 m/s
->>>>>>> feature/winter
+>>>>>>> winter
 ```
 
 HEAD is your current branch, the bottom block is the branch you're merging in. You can find different options:
 
 - **Accept Current Change:** keep the version from your current branch (`HEAD`) — here, the 12 m/s threshold on `main`
-- **Accept Incoming Change:** keep the version from the branch you are merging in — here, the 10 m/s threshold from `feature/winter`
-- **Accept Both Changes:** keep both lines one after the other — usually wrong for a single rule; edit manually afterwards
+- **Accept Incoming Change:** keep the version from the branch you are merging in — here, the 10 m/s threshold from `winter`
+- **Accept Both Changes:** keep both lines one after the other
 
 Repeat for every conflicted file, then `git add` and `commit` in the terminal to finish the merge:
 
@@ -346,57 +409,39 @@ git add protocol_staufen.md
 git commit -m "Resolve merge conflict in wind rule"
 ```
 
-## Exercise C — Resolve a merge conflict (TODO: PRACTICE)
+## Exercise C — Resolve a merge conflict
 
-You are drafting a new rule on branch `feature/safety-vest`, which recommends a new wind speed limit of 10 m/s. While doing that, your supervisor updated the shared protocol to the new sensor limit (8 m/s). When you bring `main` into your branch, Git flags a **merge conflict** on the same line.
+You are updating the **sensor check** rule for the Titisee station on branch `sensor-threshold`. Your field notes suggest a **40%** minimum battery level before sampling. While you work on that branch, your supervisor merges a group decision on **`main`**: a **30%** minimum instead. When you bring `main` into your branch, Git flags a **merge conflict** on the same line.
 
 This mimics what happens in real projects: `main` moves forward while your branch is still open.
 
-From the repo in Exercise B, create branch `feature/safety-vest`, add the vest rule below, and change the wind line to **10 m/s** (your field notes suggest the old limit was too high). Commit, then merge the latest `main` into your branch and **resolve the conflict** before finishing the merge.
+Clone the shared protocol repo (once), then create branch `sensor-threshold`. In `protocol_titisee.md`, replace the sensor line with the **40%** rule below. Commit, then merge the latest `main` into your branch and **resolve the conflict** before finishing the merge.
 
-New rule to add:
+I give you the first steps:
 
-```md
-- Safety: wear high-visibility vest and safety boots on site at all times
+```bash
+git clone git@github.com:future-forests/met-protocol.git
+cd met-protocol
+git checkout -b sensor-threshold
 ```
 
-[TODO]
-
-**Wait until most students have committed on `feature/safety-vest`**, then update `main` on the shared repo (or ask students to pull your commit):
-
-```md
-- Wind conditions: do not sample if wind > 8 m/s
-```
-
-Commit message: `"Update wind threshold after group meeting"`
-
-Tell students: *“Main has changed — run `git checkout main`, `git pull`, then go back to your branch and merge `main`.”*
-
-[TODO]
+**Wait until most students have committed on `sensor-threshold`**, then update `main` on the shared repo (or ask students to pull your commit) in `protocol_titisee.md`:
 
 **Solution:**
 
 ```bash
-cd ff_met_protocol
+# Edit protocol_titisee.md:
+#   replace the sensor line with the 40% rule
 
-git checkout main
-git pull 
-
-git checkout -b feature/safety-vest
-
-# Edit protocol_staufen.md:
-#   - change wind line to 10 m/s
-#   - add the safety vest rule
-
-git add protocol_staufen.md
-git commit -m "Add safety vest rule and propose 10 m/s wind limit"
+git add protocol_titisee.md
+git commit -m "Require 40% battery minimum before sampling"
 
 # main moved while you were working — bring it in
 git merge main
-# CONFLICT in protocol_staufen.md — resolve in VS Code (keep 8 m/s, keep vest rule)
+# CONFLICT in protocol_titisee.md — resolve in VS Code (keep 30% from main)
 
-git add protocol_staufen.md
-git commit -m "Merge main and resolve wind threshold conflict"
+git add protocol_titisee.md
+git commit -m "Merge main and resolve sensor threshold conflict"
 ```
 
 ## 3. The feature branch workflow
@@ -406,7 +451,7 @@ A **workflow** is the set of rules a team agrees to follow when sharing a projec
 Most research software teams (like climate modelling groups) follow the **feature branch workflow**. You already practiced the core idea in Exercise B and C. Here are the main rules:
 
 1. `main` stays stable. It is the approved protocol.
-2. One branch per task, named for what it does (e.g. `feature/winter` for a new feature, `fix/temp-formula` to solve a bug). One branch per idea. If you're doing two unrelated things, that's two branches.
+2. One branch per task, named for what it does (e.g. `winter` for a new feature, `fix/temp-formula` to solve a bug). One branch per idea. If you're doing two unrelated things, that's two branches.
 3. Never commit directly to `main`. Even for a one-line fix.
 4. Open a Pull Request (PR) when your change is ready. Be sure to merge main (the last changes that have been made) beforehand. There is where you might have to solve **merge conflicts**. A colleague reads it, comments, approves. You can merge your branch to `main`
 5. Your work is now part of main; everyone else picks it up with git pull the next time they start a branch.
@@ -415,9 +460,9 @@ You can find an extended version of this workflow on [this online documentation]
 
 ## Exercise D — Update the class protocol on GitHub (20 students)
 
-The instructor hosts a shared repository on **GitHub** (https://github.com/future-forests/met-protocol) with a complete `protocol_staufen.md` containing **20 numbered field rules** (the **old** wording). The class (20 students) each receives a **printed rule card** with an **old rule** and a **new rule**.
+The instructor hosts a shared repository on **GitHub** (https://github.com/future-forests/met-protocol) with a complete `protocol_staufen.md` containing **20 numbered field rules**. However, each of you will be responsible for changing one of these rules. You received a **printed rule card** with an **old rule** and a **new rule**.
 
-Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Pull Request** that replaces **only their assigned old line** with the **new line** on their card — no other edits in the file.
+Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Pull Request** that replaces **only their assigned old line** with the **new line** on their card, no other edits in the file.
 
 - Clone the class repository on GitHub
 - **Create your own branch** (name on your card), **replace your old rule with the new rule** in `protocol_staufen.md`
