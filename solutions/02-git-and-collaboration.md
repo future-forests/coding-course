@@ -409,39 +409,55 @@ git add protocol_staufen.md
 git commit -m "Resolve merge conflict in wind rule"
 ```
 
-## Exercise C — Resolve a merge conflict
+## Exercise D — Resolve a merge conflict
 
-You are updating the **sensor check** rule for the Titisee station on branch `sensor-threshold`. Your field notes suggest a **40%** minimum battery level before sampling. While you work on that branch, your supervisor merges a group decision on **`main`**: a **30%** minimum instead. When you bring `main` into your branch, Git flags a **merge conflict** on the same line.
+> This exercise cannot be done outside of the class on Oct. 1
 
-This mimics what happens in real projects: `main` moves forward while your branch is still open.
+Last January, the Titisee logger **stopped recording for 9 days**: at −15 °C its batteries drained much faster than expected. You are preparing the winter protocol on a branch called `winter-batteries` and add a battery replacement rule to the sensor check line:
 
-Clone the shared protocol repo (once), then create branch `sensor-threshold`. In `protocol_titisee.md`, replace the sensor line with the **40%** rule below. Commit, then merge the latest `main` into your branch and **resolve the conflict** before finishing the merge.
+```
+- Sensor check: record battery level before each visit; replace batteries if below 50%
+```
+
+Meanwhile, the **data manager** found that the logger clock had drifted by 8 minutes, so the Titisee data could not be aligned with the DWD weather data. She updates the **same line** on her own branch `clock-check`, already pushed to GitHub:
+
+```
+- Sensor check: record battery level and logger clock time before each visit
+```
+
+When you bring `clock-check` into your branch, Git flags a **merge conflict**. Here, **nobody is wrong**: the protocol needs **both** changes. Your job is to combine them into a single line.
+
+This mimics what happens in real projects: a colleague works on the same file in parallel, and you need their changes before you can finish yours.
 
 I give you the first steps:
 
 ```bash
 git clone git@github.com:future-forests/met-protocol.git
 cd met-protocol
-git checkout -b sensor-threshold
+git checkout -b winter-batteries
+
+# edit protocol_titisee.md: add the battery rule to the sensor line (see above)
+
+git add protocol_titisee.md
+git commit -m "Replace batteries below 50% before winter"
 ```
 
-**Wait until most students have committed on `sensor-threshold`**, then update `main` on the shared repo (or ask students to pull your commit) in `protocol_titisee.md`:
+Now bring the data manager's `clock-check` branch into your branch (how? move to `clock-check` to get a local copy, move back to your branch and merge). Resolve conflicts and commit to combine both changes.
 
 **Solution:**
 
 ```bash
-# Edit protocol_titisee.md:
-#   replace the sensor line with the 40% rule
+git checkout clock-check        # creates a local copy of the branch from GitHub
+git checkout winter-batteries
+git merge clock-check
+# CONFLICT in protocol_titisee.md
+
+# 3 — in VS Code: "Accept Both Changes", then edit the two lines into one:
+#   - Sensor check: record battery level and logger clock time before each visit; replace batteries if below 50%
+#   Check that no <<<<<<<, ======= or >>>>>>> markers are left in the file
 
 git add protocol_titisee.md
-git commit -m "Require 40% battery minimum before sampling"
-
-# main moved while you were working — bring it in
-git merge main
-# CONFLICT in protocol_titisee.md — resolve in VS Code (keep 30% from main)
-
-git add protocol_titisee.md
-git commit -m "Merge main and resolve sensor threshold conflict"
+git commit -m "Merge clock-check: combine clock check and battery rule"
 ```
 
 ## 3. The feature branch workflow
@@ -458,51 +474,47 @@ Most research software teams (like climate modelling groups) follow the **featur
 
 You can find an extended version of this workflow on [this online documentation](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).
 
-## Exercise D — Update the class protocol on GitHub (20 students)
+## Exercise E — Update the class protocol on GitHub (Bonus)
 
-The instructor hosts a shared repository on **GitHub** (https://github.com/future-forests/met-protocol) with a complete `protocol_staufen.md` containing **20 numbered field rules**. However, each of you will be responsible for changing one of these rules. You received a **printed rule card** with an **old rule** and a **new rule**.
+The shared repository https://github.com/future-forests/met-protocol contains `protocol_staufen.md` with **20 field rules**. Five of them need to be revised. You are split into **groups of 4**; each group revises **one rule**, and each student in the group changes a **different part** of that rule. Your **printed card** tells you your group, your branch name, the **old rule** and **your new rule**.
 
-Following the **feature branch workflow**, nobody pushes directly to `main`. Each student opens a **Pull Request** that replaces **only their assigned old line** with the **new line** on their card, no other edits in the file.
+Because you all edit the **same line**, only the first Pull Request of your group merges cleanly. The others get a **conflict** on GitHub: keep what is already on `main` **and** add your change.
 
-- Clone the class repository on GitHub
-- **Create your own branch** (name on your card), **replace your old rule with the new rule** in `protocol_staufen.md`
-- Commit your change on your branch
-- Push it to GitHub
-- Open a Pull Request so it can be reviewed before it is merged to `main`
-- Add AdrienDams as reviewer, wait for approval
-- (Solve potential conflicts)
+- Clone the repository, create your branch (name on your card)
+- Replace your old rule with your new rule in `protocol_staufen.md`, commit, push
+- Open a Pull Request to `main`, add AdrienDams as reviewer
+- If GitHub shows a conflict, click **Resolve conflicts** and combine both versions into one line
 - Merge yourself
 
-**Example — student assigned rule #1:**
+**Solution — group A (rule 1, rain), student 2:**
 
 ```bash
-# Solution
-# 1 — clone (once)
 git clone git@github.com:future-forests/met-protocol.git
 cd met-protocol
+git checkout -b rain/wait-30min
 
-# 2 — start from up-to-date main
-git checkout main
-git pull
-
-# 3 — new branch (rule #1: rain events)
-git checkout -b protocol/rain-events
-
-# 4 — edit, commit, push (replace only rule 1 — text from your card)
-#     Old: "1. Rain event: do not sample if it is raining."
-#     New: "1. Rain event: do not sample during active rain or drizzle."
+# edit protocol_staufen.md, rule 1 (text from your card):
+#   1. Rain event: do not sample if it is raining; wait 30 min after the rain stops.
 git add protocol_staufen.md
-git commit -m "Update protocol rule: rain events"
-git push -u origin protocol/rain-events
+git commit -m "Rain rule: wait 30 min after rain"
+git push -u origin rain/wait-30min
 
-# 5 — on GitHub (web browser):
-#     Pull requests → New pull request
-#     Source: protocol/rain-events  →  Target: main
-#     Add description, assign reviewer, Create pull request
-#     After approval: Merge
+# on GitHub: Pull requests → New pull request → rain/wait-30min → main → add reviewer → Create
+```
 
-# 6 — sync local main after all merges
+Student 1 (`rain/drizzle`) merged first, so `main` now says *"do not sample during active rain or drizzle"* and GitHub shows **"This branch has conflicts that must be resolved"** on your PR. Click **Resolve conflicts** and replace the marked block with one line:
+
+```
+1. Rain event: do not sample during active rain or drizzle; wait 30 min after the rain stops.
+```
+
+Check that no `<<<<<<<`, `=======`, `>>>>>>>` markers are left, then **Mark as resolved** → **Commit merge** → **Merge pull request**. (You can also resolve locally as in Exercise D: `git pull` on `main`, `git merge main` on your branch, fix in VS Code, commit, `git push`.)
+
+Students 3 and 4 do the same, each adding their piece to the line. In the end:
+
+```bash
 git checkout main
 git pull
 cat protocol_staufen.md
+# 1. Rain event: do not sample during active rain or drizzle; wait 30 min after the rain stops; cover open connectors with the rain hood; note the rain event on the visit sheet.
 ```
