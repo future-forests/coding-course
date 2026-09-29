@@ -26,7 +26,7 @@ You will probably be involved in research projects that can last months or year.
 
 That is what **version control** is for: a system that **tracks every change** to your project over time, lets you **go back**, **compare** versions, and **work in parallel** without overwriting what is stable.
 
-**Git** is the tool we use to do version control. Instead of saving `protocol_v2_final.docx`, version control keeps **one file** with a full history of documented **snapshots**. Git is the program that stores and organizes those snapshots on your machine.
+**Git** is the tool we use to do version control. Instead of saving `protocol_v2_final.docx`, version control keeps **one file** with a full history of documented **snapshots** (*commit*). Git is the program that stores and organizes those snapshots on your machine.
 
 ## 1. How Git implements version control
 
@@ -46,9 +46,9 @@ Creates a new Git repository in the current directory. Git can now track changes
 
 ```bash
 # Create a dir
-mkdir station_staufen
+mkdir stations_bw
 # Move to the dir
-cd station_staufen
+cd stations_bw
 # Add a file
 touch protocol_staufen.md
 git init
@@ -127,17 +127,6 @@ Lists previous commits, newest first.
 git log --oneline
 ```
 
----
-
-### vii. `git diff` — See what changed
-
-Shows line-by-line differences, unstaged changes by default.
-
-```bash
-git diff                      # changes not yet staged (before git add)
-git diff --staged             # changes already staged (after git add, before git commit)
-```
-
 ## 3. Typical workflow (local)
 
 When you work alone on your machine, the cycle is:
@@ -149,8 +138,6 @@ edit files  →  git add  →  git commit -m "describe your commit"
 ... and don't forget to use `git status` between each action to understand what you are doing.
 
 ## Exercise A - Track a field protocol
-
-### i. Scenario
 
 Your group maintains a sampling protocol for station **FF-MET-042**. Set up a Git repository and save the starter protocol below in `protocol_staufen.md` as your first commit. Then add the rain-event rule (`Rain event: do not sample if it is raining`) in a second commit, and use `git log` to see how Git recorded each change.
 
@@ -166,8 +153,8 @@ Starter content:
 **Solution:**
 
 ```bash
-mkdir station_staufen
-cd station_staufen
+mkdir stations_bw
+cd stations_bw
 git init
 
 touch protocol_staufen.md
@@ -180,7 +167,6 @@ git commit -m "Initial protocol"
 
 # Add rain-event rule
 
-git diff
 git add protocol_staufen.md
 git commit -m "Add rain-event rule"
 
@@ -189,7 +175,7 @@ git log --oneline
 
 ## 4. Branching - work in parallel without breaking `main`
 
-Until now, everything happened on one line of history (usually called **`main`**). Branches let you create a **parallel copy of the project** to experiment, then merge back when ready.
+Until now, everything happened on one line of history (our **`main`** branch). Branches let you create a **parallel copy of the project** to experiment, then merge back when ready.
 
 Why do we need branches? They let you work on a draft **without changing what is stable, what everyone else relies on**.
 
@@ -198,12 +184,12 @@ Why do we need branches? They let you work on a draft **without changing what is
 - `main` *(A)* holds the approved field protocol the whole group follows
 - You want to draft winter sampling rules, you create branch `winter`, experiment there. You branch off the approved protocol to start your draft *(B)*.
 - A colleague fixes a unit error on `main`, `main` moves forward without you *(C)*
-- You want to catch up with `main` before merging. You pull on `main` *(D)*
-- Your winter rules join the approved protocol, you merge your branch *(E)*
+- You want to catch up with `main` before merging. You merge `main` with your branch *(D)*
+- Your winter rules join the approved protocol, you merge your branch with `main` *(E)*
 
 ```
-main:              A ────────────── C ─────────────── E
-                    \                       \        /
+main:      A ────────────── C ─────────────── E
+            \                       \        /
 winter:      B ───────────────────── D ──────
 ```
 
@@ -243,8 +229,6 @@ If the merge succeeds, Git creates a merge commit. However, you may encounter a 
 
 ## Exercise B — Branching: add a new feature to your repo
 
-### i. Scenario
-
 The approved protocol on **`main`** is what everyone follows in the field. You want to add new **winter sampling rules** with the following rule:
 
 ```md
@@ -256,7 +240,7 @@ Using the repo from Exercise A, add a frost safety rule on branch `winter`. Then
 **Solution:**
 
 ```bash
-cd station_staufen
+cd stations_bw
 
 git checkout -b winter
 
@@ -272,8 +256,6 @@ git log --oneline
 ```
 
 ## Exercise C (bonus)
-
-### i. Scenario
 
 You start drafting the **ice** rule on branch **`winter-log`**, then switch priorities: the **wind** limit should be updated on **`main`** first.
 
@@ -291,7 +273,7 @@ On branch **`wind-limit`**, replace the existing wind line with:
 
 ### ii. What to do
 
-1. Move to your `station_staufen` repo and check out **`main`**
+1. Move to your `stations_bw` repo and check out **`main`**
 2. Create branch **`winter-log`** and switch to it
 3. Add the ice rule to `protocol_staufen.md`, stage the file, and commit
 4. Switch back to **`main`**
@@ -304,7 +286,7 @@ On branch **`wind-limit`**, replace the existing wind line with:
 **Solution:**
 
 ```bash
-cd station_staufen
+cd stations_bw
 
 git checkout main
 git checkout -b winter-log
@@ -344,7 +326,7 @@ GitHub adds an online server and web interface on top of Git: you can browse fil
 
 ### i. `git clone` — Copy a remote repository
 
-Downloads an existing GitHub project (including full history), or **remote**, to your machine. **Do this once** when you join a project.
+Downloads an existing GitHub repository (including full history), or **remote**, to your machine. **Do this once** when you join a project.
 
 ```bash
 git clone https://github.com/future-forests/coding-course.git
@@ -462,12 +444,12 @@ git commit -m "Merge clock-check: combine clock check and battery rule"
 
 ## 3. The feature branch workflow
 
-A **workflow** is the set of rules a team agrees to follow when sharing a project. It turns Git from a personal time machine into a way of working together without overwriting each other.
+A **workflow** is the set of rules a team agrees to follow when collaborating on a project. It turns Git from a personal time machine into a way of working together without overwriting each other.
 
 Most research software teams (like climate modelling groups) follow the **feature branch workflow**. You already practiced the core idea in Exercise B and C. Here are the main rules:
 
 1. `main` stays stable. It is the approved protocol.
-2. One branch per task, named for what it does (e.g. `winter` for a new feature, `fix/temp-formula` to solve a bug). One branch per idea. If you're doing two unrelated things, that's two branches.
+2. One branch per task, named for what it does (e.g. `winter` for a new feature, `fix-temp-formula` to solve a bug). One branch per idea. If you're doing two unrelated things, that's two branches.
 3. Never commit directly to `main`. Even for a one-line fix.
 4. Open a Pull Request (PR) when your change is ready. Be sure to merge main (the last changes that have been made) beforehand. There is where you might have to solve **merge conflicts**. A colleague reads it, comments, approves. You can merge your branch to `main`
 5. Your work is now part of main; everyone else picks it up with git pull the next time they start a branch.
