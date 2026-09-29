@@ -39,6 +39,8 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 
 ## 2. Six requirements
 
+> **Windows users:** VS Code opens **PowerShell** by default. Before running any terminal command in this course, switch to **Git Bash**: click the **`˅`** next to **`+`** in the terminal tab bar → **Select Default Profile** → **Git Bash**, then open a new terminal (`CTRL+J`).
+
 ### i. System tools (install once)
 
 | Tool        | Windows                                  | 
@@ -131,7 +133,7 @@ Wait until I've added you to our GitHub organization before doing this one.
 
 > **Windows users (no UC3):** VS Code opens **PowerShell** by default. Before running any terminal command in this course, switch to **Git Bash**: click the **`˅`** next to **`+`** in the terminal tab bar → **Select Default Profile** → **Git Bash**, then open a new terminal (`CTRL+J`)
 
-Type (on **UC3** or your **laptop**, on Windows use **Git Bash** as terminal):
+Run once (on **UC3** or your **laptop**, on Windows use **Git Bash** as terminal):
 
 ```bash
 git clone git@github.com:future-forests/coding-course.git
@@ -152,7 +154,9 @@ pixi install
 pixi run install-kernel
 ```
 
-**UC3 (VS Code Remote SSH):** Type in the terminal `export PATH="$HOME/.pixi/bin:$PATH"`
+**UC3 (VS Code Remote SSH):** `export PATH="$HOME/.pixi/bin:$PATH"` (add to `~/.bashrc` if needed), reconnect. In a notebook: **Select Kernel → Jupyter Kernel → Python (Future Forests course)**.
+
+**Laptop:** open the repo in VS Code (**File → Open Folder**), open a notebook, same kernel.
 
 ---
 
