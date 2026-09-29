@@ -26,7 +26,7 @@ You will probably be involved in research projects that can last months or year.
 
 That is what **version control** is for: a system that **tracks every change** to your project over time, lets you **go back**, **compare** versions, and **work in parallel** without overwriting what is stable.
 
-**Git** is the tool we use to do version control. Instead of saving `protocol_v2_final.docx`, version control keeps **one file** with a full history of documented **snapshots** (*commit*). Git is the program that stores and organizes those snapshots on your machine.
+**Git** is the tool we use to do version control. Instead of saving `script_v2_final.py`, version control keeps **one file** with a full history of documented **snapshots** (*commit*). Git is the program that stores and organizes those snapshots on your machine.
 
 ## 1. How Git implements version control
 
@@ -64,7 +64,7 @@ git config --global user.email "your.name@futureforests.uni-freiburg.de"
 
 ### ii. `git status` — Check what is happening
 
-Shows which files are new, modified, staged, or untracked.
+Shows which files are new, untracked, modified, or staged.
 
 ```bash
 git status
@@ -81,7 +81,7 @@ Untracked files:
 nothing added to commit but untracked files present
 ```
 
-> **Run this often**, especially before and after `git add` and `git commit` to understand what you are doing. Git print and error messages are usually very useful.
+> **Run this often** to understand what you are doing. Git print and error messages are usually very useful.
 
 ---
 
@@ -139,7 +139,7 @@ edit files  →  git add  →  git commit -m "describe your commit"
 
 ## Exercise A - Track a field protocol
 
-Your group maintains a sampling protocol for station **FF-MET-042**. Set up a Git repository and save the starter protocol below in `protocol_staufen.md` as your first commit. Then add the rain-event rule (`Rain event: do not sample if it is raining`) in a second commit, and use `git log` to see how Git recorded each change.
+Your group maintains a sampling protocol for station **FF-MET-042**. Create a folder `stations_bw` and in it set up a Git repository. Save the starter protocol below in `protocol_staufen.md` as your first commit. Then add the rain-event rule (`Rain event: do not sample if it is raining`) in a second commit, and use `git log` to see how Git recorded each change.
 
 Starter content:
 
@@ -193,7 +193,7 @@ main:      A ────────────── C ───────�
 winter:      B ───────────────────── D ──────
 ```
 
-Result: at *(E)*, **`main`** combines both lines of work — the colleague's fix and your winter rules, into one shared history.
+Result: at *(E)*, **`main`** combines the colleague's fix and your winter rules, into one shared history.
 
 ---
 
@@ -248,6 +248,8 @@ git checkout -b winter
 
 git add protocol_staufen.md
 git commit -m "Add frost safety rule"
+
+git merge main
 
 git checkout main
 git merge winter
@@ -326,7 +328,7 @@ GitHub adds an online server and web interface on top of Git: you can browse fil
 
 ### i. `git clone` — Copy a remote repository
 
-Downloads an existing GitHub repository (including full history), or **remote**, to your machine. **Do this once** when you join a project.
+Downloads an existing GitHub repository (including full history) to your machine. **Do this once** when you join a project.
 
 ```bash
 git clone https://github.com/future-forests/coding-course.git
@@ -393,8 +395,6 @@ git commit -m "Resolve merge conflict in wind rule"
 
 ## Exercise D — Resolve a merge conflict
 
-> This exercise cannot be done outside of the class on Oct. 1
-
 Last January, the Titisee logger **stopped recording for 9 days**: at −15 °C its batteries drained much faster than expected. You are preparing the winter protocol on a branch called `winter-batteries` and add a battery replacement rule to the sensor check line:
 
 ```
@@ -424,7 +424,7 @@ git add protocol_titisee.md
 git commit -m "Replace batteries below 50% before winter"
 ```
 
-Now bring the data manager's `clock-check` branch into your branch (how? move to `clock-check` to get a local copy, move back to your branch and merge). Resolve conflicts and commit to combine both changes.
+Now bring the data manager's `clock-check` branch into your branch. Resolve conflicts and commit to combine both changes.
 
 **Solution:**
 
@@ -444,7 +444,7 @@ git commit -m "Merge clock-check: combine clock check and battery rule"
 
 ## 3. The feature branch workflow
 
-A **workflow** is the set of rules a team agrees to follow when collaborating on a project. It turns Git from a personal time machine into a way of working together without overwriting each other.
+A **workflow** is the set of rules a team agrees to follow when collaborating on a project, without overwriting each other.
 
 Most research software teams (like climate modelling groups) follow the **feature branch workflow**. You already practiced the core idea in Exercise B and C. Here are the main rules:
 
