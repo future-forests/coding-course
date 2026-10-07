@@ -69,7 +69,14 @@ Start VS Code and install these VS Code extensions (`CTRL+SHIFT+X`):
    - Type in the terminal `ssh-keygen -t ed25519 -C "FF-laptop"` → Press Enter for the default path → set a passphrase
    - Type `cat ~/.ssh/id_ed25519.pub` and copy the public key (e.g. `ssh-ed25519 AEEEDSC3NzaC1lZDI1NTE5AAAAIzU4dokRTfksQ0ytDQ+C/V8hWTNxFz8/s8Vb6Ouag2I ff-laptop`)
    - On GitHub: **Settings → SSH and GPG keys → New SSH key** → paste the public key
-
+4. **Test your connection:** run `ssh -T git@github.com`
+   - You should see: `Hi <username>! You've successfully authenticated...`
+   - If you get `Permission denied (publickey)` (Windows users):
+     ```bash
+     mkdir -p ~/.ssh
+     cp /c/Users/$USERNAME/.ssh/* ~/.ssh/
+     ```
+     *(Then run `ssh -T git@github.com` again to verify)*
 ---
 
 ### iii. Remote server (HPC) access (optional)
