@@ -6,7 +6,7 @@ platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
 [dependencies]
 python = ">=3.12,<3.14"
 numpy = ">=2"
-pandas = ">=2"
+pandas = ">=2,<3"  # plot-likert 0.5 still uses DataFrame.applymap (removed in pandas 3)
 matplotlib = ">=3.8"
 jupyterlab = ">=4"
 notebook = ">=7"
@@ -16,12 +16,23 @@ netcdf4 = ">=1.7"
 rioxarray = ">=0.17"
 rasterio = ">=1.4"
 pyproj = ">=3.6"
-regionmask = ">=0.12"
 scipy = ">=1.14"
 geopandas = ">=1.0"
 dask = ">=2024.10.0"
+scikit-learn = ">=1.5"
+statsmodels = ">=0.14"
+
+# Instructor-only environment to build the Class 5b teaching dataset (not needed by students)
+[feature.prep.dependencies]
+pyreadr = ">=0.5"
+
+[environments]
+prep = ["prep"]
 
 [tasks]
 lab = "jupyter lab"
 notebook = "jupyter notebook"
 install-kernel = "python -m ipykernel install --user --name coding-course --display-name 'Python (Future Forests course)'"
+
+[pypi-dependencies]
+plot-likert = ">=0.5.0, <0.6"
