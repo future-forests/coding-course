@@ -66,12 +66,12 @@ def main():
     n_hot = count_hot_hours(data)
     print(f"\nHours warmer than 38 °C: {n_hot}")
 
-    print(f"\nMean 2 m temperature: {data['temperature_2m'].mean():.2f} °C")
+    print(f"\nMean 2 m temperature: {data["temperature_2m"].mean():.2f} °C")
     print(f"Mean gradient (2m − ground): {data['temp_gradient_2m_minus_ground'].mean():.2f} °C")
 
     daily = daily_summary(data)
     print(f"\nDaily resample: {daily.shape[0]} days")
-    print(f"  First day mean 2 m temp: {daily['temperature_2m'].iloc[0]:.2f} °C")
+    print(f"  First day mean 2 m temp: {daily["temperature_2m"].iloc[0]:.2f} °C")
     print(f"  First day precipitation: {daily['precipitation'].iloc[0]:.2f} mm")
 
 
