@@ -4,7 +4,7 @@ processed_data/pred_temperature_C_2024_01_wgs84.nc
 processed_data/diana_answers.csv
 processed_data/diana_codebook.csv
 processed_data/diana_text_labels.csv
-solution/06-advanced-python/_exercise_chunks/
-solution/06-advanced-python/_exercise_stations/
+solutions/06-advanced-python/_exercise_chunks/
+solutions/06-advanced-python/_exercise_stations/
 .vscode/
 bash-sandbox/
