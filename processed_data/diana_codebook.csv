@@ -105,7 +105,7 @@ F25,F25,open_text,"If you wanted to sell your forest, who would ultimately decid
 F26,F26,single,Age class,0=no answer; 3=18-34 years; 4=35-44 years; 5=45-54 years; 6=55-64 years; 7=65-74 years; 8=75 years or older
 F27,F27,single,Gender,0=no answer; 1=male; 2=female; 4=other / prefer not to say
 F28,F28,single,Highest educational qualification,0=no answer; 2=none or lower secondary (Hauptschule); 3=intermediate secondary (Realschule); 4=upper secondary (Abitur); 5=university degree; 6=other
-F29,F29,single,Size of the place of residence,0=no answer; 1=city; 2=small town; 3=rural area
+F29,F29,single,Place of residence,0=no answer; 1=city; 2=small town; 3=rural area
 F30,F30,single,Do you work professionally with forests?,0=no answer; 1=yes; 2=no; 3=don't know
 F31_b,F31,numeric_text,Size of your forest in hectares (free text as typed by the respondent),-99=not answered; -66=not shown
 F34,F34,single,How often do you usually visit your forest?,0=no answer; 1=daily; 2=at least once a week; 3=at least once a month; 4=at least every six months; 5=at least once a year; 6=less often

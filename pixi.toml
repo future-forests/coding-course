@@ -21,6 +21,8 @@ geopandas = ">=1.0"
 dask = ">=2024.10.0"
 scikit-learn = ">=1.5"
 statsmodels = ">=0.14"
+spacy = ">=3.7"
+spacy-model-en_core_web_sm = ">=3.7"
 
 # Instructor-only environment to build the Class 5b teaching dataset (not needed by students)
 [feature.prep.dependencies]
