@@ -75,7 +75,7 @@ print(f"Average (°F): {AvgTempF}")
 print(f"Class 3b — array + for loop:          {Elapsed3bLoop:.6f} s")
 print()
 
-# Class 3b: vectorisation (Exercise E)
+# Class 3b: vectorisation (Exercise G)
 Start = time.perf_counter()
 
 TempGardenC = np.array(TempsC)

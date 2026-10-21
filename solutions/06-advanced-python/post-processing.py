@@ -2,7 +2,7 @@
 
 Linear script version of the Class 5a geospatial analysis:
 open netCDF → Hartheim point series → Freiburg box → spatial mean →
-daily resample → urban heat island stats (Exercise D).
+daily resample → urban heat island stats (Exercise C).
 """
 
 from pathlib import Path
@@ -41,7 +41,7 @@ def daily_mean(series):
 
 
 def urban_heat_island_stats(temp, city_mask):
-    """Compare city vs countryside spatial means (Exercise D)."""
+    """Compare city vs countryside spatial means (Exercise C)."""
     city_only = temp.where(city_mask)
     city_series = city_only.mean(dim=("lat", "lon"))
 
