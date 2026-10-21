@@ -1,0 +1,112 @@
+variable,block,type,question,answer_labels
+respondent_id,id,meta,Random respondent identifier (teaching dataset),
+F1_1_a,F1_1,multi_binary,How did you get your forest? I inherited the forest.,0=no; 1=yes
+F1_1_b,F1_1,multi_binary,How did you get your forest? I bought the forest.,0=no; 1=yes
+F1_1_c,F1_1,multi_binary,How did you get your forest? I received the forest through marriage.,0=no; 1=yes
+F1_1_d,F1_1,multi_binary,How did you get your forest? I received the forest as a gift.,0=no; 1=yes
+F1_1_e,F1_1,multi_binary,How did you get your forest? I received the forest in another way.,0=no; 1=yes
+F4_a,F4,keywords,Spontaneous thought about your forest no. 1 (one word or short phrase),-99=not answered; -66=not shown
+F4_b,F4,keywords,Spontaneous thought about your forest no. 2 (one word or short phrase),-99=not answered; -66=not shown
+F4_c,F4,keywords,Spontaneous thought about your forest no. 3 (one word or short phrase),-99=not answered; -66=not shown
+F4_d,F4,keywords,Spontaneous thought about your forest no. 4 (one word or short phrase),-99=not answered; -66=not shown
+F4_e,F4,keywords,Spontaneous thought about your forest no. 5 (one word or short phrase),-99=not answered; -66=not shown
+F10_0,F10,likert5,The plants and animals living in my forest have a right to exist and to be respected.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_a,F10,likert5,My forest protects me or others from natural hazards.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_b,F10,likert5,My forest allows me to spend my time meaningfully.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_c,F10,likert5,My forest allows me to get in touch with other people.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_d,F10,likert5,My forest costs me time and energy.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_e,F10,likert5,"My forest causes conflicts with others (friends, family, neighbours, authorities).",0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_f,F10,likert5,My forest gives me a feeling of independence.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_g,F10,likert5,My forest is a part of me / a part of my identity.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_h,F10,likert5,My forest needs my protection.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_i,F10,likert5,"For me, my forest is a place of recreation.",0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_j,F10,likert5,"For me, my forest is an important source of non-wood products (cones, mushrooms, berries...).",0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_k,F10,likert5,It is important to me that my forest remains a forest now and in the future.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_l,F10,likert5,It is important to me that my forest provides a habitat for plants and animals.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_m,F10,likert5,It is important to me that my forest stores carbon.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_n,F10,likert5,It is important to me that my forest supplies timber and/or firewood.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_o,F10,likert5,It is important to me that I have my forest for myself.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_p,F10,likert5,It is important to me that other people enjoy and benefit from my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_q,F10,likert5,It is important to me that I am the owner of my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_r,F10,likert5,It is important to me that my forest has a positive influence on the water balance.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_s,F10,likert5,It is important to me that my forest brings an economic benefit.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_t,F10,likert5,It is important to me that my forest yields enough to cover its management costs.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_u,F10,likert5,"How I treat my forest matters to me, because it belongs to my family.",0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_v,F10,likert5,I take care of my forest because I want to honour the heritage of previous generations.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_w,F10,likert5,I have to adapt my forest to climate change.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_x,F10,likert5,I want to make my forest fit for the future because I believe in long-term sustainability.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_y,F10,likert5,I take care of my forest so that future generations can also benefit from it.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_z,F10,likert5,"I have the right to use my forest as I want, without considering the effects on plants, animals and the rest of the forest ecosystem.",0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_1,F10,likert5,I appreciate the beauty of my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_2,F10,likert5,I am always interested in new sources of income from my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_3,F10,likert5,I feel emotionally connected to my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_4,F10,likert5,I see my forest as a financial security.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_5,F10,likert5,I associate pleasant memories and/or experiences with my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_6,F10,likert5,I am responsible for taking care of my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_7,F10,likert5,I depend on my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_8,F10,likert5,I like working in my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_9,F10,likert5,I like trying out new things in my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_10,F10,likert5,I enjoy that my forest brings people together.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_11,F10,likert5,I am full of awe for my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_12,F10,likert5,I experience my forest as a burden.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_13,F10,likert5,I have no interest in my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_14,F10,likert5,I keep up to date and follow the trends in forestry.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_15,F10,likert5,I often talk with my family and friends about my forest.,0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_16,F10,likert5,"When my life gets stressful, I spend less time on my forest.",0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F10_17,F10,likert5,"As a forest owner, I feel valued by society.",0=no answer; 1=strongly agree; 2=agree; 3=neutral; 4=disagree; 5=strongly disagree
+F12_a,F12,multi_binary,Who currently takes care of your forest? Nobody,0=no; 1=yes
+F12_b,F12,multi_binary,Who currently takes care of your forest? I myself,0=no; 1=yes
+F12_c,F12,multi_binary,Who currently takes care of your forest? Someone from my family,0=no; 1=yes
+F12_d,F12,multi_binary,Who currently takes care of your forest? Acquaintances,0=no; 1=yes
+F12_e,F12,multi_binary,Who currently takes care of your forest? Service providers (contractors),0=no; 1=yes
+F12_f,F12,multi_binary,Who currently takes care of your forest? Others,0=no; 1=yes
+F13_a,F13,multi_binary,Who will probably take care of your forest in 10 years? Nobody,0=no; 1=yes
+F13_b,F13,multi_binary,Who will probably take care of your forest in 10 years? I myself,0=no; 1=yes
+F13_c,F13,multi_binary,Who will probably take care of your forest in 10 years? Someone from my family,0=no; 1=yes
+F13_d,F13,multi_binary,Who will probably take care of your forest in 10 years? Acquaintances,0=no; 1=yes
+F13_e,F13,multi_binary,Who will probably take care of your forest in 10 years? Service providers (contractors),0=no; 1=yes
+F13_f,F13,multi_binary,Who will probably take care of your forest in 10 years? Others,0=no; 1=yes
+F13_h,F13,multi_binary,Who will probably take care of your forest in 10 years? I don't know,0=no; 1=yes
+F14_a,F14,multi_binary,With whom are you in contact about your forest? Forest owner associations (e.g. FBG),0=no; 1=yes
+F14_b,F14,multi_binary,With whom are you in contact about your forest? The state forest administration,0=no; 1=yes
+F14_c,F14,multi_binary,With whom are you in contact about your forest? Private forestry service providers,0=no; 1=yes
+F14_d,F14,multi_binary,With whom are you in contact about your forest? Environmental / nature conservation organisations,0=no; 1=yes
+F14_e,F14,multi_binary,With whom are you in contact about your forest? Buyers of forest products,0=no; 1=yes
+F14_f,F14,multi_binary,With whom are you in contact about your forest? Friends,0=no; 1=yes
+F14_g,F14,multi_binary,With whom are you in contact about your forest? Family members,0=no; 1=yes
+F14_h,F14,multi_binary,With whom are you in contact about your forest? Other forest owners,0=no; 1=yes
+F14_i,F14,multi_binary,With whom are you in contact about your forest? I mainly rely on my own experience,0=no; 1=yes
+F14_j,F14,multi_binary,With whom are you in contact about your forest? I do not want to join or be advised by others,0=no; 1=yes
+F14_k,F14,multi_binary,With whom are you in contact about your forest? Others,0=no; 1=yes
+F15_a,F15,intensity6,How strongly do you worry about your forest because of drought?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_b,F15,intensity6,How strongly do you worry about your forest because of storm damage?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_c,F15,intensity6,How strongly do you worry about your forest because of heavy rain events?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_d,F15,intensity6,How strongly do you worry about your forest because of snow breakage?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_e,F15,intensity6,How strongly do you worry about your forest because of bark beetle?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_f,F15,intensity6,How strongly do you worry about your forest because of recreational use (e.g. mountain bikers)?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_g,F15,intensity6,How strongly do you worry about your forest because of lack of financial means?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_h,F15,intensity6,How strongly do you worry about your forest because of lack of support from experts?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_i,F15,intensity6,How strongly do you worry about your forest because of lack of own expertise?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_j,F15,intensity6,How strongly do you worry about your forest because of lack of recognition by society?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_k,F15,intensity6,How strongly do you worry about your forest because of demands of society?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_l,F15,intensity6,How strongly do you worry about your forest because of planning uncertainty?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_m,F15,intensity6,How strongly do you worry about your forest because of politics?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_n,F15,intensity6,How strongly do you worry about your forest because of restriction of property rights?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F15_o,F15,intensity6,How strongly do you worry about your forest because of other aspects?,0=no answer; 1=very strong; 2=strong; 3=medium; 4=weak; 5=very weak; 6=does not apply
+F17_a,F17,multi_binary,How do you deal with these worries? I ignore these worries.,0=no; 1=yes
+F17_b,F17,multi_binary,How do you deal with these worries? I ask experts for advice.,0=no; 1=yes
+F17_c,F17,multi_binary,How do you deal with these worries? I talk with friends and/or family.,0=no; 1=yes
+F17_d,F17,multi_binary,How do you deal with these worries? I exchange with other forest owners.,0=no; 1=yes
+F17_e,F17,multi_binary,How do you deal with these worries? I look for information in the media / online.,0=no; 1=yes
+F17_f,F17,multi_binary,How do you deal with these worries? I deal with these worries in other ways.,0=no; 1=yes
+F19,F19,open_text,What would you do if a disaster killed half of the trees in your forest and the other half were threatened?,-99=not answered; -66=not shown
+F22,F22,open_text,"In this disaster scenario, who would ultimately decide how to deal with the situation?",-99=not answered; -66=not shown
+F25,F25,open_text,"If you wanted to sell your forest, who would ultimately decide whether and on what terms it is sold?",-99=not answered; -66=not shown
+F26,F26,single,Age class,0=no answer; 3=18-34 years; 4=35-44 years; 5=45-54 years; 6=55-64 years; 7=65-74 years; 8=75 years or older
+F27,F27,single,Gender,0=no answer; 1=male; 2=female; 4=other / prefer not to say
+F28,F28,single,Highest educational qualification,0=no answer; 2=none or lower secondary (Hauptschule); 3=intermediate secondary (Realschule); 4=upper secondary (Abitur); 5=university degree; 6=other
+F29,F29,single,Place of residence,0=no answer; 1=city; 2=small town; 3=rural area
+F30,F30,single,Do you work professionally with forests?,0=no answer; 1=yes; 2=no; 3=don't know
+F31_b,F31,numeric_text,Size of your forest in hectares (free text as typed by the respondent),-99=not answered; -66=not shown
+F34,F34,single,How often do you usually visit your forest?,0=no answer; 1=daily; 2=at least once a week; 3=at least once a month; 4=at least every six months; 5=at least once a year; 6=less often
+F40_f,F40,multi_binary,"I heard about the survey through a forestry organisation (owner association, forest administration...).",0=no; 1=yes
