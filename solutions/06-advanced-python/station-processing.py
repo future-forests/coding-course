@@ -1,79 +1,159 @@
-"""Class 6 — station-processing script (Class 4 workflow).
+# Class 6 — station-processing script (Class 4 workflow).
 
-Linear script version of the Class 4 tabular analysis:
-load CSV → select columns → derived column → filter → daily resample.
-"""
+# %%
+import os
 
-from pathlib import Path
-
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
-DATA_DIR = Path(__file__).resolve().parent.parent.parent / "processed_data"
-STATION_PATH = DATA_DIR / "26030350_hourly.csv"
+# %%
+# Paths as plain strings
+DataPath = '../../processed_data/26030350_hourly.csv'
+FigDir = 'figures'  # PNGs land here when you run the script
 
-COLUMNS = [
-    "temperature_2m",
-    "humidity_2m",
-    "temperature_ground",
-    "precipitation",
+
+def cels_to_fahr(temp_c):
+    """Convert °C → °F (same function idea as earlier in Class 6)."""
+    temp_f = temp_c * 9 / 5 + 32
+    return temp_f
+
+
+def compute_vpd(temp_c, rh):
+    """Vapour pressure deficit (kPa) from air temperature (°C) and RH (%).
+    Tetens formula — worth packaging because the expression is long and reused.
+    """
+    es_kpa = 0.6108 * np.exp(17.27 * temp_c / (temp_c + 237.3))
+    vpd_kpa = es_kpa * (1 - rh / 100)
+    return vpd_kpa
+
+
+# %%
+# 1. Load CSV and set a datetime index
+HartheimRaw = pd.read_csv(DataPath, parse_dates=['utc_time'])
+HartheimRaw = HartheimRaw.set_index('utc_time')
+print(HartheimRaw.shape)
+print(HartheimRaw.columns)
+
+# %%
+# 2. Keep the columns used in Class 4 (inline — no wrapper needed)
+HartheimData = HartheimRaw[
+    ['temperature_2m', 'humidity_2m', 'temperature_ground', 'precipitation']
+].copy()
+print(HartheimData.head(2))
+
+# %%
+# 3. Derived columns
+HartheimData['temp_gradient_2m_minus_ground'] = (
+    HartheimData['temperature_2m'] - HartheimData['temperature_ground']
+)
+HartheimData['deficit_humidity_2m'] = 100 - HartheimData['humidity_2m']
+print(HartheimData.loc['2026-07-25 12:00:00', [
+    'temperature_2m', 'temperature_ground', 'temp_gradient_2m_minus_ground'
+]])
+
+# %%
+# 4. Exercise A — mean temperature in °C and °F
+MeanC = HartheimData['temperature_2m'].mean()
+MeanF = cels_to_fahr(HartheimData['temperature_2m']).mean()
+print(f'Mean 2 m temperature: {MeanC:.2f} °C / {MeanF:.2f} °F')
+
+# %%
+# 5. Filtering rows
+NHot = len(HartheimData[HartheimData['temperature_2m'] > 38])
+NCold = len(HartheimData[HartheimData['temperature_2m'] < 10])
+WarmHumid = HartheimData[
+    (HartheimData['temperature_2m'] > 25) & (HartheimData['humidity_2m'] > 60)
 ]
+print(f'Hours > 38 °C: {NHot}')
+print(f'Hours < 10 °C: {NCold}')
+print(f'Warm and humid hours: {len(WarmHumid)}')
 
+# %%
+# 6. Resample to daily / weekly
+DailyMean = HartheimData[['temperature_2m', 'humidity_2m']].resample('D').mean()
+DailyPrecip = HartheimData[['precipitation']].resample('D').sum()
+print(DailyMean.head(3))
+print(DailyPrecip.head(3))
+print(HartheimData[['temperature_2m']].resample('W').mean().head(3))
+print(HartheimData[['precipitation']].resample('W').sum().head(3))
 
-def load_station(csv_path):
-    """Load a Hartheim-style hourly CSV and set the datetime index."""
-    df = pd.read_csv(csv_path, parse_dates=["utc_time"])
-    return df.set_index("utc_time")
+# %%
+# 7. Exercise B — soil temperatures at two depths
+SoilTemps = HartheimRaw[['soil_temperature_0_2', 'soil_temperature_0_6']]
+print('Mean / std shallow (0.2 m):',
+      SoilTemps['soil_temperature_0_2'].mean(),
+      SoilTemps['soil_temperature_0_2'].std())
+print('Mean / std deep (0.6 m):',
+      SoilTemps['soil_temperature_0_6'].mean(),
+      SoilTemps['soil_temperature_0_6'].std())
 
+ShallowWarmer = SoilTemps['soil_temperature_0_2'] > SoilTemps['soil_temperature_0_6']
+DeepWarmer = SoilTemps['soil_temperature_0_6'] > SoilTemps['soil_temperature_0_2']
+print('Hours shallow warmer:', int(ShallowWarmer.sum()))
+print('Hours deep warmer:', int(DeepWarmer.sum()))
+print('UTC times when deep is warmer:')
+print(SoilTemps.index[DeepWarmer])
 
-def select_columns(df, columns):
-    """Keep only the columns needed for analysis."""
-    return df[columns].copy()
+# %%
+# 8. Plots → PNG (scripts have no notebook display; save the figure instead)
+os.makedirs(FigDir, exist_ok=True)
 
+plt.plot(HartheimData.index, HartheimData['temperature_2m'], label='Temperature 2m')
+plt.plot(HartheimData.index, HartheimData['temperature_ground'], label='Temperature ground')
+plt.title('Hourly temperatures')
+plt.xlabel('UTC time')
+plt.ylabel('Temperature (°C)')
+plt.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig(f'{FigDir}/temperatures.png')  # write file instead of plt.show()
+plt.close()                                # free the figure; next cell starts clean
+print(f'Saved {FigDir}/temperatures.png')
 
-def add_gradient_column(df):
-    """Air temperature minus ground temperature."""
-    df["temp_gradient_2m_minus_ground"] = (
-        df["temperature_2m"] - df["temperature_ground"]
-    )
-    return df
+# %%
+plt.plot(HartheimData.index, HartheimData['humidity_2m'])
+plt.title('Humidity 2m')
+plt.xlabel('UTC time')
+plt.ylabel('Humidity 2m (%)')
+plt.tight_layout()
+plt.savefig(f'{FigDir}/humidity.png')
+plt.close()
+print(f'Saved {FigDir}/humidity.png')
 
+# %%
+# 9. Exercise C — VPD and stress hours
+HartheimData['vpd_kpa'] = compute_vpd(
+    HartheimData['temperature_2m'], HartheimData['humidity_2m']
+)
+print(f"Mean VPD: {HartheimData['vpd_kpa'].mean():.3f} kPa")
+print(f"Min  VPD: {HartheimData['vpd_kpa'].min():.3f} kPa")
+print(f"Max  VPD: {HartheimData['vpd_kpa'].max():.3f} kPa")
+print('Time of maximum VPD:',
+      HartheimData.index[HartheimData['vpd_kpa'] == HartheimData['vpd_kpa'].max()])
 
-def count_hot_hours(df, threshold=38):
-    """Count hours where 2 m temperature exceeds a threshold."""
-    return int((df["temperature_2m"] > threshold).sum())
+StressMask = HartheimData['vpd_kpa'] > 3
+print(f'Stressful hours (VPD > 3 kPa): {int(StressMask.sum())}')
 
+# %%
+plt.plot(HartheimData.index, HartheimData['vpd_kpa'], label='VPD')
+plt.axhline(y=3, color='red', linestyle='--', label='Stress threshold (3 kPa)')
+plt.xlabel('UTC time')
+plt.ylabel('VPD (kPa)')
+plt.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig(f'{FigDir}/vpd.png')
+plt.close()
+print(f'Saved {FigDir}/vpd.png')
 
-def daily_summary(df):
-    """Resample to daily means (temps/humidity) and daily sum (precip)."""
-    daily_mean = df[["temperature_2m", "humidity_2m", "temperature_ground"]].resample(
-        "D"
-    ).mean()
-    daily_precip = df[["precipitation"]].resample("D").sum()
-    return daily_mean.join(daily_precip)
-
-
-def main():
-    print("=== Class 4 station-processing ===\n")
-
-    raw = load_station(STATION_PATH)
-    print(f"Loaded: {STATION_PATH.name}")
-    print(f"  shape: {raw.shape}")
-    print(f"  columns: {list(raw.columns)}")
-
-    data = select_columns(raw, COLUMNS)
-    data = add_gradient_column(data)
-
-    n_hot = count_hot_hours(data)
-    print(f"\nHours warmer than 38 °C: {n_hot}")
-
-    print(f"\nMean 2 m temperature: {data["temperature_2m"].mean():.2f} °C")
-    print(f"Mean gradient (2m − ground): {data['temp_gradient_2m_minus_ground'].mean():.2f} °C")
-
-    daily = daily_summary(data)
-    print(f"\nDaily resample: {daily.shape[0]} days")
-    print(f"  First day mean 2 m temp: {daily["temperature_2m"].iloc[0]:.2f} °C")
-    print(f"  First day precipitation: {daily['precipitation'].iloc[0]:.2f} mm")
-
-
-if __name__ == "__main__":
-    main()
+# %%
+# Warmest day (mean T) vs most stressful day (max VPD)
+DailyMeanTemp = HartheimData[['temperature_2m']].resample('D').mean()
+DailyMaxVpd = HartheimData[['vpd_kpa']].resample('D').max()
+MaxTemp = DailyMeanTemp['temperature_2m'].max()
+MaxDailyVpd = DailyMaxVpd['vpd_kpa'].max()
+print('Warmest day (mean T):',
+      DailyMeanTemp.index[DailyMeanTemp['temperature_2m'] == MaxTemp])
+print('Most stressful day (max VPD):',
+      DailyMaxVpd.index[DailyMaxVpd['vpd_kpa'] == MaxDailyVpd])

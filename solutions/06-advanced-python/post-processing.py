@@ -1,102 +1,176 @@
-"""Class 6 — post-processing script (Class 5a workflow).
+# Class 6 — post-processing script (Class 5a workflow).
+# Same idea as station-processing.py: Class 5a as a .py file with # %% cells.
+# Figures go to PNG with plt.savefig instead of plt.show().
 
-Linear script version of the Class 5a geospatial analysis:
-open netCDF → Hartheim point series → Freiburg box → spatial mean →
-daily resample → urban heat island stats (Exercise C).
-"""
+# %%
+import os
 
-from pathlib import Path
-
+import matplotlib.pyplot as plt
 import xarray as xr
 
-DATA_DIR = Path(__file__).resolve().parent.parent.parent / "processed_data"
-TEMP_PATH = DATA_DIR / "pred_temperature_C_2024_01_wgs84.nc"
-MASK_PATH = DATA_DIR / "freiburg_city_mask.nc"
+# %%
+DataPath = '../../processed_data/pred_temperature_C_2024_01_wgs84.nc'
+MaskPath = '../../processed_data/freiburg_city_mask.nc'
+ElevPath = '../../processed_data/elevation_m_wgs84.nc'
+FigDir = 'figures'
 
-HARTHEIM_LON, HARTHEIM_LAT = 7.60, 47.93
+HartheimLon = 7.60
+HartheimLat = 47.93
 
+os.makedirs(FigDir, exist_ok=True)
 
-def load_temperature(data_path):
-    """Open a netCDF file and return the temperature DataArray."""
-    temp_ds = xr.open_dataset(data_path, chunks="auto")
-    return temp_ds["pred_temperature_C"]
+# %%
+# 1. Open netCDF and extract pred_temperature_C
+TempDs = xr.open_dataset(filename_or_obj=DataPath, chunks='auto')
+Temp = TempDs['pred_temperature_C']
+print(Temp.dims, Temp.shape)
 
+# %%
+# 2. Hartheim point series
+HartheimSeries = Temp.sel(lon=HartheimLon, lat=HartheimLat, method='nearest')
+print(f'Hartheim January mean: {float(HartheimSeries.mean()):.2f} °C')
 
-def freiburg_box(temp):
-    """Select the Freiburg–Hartheim region."""
-    return temp.sel(
-        lon=slice(7.5, 8.1),
-        lat=slice(48.15, 47.75),
-    )
+# %%
+# 3. Freiburg box → spatial mean → daily resample
+FreiburgBox = Temp.sel(lon=slice(7.5, 8.1), lat=slice(48.15, 47.75))
+BoxSeries = FreiburgBox.mean(dim=('lat', 'lon'))
+Daily = BoxSeries.resample(time='1D').mean()
+print(f'Freiburg box spatial mean (first day): {float(Daily[0]):.2f} °C')
+print(f'Freiburg box spatial mean (last day):  {float(Daily[-1]):.2f} °C')
 
+# %%
+# 4. Exercise A — latitudinal mean
+BoxLatitudinalMean = FreiburgBox.mean(dim=('lon', 'time'))
+print(BoxLatitudinalMean.dims)
 
-def spatial_mean_series(temp_box):
-    """Collapse lat and lon → one value per time step."""
-    return temp_box.mean(dim=("lat", "lon"))
+plt.plot(BoxLatitudinalMean, BoxLatitudinalMean.lat)
+plt.ylabel('Latitude')
+plt.xlabel('Temperature (°C)')
+plt.title('Freiburg–Hartheim box, latitudinal mean')
+plt.tight_layout()
+plt.savefig(f'{FigDir}/latitudinal_mean.png')
+plt.close()
+print(f'Saved {FigDir}/latitudinal_mean.png')
 
+# %%
+# 5. Value mask (Temp > 5)
+WarmCells = Temp.where(Temp > 5)
+NWarm = int((Temp > 5).sum())
+print(f'Cells warmer than 5 °C (all timesteps): {NWarm:,}')
 
-def daily_mean(series):
-    """Resample an hourly series to daily means."""
-    return series.resample(time="1D").mean()
+WarmMap = WarmCells.sel(time='2024-01-18T12:00')
+plt.pcolormesh(WarmMap.lon, WarmMap.lat, WarmMap, cmap='YlOrRd')
+plt.colorbar(label='Temperature (°C)')
+plt.title('Cells warmer than 5 °C (example timestep)')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.tight_layout()
+plt.savefig(f'{FigDir}/warm_cells.png')
+plt.close()
+print(f'Saved {FigDir}/warm_cells.png')
 
+# %%
+# 6. Exercise B — frozen cells on a logging day
+CollectWoodDate = Temp.sel(
+    lon=slice(7.5, 8.1), lat=slice(48.15, 47.75)
+).sel(time='2024-01-20T14:00', method='nearest')
+BelowZero = CollectWoodDate.where(CollectWoodDate < 0)
 
-def urban_heat_island_stats(temp, city_mask):
-    """Compare city vs countryside spatial means (Exercise C)."""
-    city_only = temp.where(city_mask)
-    city_series = city_only.mean(dim=("lat", "lon"))
+plt.pcolormesh(BelowZero.lon, BelowZero.lat, BelowZero, cmap='Blues_r')
+plt.colorbar(label='Temperature (°C)')
+plt.title('20 Jan 14:00, cells below 0 °C')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.tight_layout()
+plt.savefig(f'{FigDir}/frozen_cells.png')
+plt.close()
+print(f'Saved {FigDir}/frozen_cells.png')
 
-    rural_only = temp.where(city_mask == False)
-    rural_series = rural_only.mean(dim=("lat", "lon"))
+# %%
+# 7. Exercise C — urban heat island (city vs countryside)
+InFreiburg = xr.open_dataarray(MaskPath)
 
-    diff_series = city_series - rural_series
-    sign_diff = diff_series > 1
-    n_hours = int(sign_diff.sum())
-    total_hours = sign_diff.size
-    pct_hours = 100 * n_hours / total_hours
+CitySeries = Temp.where(InFreiburg).mean(dim=('lat', 'lon'))
+RuralSeries = Temp.where(InFreiburg == False).mean(dim=('lat', 'lon'))
+CityDaily = CitySeries.resample(time='1D').mean()
+RuralDaily = RuralSeries.resample(time='1D').mean()
 
-    return {
-        "city_series": city_series,
-        "rural_series": rural_series,
-        "diff_series": diff_series,
-        "n_hours_warmer_than_1c": n_hours,
-        "pct_hours_warmer_than_1c": pct_hours,
-    }
+plt.plot(CityDaily.time, CityDaily, label='Inside Freiburg')
+plt.plot(RuralDaily.time, RuralDaily, label='Outside Freiburg')
+plt.ylabel('Temperature (°C)')
+plt.title('Daily mean temperature, January 2024')
+plt.xticks(rotation=45)
+plt.legend()
+plt.tight_layout()
+plt.savefig(f'{FigDir}/city_vs_rural.png')
+plt.close()
+print(f'Saved {FigDir}/city_vs_rural.png')
 
+# %%
+DiffSeries = CitySeries - RuralSeries
+SignDiff = DiffSeries > 1
+NHours = int(SignDiff.sum())
+PctHours = 100 * NHours / SignDiff.size
+print(f'Urban heat island (city − countryside > 1 °C):')
+print(f'  Hours: {NHours} / {SignDiff.size}')
+print(f'  Share: {PctHours:.1f} %')
 
-def main():
-    print("=== Class 5a post-processing ===\n")
+plt.plot(DiffSeries.time, DiffSeries)
+plt.axhline(y=0, color='grey', linestyle='--')
+plt.ylabel('City − countryside (°C)')
+plt.title('Urban heat island intensity, hourly')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig(f'{FigDir}/uhi_intensity.png')
+plt.close()
+print(f'Saved {FigDir}/uhi_intensity.png')
 
-    temp = load_temperature(TEMP_PATH)
-    print(f"Opened: {TEMP_PATH.name}")
-    print(f"  dims: {temp.dims}, shape: {temp.shape}")
+# %%
+# 8. Exercise D (Class 5a) — valley vs ridges with DEM
+Elev = xr.open_dataarray(ElevPath)
+ElevBox = Elev.sel(lon=slice(7.6, 8.1), lat=slice(48.15, 47.75))
 
-    # Hartheim point series
-    hartheim_series = temp.sel(
-        lon=HARTHEIM_LON, lat=HARTHEIM_LAT, method="nearest"
-    )
-    print(f"\nHartheim January mean: {float(hartheim_series.mean()):.2f} °C")
+plt.pcolormesh(ElevBox.lon, ElevBox.lat, ElevBox, cmap='Greys_r')
+plt.colorbar(label='Elevation (m)')
+plt.title('Elevation around Freiburg')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.tight_layout()
+plt.savefig(f'{FigDir}/elevation.png')
+plt.close()
+print(f'Saved {FigDir}/elevation.png')
 
-    # Freiburg box → spatial mean → daily
-    box = freiburg_box(temp)
-    box_series = spatial_mean_series(box)
-    daily = daily_mean(box_series)
-    print(f"Freiburg box spatial mean (first day): {float(daily[0]):.2f} °C")
-    print(f"Freiburg box spatial mean (last day):  {float(daily[-1]):.2f} °C")
+# %%
+ValleyMask = ElevBox < 600
+RidgesMask = ElevBox > 900
 
-    # Value mask example
-    n_warm = int((temp > 5).sum())
-    print(f"\nCells warmer than 5 °C (all timesteps): {n_warm:,}")
+plt.pcolormesh(ElevBox.lon, ElevBox.lat, ElevBox.where(ValleyMask), cmap='Blues')
+plt.pcolormesh(ElevBox.lon, ElevBox.lat, ElevBox.where(RidgesMask), cmap='Reds')
+plt.title('Valleys (< 600 m, blue) and ridges (> 900 m, red)')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.tight_layout()
+plt.savefig(f'{FigDir}/valley_ridges_mask.png')
+plt.close()
+print(f'Saved {FigDir}/valley_ridges_mask.png')
 
-    # Geographic mask + urban heat island
-    in_freiburg = xr.open_dataarray(MASK_PATH)
-    uhi = urban_heat_island_stats(temp, in_freiburg)
-    print(f"\nUrban heat island (city − countryside > 1 °C):")
-    print(f"  Hours: {uhi['n_hours_warmer_than_1c']} / {uhi['diff_series'].size}")
-    print(f"  Share: {uhi['pct_hours_warmer_than_1c']:.1f} %")
+# %%
+TempBox = Temp.sel(lon=slice(7.6, 8.1), lat=slice(48.15, 47.75))
+ValleyDaily = TempBox.where(ValleyMask).mean(dim=('lat', 'lon')).resample(time='1D').mean()
+RidgesDaily = TempBox.where(RidgesMask).mean(dim=('lat', 'lon')).resample(time='1D').mean()
 
-    temp.close()
-    in_freiburg.close()
+plt.plot(ValleyDaily.time, ValleyDaily, label='Valley (< 600 m)')
+plt.plot(RidgesDaily.time, RidgesDaily, label='Ridges (> 900 m)')
+plt.ylabel('Temperature (°C)')
+plt.title('Daily mean temperature — valley vs ridges, January 2024')
+plt.xticks(rotation=45)
+plt.legend()
+plt.tight_layout()
+plt.savefig(f'{FigDir}/valley_vs_ridges.png')
+plt.close()
+print(f'Saved {FigDir}/valley_vs_ridges.png')
 
-
-if __name__ == "__main__":
-    main()
+# %%
+TempDs.close()
+InFreiburg.close()
+Elev.close()
