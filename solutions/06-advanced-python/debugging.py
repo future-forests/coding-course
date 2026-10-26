@@ -1,28 +1,48 @@
-# Class 6 — debugging practice (intentional bug).
-# Goal: report how many hours are warmer than 38 °C at 2 m,
-#        and the mean 2 m temperature on those hot hours.
-#
-# Run this file. The numbers look wrong — use print() to trace where.
+# Class 6 — debugging practice.
+# Goal: find the longest heat spell = consecutive hours with
+#        temperature_2m > 30 °C. Report start time and end time.
 
 # %%
+import matplotlib.pyplot as plt
 import pandas as pd
 
 # %%
 DataPath = '../../processed_data/26030350_hourly.csv'
+ThresholdC = 30
 
-HartheimRaw = pd.read_csv(DataPath, parse_dates=['utc_time'])
-HartheimRaw = HartheimRaw.set_index('utc_time')
-
-HartheimData = HartheimRaw[
-    ['temperature_2m', 'humidity_2m', 'temperature_ground', 'precipitation']
-].copy()
+HartheimData = pd.read_csv(DataPath, parse_dates=['utc_time']).set_index('utc_time')
+Temps = HartheimData['temperature_2m']
 
 # %%
-# --- buggy analysis ---
-# BUG (find it by printing): wrong column used in the filter
-HotHours = HartheimData[HartheimData['temperature_ground'] > 38]
-NHot = len(HotHours)
-MeanHot = HotHours['temperature_2m'].mean()
+plt.plot(Temps.index, Temps)
+plt.axhline(y=ThresholdC, color='red')
+plt.xlabel('UTC time')
+plt.ylabel('Temperature (°C)')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
 
-print(f'Hours warmer than 38 °C: {NHot}')
-print(f'Mean 2 m temperature on those hours: {MeanHot:.2f} °C')
+# %%
+BestLen, CurLen = 0, 0
+BestStart, CurStart = None, None
+BestEnd = None
+
+for i, TempC in enumerate(Temps):
+    if TempC > ThresholdC:
+        if CurLen == 0:      # remember when this spell began
+            CurStart = Temps.index[i]
+        CurLen = CurLen + 1  # one more consecutive hot hour
+    else:
+        # temperature dropped: current spell (if any) has just ended
+        if CurLen > BestLen:
+            # this spell was longer than the best so far —> keep it
+            BestLen, BestStart = CurLen, CurStart
+            BestEnd = Temps.index[i - 1]  # last hot hour = hour before this cold one
+        # clear current-spell counters so the next hot run starts fresh
+        #CurLen = 0
+
+print(f'Longest heat spell: {BestLen} hours')
+print(f'Start: {BestStart}')
+print(f'End:   {BestEnd}')
+
+# %%

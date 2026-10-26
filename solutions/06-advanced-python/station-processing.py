@@ -1,4 +1,6 @@
 # Class 6 — station-processing script (Class 4 workflow).
+# Same analysis as Class 4, as a .py file with # %% cells.
+# Figures go to PNG with plt.savefig instead of plt.show().
 
 # %%
 import os
@@ -12,31 +14,15 @@ import matplotlib.pyplot as plt
 DataPath = '../../processed_data/26030350_hourly.csv'
 FigDir = 'figures'  # PNGs land here when you run the script
 
-
-def cels_to_fahr(temp_c):
-    """Convert °C → °F (same function idea as earlier in Class 6)."""
-    temp_f = temp_c * 9 / 5 + 32
-    return temp_f
-
-
-def compute_vpd(temp_c, rh):
-    """Vapour pressure deficit (kPa) from air temperature (°C) and RH (%).
-    Tetens formula — worth packaging because the expression is long and reused.
-    """
-    es_kpa = 0.6108 * np.exp(17.27 * temp_c / (temp_c + 237.3))
-    vpd_kpa = es_kpa * (1 - rh / 100)
-    return vpd_kpa
-
-
 # %%
 # 1. Load CSV and set a datetime index
 HartheimRaw = pd.read_csv(DataPath, parse_dates=['utc_time'])
 HartheimRaw = HartheimRaw.set_index('utc_time')
-print(HartheimRaw.shape)
-print(HartheimRaw.columns)
+# print(HartheimRaw.shape)
+# print(HartheimRaw.columns)
 
 # %%
-# 2. Keep the columns used in Class 4 (inline — no wrapper needed)
+# 2. Keep the columns used in Class 4
 HartheimData = HartheimRaw[
     ['temperature_2m', 'humidity_2m', 'temperature_ground', 'precipitation']
 ].copy()
@@ -53,9 +39,10 @@ print(HartheimData.loc['2026-07-25 12:00:00', [
 ]])
 
 # %%
-# 4. Exercise A — mean temperature in °C and °F
+# 4. Exercise A — mean temperature in °C and °F (inline, as in Class 4)
 MeanC = HartheimData['temperature_2m'].mean()
-MeanF = cels_to_fahr(HartheimData['temperature_2m']).mean()
+HartheimData['temperature_2m_f'] = HartheimData['temperature_2m'] * 9 / 5 + 32
+MeanF = HartheimData['temperature_2m_f'].mean()
 print(f'Mean 2 m temperature: {MeanC:.2f} °C / {MeanF:.2f} °F')
 
 # %%
@@ -96,7 +83,7 @@ print('UTC times when deep is warmer:')
 print(SoilTemps.index[DeepWarmer])
 
 # %%
-# 8. Plots → PNG (scripts have no notebook display; save the figure instead)
+# 8. Plots → PNG
 os.makedirs(FigDir, exist_ok=True)
 
 plt.plot(HartheimData.index, HartheimData['temperature_2m'], label='Temperature 2m')
@@ -122,10 +109,12 @@ plt.close()
 print(f'Saved {FigDir}/humidity.png')
 
 # %%
-# 9. Exercise C — VPD and stress hours
-HartheimData['vpd_kpa'] = compute_vpd(
-    HartheimData['temperature_2m'], HartheimData['humidity_2m']
+# 9. Exercise C — VPD and stress hours (inline Tetens formula, as in Class 4)
+HartheimData['es_kpa'] = 0.6108 * np.exp(
+    17.27 * HartheimData['temperature_2m']
+    / (HartheimData['temperature_2m'] + 237.3)
 )
+HartheimData['vpd_kpa'] = HartheimData['es_kpa'] * (1 - HartheimData['humidity_2m'] / 100)
 print(f"Mean VPD: {HartheimData['vpd_kpa'].mean():.3f} kPa")
 print(f"Min  VPD: {HartheimData['vpd_kpa'].min():.3f} kPa")
 print(f"Max  VPD: {HartheimData['vpd_kpa'].max():.3f} kPa")
