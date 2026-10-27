@@ -14,13 +14,13 @@ HartheimData = pd.read_csv(DataPath, parse_dates=['utc_time']).set_index('utc_ti
 Temps = HartheimData['temperature_2m']
 
 # %%
-plt.plot(Temps.index, Temps)
-plt.axhline(y=ThresholdC, color='red')
-plt.xlabel('UTC time')
-plt.ylabel('Temperature (°C)')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+# plt.plot(Temps.index, Temps)
+# plt.axhline(y=ThresholdC, color='red')
+# plt.xlabel('UTC time')
+# plt.ylabel('Temperature (°C)')
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.show()
 
 # %%
 BestLen, CurLen = 0, 0
@@ -38,8 +38,6 @@ for i, TempC in enumerate(Temps):
             # this spell was longer than the best so far —> keep it
             BestLen, BestStart = CurLen, CurStart
             BestEnd = Temps.index[i - 1]  # last hot hour = hour before this cold one
-        # clear current-spell counters so the next hot run starts fresh
-        #CurLen = 0
 
 print(f'Longest heat spell: {BestLen} hours')
 print(f'Start: {BestStart}')
