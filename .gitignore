@@ -5,3 +5,7 @@ solutions/06-advanced-python/figures/
 solutions/06-advanced-python/jan_2024_part*.nc
 .vscode/
 bash-sandbox/
+scripts/
+solutions/08-LLM-and-coding/figures/
+solutions/figures/
+solutions/instructor/

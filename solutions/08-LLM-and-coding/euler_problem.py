@@ -1,4 +1,7 @@
-# Script to solve Euler problem from class 08
+# Script to solve Euler problem from class 06
+
+# Problem
+# Apply Euler to a temperate pine stand with $L = 2.5$, $k = 0.25$ (close to Olson's pine example), starting from a low litter stock after disturbance (2.0). Calculate the Litterfall carbon of the system for the next 20 years and plot your result.
 
 # Tasks in plain English
 # 1. store the model parameters (litterfall, decay rate, initial stock, time-step, number of steps)
