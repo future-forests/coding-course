@@ -16,8 +16,8 @@ Coding course dedicated to data analysis and the use of Python and LLMs, designe
 | 5a  | Geospatial data: netCDF, raster operations (xarray) | 22/10 09:30–10:30 | 26/10 15:00-17:00 |
 | 5b  | Survey data: frequencies, stats, regression, spaCy | 22/10 13:30–14:30 | 26/10 15:00-17:00 |
 | 6  | Advanced Python: user functions, profiling, publishing code with a DOI | 29/10 09:30–10:30 | 02/11 14:00-16:00 |
-| 7  | Using LLMs in coding: modes, prompting, reviewing | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
-| 8  | Critical thinking about LLMs: limits and bias | 12/11 09:30–10:30 | - |
+| 7  | Critical thinking about LLMs: how they work, limits and risks | 05/11 09:30–10:30 | 09/11 14:00-16:00 |
+| 8  | Using LLMs in coding: modes, prompting, reviewing | 12/11 09:30–10:30 | - |
 
 ### How to subscribe to the automatic calendar (if asked, refresh every day):
 
@@ -208,6 +208,6 @@ un042rd01/01_General/02_Central_infrastructure/SES_ModelLab/coding-course/proces
 
 When you get stuck on an exercise, we recommend **not** using an LLM (e.g. ChatGPT, Claude, Gemini). Instead, look for help online on forums such as [Stack Overflow](https://stackoverflow.com) or Reddit, or in the official documentation of the packages you use. We will cover LLMs properly in Classes 7 and 8, don't worry.
 
-If you still want to use an LLM (GitHub Copilot, Cursor, ChatGPT, etc.), do not use it to generate solutions. Before **every** new chat, add the instructions from [`LLM_PROMPT.md`](LLM_PROMPT.md) — paste its contents at the start of the conversation, or reference the file with `@LLM_PROMPT.md` in Cursor or VS Code. The model should act as a tutor: point you to documentation and give small hints only, never code that completes the exercise.
+If you still want to use an LLM (GitHub Copilot, Cursor, ChatGPT, etc.), do not use it to generate solutions. Before **every** new chat, add the instructions from [`LLM_PROMPT.md`](LLM_PROMPT.md) — paste its contents at the start of the conversation, or reference the file with `@LLM_PROMPT.md` in Cursor (`#LLM_PROMPT.md` in VS Code Copilot). The model should act as a tutor: point you to documentation and give small hints only, never code that completes the exercise.
 
 When you ask for help, say what you tried, paste any error message, and name the concept you are unsure about.
